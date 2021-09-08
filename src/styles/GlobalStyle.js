@@ -12,7 +12,20 @@ const GlobalStyle = createGlobalStyle`
   }
   
   body {
+    font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  ul {
+    list-style: none;
   }
 `;
 

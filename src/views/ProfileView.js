@@ -3,12 +3,12 @@ import React from 'react';
 // Layout
 import MainLayout from '../layouts/MainLayout';
 
-const HomeView = () => {
+const ProfileView = () => {
   return (
     <MainLayout>
-      <h1>Loando App</h1>
+      <h1>Profile View</h1>
     </MainLayout>
   );
 };
 
-export default HomeView;
+export default ProfileView;

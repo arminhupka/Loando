@@ -3,12 +3,12 @@ import React from 'react';
 // Layout
 import MainLayout from '../layouts/MainLayout';
 
-const HomeView = () => {
+const NoPageView = () => {
   return (
     <MainLayout>
-      <h1>Loando App</h1>
+      <h1>404</h1>
     </MainLayout>
   );
 };
 
-export default HomeView;
+export default NoPageView;
