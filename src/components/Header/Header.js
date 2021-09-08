@@ -4,6 +4,9 @@ import styled from 'styled-components';
 // Icons
 import { FaBars } from 'react-icons/fa';
 
+// Hooks
+import useModalState from '../../hooks/useModalState';
+
 // Components
 import { Container } from '../../styles/GlobalStyle';
 import Nav from './Nav/Nav';
@@ -30,18 +33,22 @@ const HamburgerButton = styled.button`
   border: none;
 `;
 
-const Header = () => (
-  <>
+const Header = () => {
+  const { isVisible, onToggle, onClose } = useModalState(false);
+
+  const handleHamburger = () => onToggle();
+
+  return (
     <StyledHeader>
       <StyledContainer>
         <h1>Loando</h1>
-        <Nav />
-        <HamburgerButton>
+        <Nav isVisible={isVisible} onClose={onClose} />
+        <HamburgerButton onClick={handleHamburger}>
           <FaBars />
         </HamburgerButton>
       </StyledContainer>
     </StyledHeader>
-  </>
-);
+  );
+};
 
 export default Header;
