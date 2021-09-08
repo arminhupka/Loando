@@ -27,9 +27,16 @@ const GlobalStyle = createGlobalStyle`
   ul {
     list-style: none;
   }
+  
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column;
+  }
 `;
 
 export const Container = styled.div`
+  height: 100%;
   width: 100%;
   max-width: 122rem;
   padding: 0 2.4rem;
