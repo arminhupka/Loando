@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // Actions
 import { userLogin } from '../../actions/userActions';
@@ -37,8 +37,6 @@ const FormElement = styled.div`
 `;
 
 const LoginForm = () => {
-  const history = useHistory();
-
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.userReducer);
 
@@ -57,7 +55,7 @@ const LoginForm = () => {
   }
 
   if (userState.data) {
-    history.push('/konto');
+    return <Redirect to='/konto' />;
   }
 
   return (

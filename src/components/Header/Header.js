@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 // Icons
 import { FaBars } from 'react-icons/fa';
@@ -23,6 +24,10 @@ const StyledContainer = styled(Container)`
   align-items: center;
   justify-content: space-between;
   color: #fff;
+
+  a {
+    color: #fff;
+  }
 `;
 
 const HamburgerButton = styled.button`
@@ -41,7 +46,9 @@ const Header = () => {
   return (
     <StyledHeader>
       <StyledContainer>
-        <h1>Loando</h1>
+        <h1>
+          <Link to='/'>Loando</Link>
+        </h1>
         <Nav isVisible={isVisible} onClose={onClose} />
         <HamburgerButton onClick={handleHamburger}>
           <FaBars />

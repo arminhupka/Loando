@@ -3,10 +3,12 @@ import {
   USER_LOGIN_FAILED,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
   USER_REGISTER_FAILED,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from './types';
+import setAuthToken from '../utils/setAuthToken';
 
 export const userRegister = (email, password, firstName, lastName, pesel, street, city, postalCode) => async (dispatch) => {
   dispatch({
@@ -57,6 +59,8 @@ export const userLogin = (email, password) => async (dispatch) => {
       },
     });
 
+    setAuthToken(data.token);
+
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
@@ -66,4 +70,12 @@ export const userLogin = (email, password) => async (dispatch) => {
       type: USER_LOGIN_FAILED,
     });
   }
+};
+
+export const userLogout = () => {
+  localStorage.removeItem('token');
+
+  return {
+    type: USER_LOGOUT,
+  };
 };

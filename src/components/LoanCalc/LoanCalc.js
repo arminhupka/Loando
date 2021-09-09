@@ -6,6 +6,7 @@ import devices from '../../utils/devices';
 
 // Components
 import RangeInput from '../RangeInput/RangeInput';
+import Button from '../Button/Button';
 
 // Styled Components
 const CalcWrapper = styled.div`
@@ -13,8 +14,9 @@ const CalcWrapper = styled.div`
   border-radius: 0.3rem;
   overflow: hidden;
 
-  @media screen and ${devices.lg};
-  max-width: 45rem;
+  @media screen and ${devices.lg} {
+    max-width: 45rem;
+  } ;
 `;
 
 const HeadWrapper = styled.div`
@@ -30,11 +32,15 @@ const ValuesWrapper = styled.div`
 
 const TableWrapper = styled.div`
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
   color: #333;
   background: #fff;
 `;
 
-const StyledList = styled.ul``;
+const StyledList = styled.ul`
+  margin: 1rem 0;
+`;
 
 const StyledItem = styled.li`
   padding: 1rem 0;
@@ -105,6 +111,7 @@ const LoanCalc = () => {
             <span>{(rrso / 100) * 100}%</span>
           </StyledItem>
         </StyledList>
+        <Button>Weź pożyczkę</Button>
       </TableWrapper>
     </CalcWrapper>
   );
