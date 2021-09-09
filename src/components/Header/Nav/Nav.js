@@ -2,6 +2,9 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
+// Utils
+import devices from '../../../utils/devices';
+
 // Styled Components
 const StyledNav = styled.nav`
   position: absolute;
@@ -14,6 +17,17 @@ const StyledNav = styled.nav`
   transition: 0.3s transform;
   z-index: 1;
 
+  @media screen and ${devices.lg} {
+    position: relative;
+    width: auto;
+    height: auto;
+    top: unset;
+    bottom: unset;
+    background: transparent;
+    transform: translateX(0);
+    transition: none;
+  }
+
   ${({ isVisible }) =>
     isVisible &&
     css`
@@ -24,6 +38,10 @@ const StyledNav = styled.nav`
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
+
+  @media screen and ${devices.lg} {
+    flex-direction: row;
+  }
 `;
 
 const NavItem = styled.li`

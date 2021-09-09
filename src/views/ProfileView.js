@@ -19,7 +19,7 @@ const ProfileView = () => {
 
   const handleLogoutButton = () => dispatch(userLogout());
 
-  if (!userState.data) {
+  if (!userState.token) {
     return <Redirect to='/' />;
   }
 

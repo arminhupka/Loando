@@ -73,8 +73,6 @@ export const userLogin = (email, password) => async (dispatch) => {
 };
 
 export const userLogout = () => {
-  localStorage.removeItem('token');
-
   return {
     type: USER_LOGOUT,
   };

@@ -10,8 +10,9 @@ import {
 
 const initialState = {
   data: null,
-  token: localStorage.getItem('userToken') ? JSON.parse(localStorage.getItem('userToken')) : null,
+  token: localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null,
   isLoading: false,
+  isAuth: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -33,7 +34,7 @@ const userReducer = (state = initialState, action) => {
     }
     case USER_REGISTER_FAILED: {
       return {
-        ...initialState,
+        ...state,
       };
     }
     case USER_LOGIN_REQUEST: {
@@ -45,10 +46,10 @@ const userReducer = (state = initialState, action) => {
     case USER_LOGIN_SUCCESS: {
       localStorage.setItem('token', JSON.stringify(payload.token));
       return {
-        ...state,
         data: payload,
         token: payload.token,
         isLoading: false,
+        isAuth: true,
       };
     }
     case USER_LOGIN_FAILED: {
@@ -60,7 +61,11 @@ const userReducer = (state = initialState, action) => {
     case USER_LOGOUT: {
       localStorage.removeItem('token');
       return {
-        ...initialState,
+        ...state,
+        data: null,
+        token: null,
+        isLoading: false,
+        isAuth: false,
       };
     }
     default: {

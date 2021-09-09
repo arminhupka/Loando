@@ -54,7 +54,7 @@ const LoginForm = () => {
     return <Loader />;
   }
 
-  if (userState.data) {
+  if (userState.isAuth) {
     return <Redirect to='/konto' />;
   }
 

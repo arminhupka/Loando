@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 // Icons
 import { FaBars } from 'react-icons/fa';
 
+// Utils
+import devices from '../../utils/devices';
+
 // Hooks
 import useModalState from '../../hooks/useModalState';
 
@@ -36,6 +39,9 @@ const HamburgerButton = styled.button`
   color: #fcfcfc;
   background: transparent;
   border: none;
+  @media screen and ${devices.lg} {
+    display: none;
+  }
 `;
 
 const Header = () => {
