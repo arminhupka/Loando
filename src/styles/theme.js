@@ -4,4 +4,5 @@ export default {
   primaryDark: '#355497',
   second: '#304C89',
   dark: '#22223B',
+  gray: '#f5f5f5',
 };
