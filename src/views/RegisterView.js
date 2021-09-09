@@ -5,12 +5,14 @@ import MainLayout from '../layouts/MainLayout';
 
 // Components
 import RegisterForm from '../components/RegisterForm/RegisterForm';
+import CenterWrapper from '../components/CenterWrapper/CenterWrapper';
 
 const RegisterView = () => {
   return (
     <MainLayout>
-      <h1>Login View</h1>
-      <RegisterForm />
+      <CenterWrapper>
+        <RegisterForm />
+      </CenterWrapper>
     </MainLayout>
   );
 };

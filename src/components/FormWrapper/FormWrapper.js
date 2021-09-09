@@ -1,13 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 55rem;
+  background: #fff;
+  border: 0.1rem solid ${({ theme }) => theme.primary};
+`;
+
+const TitleWrapper = styled.div`
+  padding: 2rem;
+  text-align: center;
+`;
+
+const Content = styled.div`
+  padding: 2rem;
+`;
 
 const FormWrapper = ({ children, title }) => (
-  <div>
-    <div>
+  <Wrapper>
+    <TitleWrapper>
       <h1>{title}</h1>
-    </div>
-    {children}
-  </div>
+    </TitleWrapper>
+    <Content>{children}</Content>
+  </Wrapper>
 );
 
 FormWrapper.propTypes = {

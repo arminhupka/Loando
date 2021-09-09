@@ -93,24 +93,21 @@ const RegisterForm = () => {
   }
 
   return (
-    <>
-      <h1>Formularz rejestracyny</h1>
-      <FormWrapper title='Rejestracja'>
-        <StyledForm onSubmit={handleForm}>
-          <input name='firstName' type='text' placeholder='Imię' value={firstName} onChange={handleInput} />
-          <input name='lastName' type='text' placeholder='Nazwisko' value={lastName} onChange={handleInput} />
-          <input name='email' type='text' placeholder='Adres email' value={email} onChange={handleInput} />
-          <input name='repeatedEmail' type='text' placeholder='Powtórz email' value={repeatedEmail} onChange={handleInput} />
-          <input name='password' type='text' placeholder='Hasło' value={password} onChange={handleInput} />
-          <input name='passwordConfirm' type='text' placeholder='Powtórz hasło' value={passwordConfirm} onChange={handleInput} />
-          <input name='pesel' type='text' placeholder='PESEL' value={pesel} onChange={handleInput} />
-          <input name='street' type='text' placeholder='Ulica' value={street} onChange={handleInput} />
-          <input name='city' type='text' placeholder='Miasto' value={city} onChange={handleInput} />
-          <input name='postalCode' type='text' placeholder='Kod Pocztowy' value={postalCode} onChange={handleInput} />
-          <button type='submit'>Zarejestruj</button>
-        </StyledForm>
-      </FormWrapper>
-    </>
+    <FormWrapper title='Rejestracja'>
+      <StyledForm onSubmit={handleForm}>
+        <input name='firstName' type='text' placeholder='Imię' value={firstName} onChange={handleInput} />
+        <input name='lastName' type='text' placeholder='Nazwisko' value={lastName} onChange={handleInput} />
+        <input name='email' type='text' placeholder='Adres email' value={email} onChange={handleInput} />
+        <input name='repeatedEmail' type='text' placeholder='Powtórz email' value={repeatedEmail} onChange={handleInput} />
+        <input name='password' type='text' placeholder='Hasło' value={password} onChange={handleInput} />
+        <input name='passwordConfirm' type='text' placeholder='Powtórz hasło' value={passwordConfirm} onChange={handleInput} />
+        <input name='pesel' type='text' placeholder='PESEL' value={pesel} onChange={handleInput} />
+        <input name='street' type='text' placeholder='Ulica' value={street} onChange={handleInput} />
+        <input name='city' type='text' placeholder='Miasto' value={city} onChange={handleInput} />
+        <input name='postalCode' type='text' placeholder='Kod Pocztowy' value={postalCode} onChange={handleInput} />
+        <button type='submit'>Zarejestruj</button>
+      </StyledForm>
+    </FormWrapper>
   );
 };
 

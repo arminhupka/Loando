@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // Views
 import HomeView from './views/HomeView';
+import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
 import ProfileView from './views/ProfileView';
 import NoPageView from './views/NoPageView';
@@ -13,6 +14,7 @@ export default () => {
       <Switch>
         <Route exact path='/' component={HomeView} />
         <Route path='/rejestracja' component={RegisterView} />
+        <Route path='/zaloguj' component={LoginView} />
         <Route path='/konto' component={ProfileView} />
         <Route path='*' component={NoPageView} />
       </Switch>

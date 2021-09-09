@@ -14,6 +14,8 @@ import Footer from '../components/Footer/Footer';
 // Styled Components
 const Content = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const MainLayout = ({ children }) => {
