@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
+// Actions
+import { setLoan } from '../../actions/loanActions';
 
 // Utils
 import devices from '../../utils/devices';
@@ -50,6 +54,8 @@ const StyledItem = styled.li`
 `;
 
 const LoanCalc = () => {
+  const dispatch = useDispatch();
+
   const rrso = 819.12;
 
   const [loanValue, setLoanValue] = useState(3000);
@@ -57,15 +63,16 @@ const LoanCalc = () => {
   const [valueToReturn, setValueToReturn] = useState(0);
 
   const handleLoanValueRange = (e) => {
-    setLoanValue(e.target.value);
+    setLoanValue(Number(e.target.value));
   };
 
   const handleLoanDaysRange = (e) => {
-    setLoanDays(e.target.value);
+    setLoanDays(Number(e.target.value));
   };
 
   useEffect(() => {
     setValueToReturn(123);
+    dispatch(setLoan(loanDays, loanValue));
   }, [loanDays, loanValue]);
 
   return (

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 // Styled Components
 const CenterDiv = styled.div`
   flex: 1;
+  padding: 2.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
