@@ -1,9 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 // Utils
 import devices from '../../../utils/devices';
+
+// Components
+import LinkButton from '../../LinkButton/LinkButton';
 
 // Styled Components
 const StyledNav = styled.nav`
@@ -70,19 +74,29 @@ const PageOverlay = styled.div`
     `}
 `;
 
-const Nav = ({ isVisible, onClose }) => (
-  <>
-    <StyledNav isVisible={isVisible}>
-      <NavList>
-        <NavItem>Item</NavItem>
-        <NavItem>Item</NavItem>
-        <NavItem>Item</NavItem>
-        <NavItem>Item</NavItem>
-      </NavList>
-    </StyledNav>
-    <PageOverlay isVisible={isVisible} onClick={onClose} />
-  </>
-);
+const Nav = ({ isVisible, onClose }) => {
+  const userState = useSelector((state) => state.userReducer);
+
+  return (
+    <>
+      <StyledNav isVisible={isVisible}>
+        <NavList>
+          <NavItem>Strona Główna</NavItem>
+          <NavItem>Oferta</NavItem>
+          <NavItem>Kontakt</NavItem>
+          <NavItem>
+            {userState.token ? (
+              <LinkButton href='/konto' title='Moje konto' />
+            ) : (
+              <LinkButton href='/zaloguj' title='Zaloguj się' />
+            )}
+          </NavItem>
+        </NavList>
+      </StyledNav>
+      <PageOverlay isVisible={isVisible} onClick={onClose} />
+    </>
+  );
+};
 
 Nav.defaultProps = {
   isVisible: false,

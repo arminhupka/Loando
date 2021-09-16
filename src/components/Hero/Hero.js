@@ -27,7 +27,7 @@ const HeroWrapper = styled.div`
 const StyledContainer = styled(Container)`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   color: #fff;
 
   h1 {

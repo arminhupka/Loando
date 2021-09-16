@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const StyledLink = styled.span``;
+const StyledLink = styled.span`
+  padding: 1rem;
+  color: ${({ theme }) => theme.primary};
+  background: #fff;
+`;
 
 const LinkButton = ({ title, href }) => (
   <Link to={href}>
