@@ -15,7 +15,7 @@ import Button from '../Button/Button';
 // Styled Components
 const CalcWrapper = styled.div`
   width: 100%;
-  border-radius: 0.3rem;
+  border-radius: ${({ theme }) => theme.radius.regular};
   overflow: hidden;
 
   @media screen and ${devices.lg} {

@@ -9,6 +9,8 @@ import theme from '../styles/theme';
 
 // Components
 import Header from '../components/Header/Header';
+import Sidebar from '../components/Sidebar/Sidebar';
+import Footer from '../components/Footer/Footer';
 
 // Styled Components
 const StyledContainer = styled(Container)`
@@ -19,12 +21,6 @@ const StyledContainer = styled(Container)`
 const MainContent = styled.div`
   flex: 4;
   padding: 2rem;
-`;
-
-const Sidebar = styled.aside`
-  flex: 1;
-  // eslint-disable-next-line no-shadow
-  background: ${(props) => props.theme.primary[500]};
 `;
 
 const MainLayout = ({ children }) => {
@@ -39,11 +35,10 @@ const MainLayout = ({ children }) => {
         <GlobalStyle />
         <Header />
         <StyledContainer>
-          <Sidebar>
-            <p>Sidebar</p>
-          </Sidebar>
+          <Sidebar />
           <MainContent>{children}</MainContent>
         </StyledContainer>
+        <Footer />
       </ThemeProvider>
     </>
   );

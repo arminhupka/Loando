@@ -11,12 +11,12 @@ const StyledFooter = styled.footer`
 
 const MainWrapper = styled.div`
   padding: 5rem 0;
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.primary[400]};
 `;
 
 const CopyrightWrapper = styled.div`
   padding: 2rem 0;
-  background: ${({ theme }) => theme.primaryDark};
+  background: ${({ theme }) => theme.primary[600]};
 `;
 
 const Footer = () => (

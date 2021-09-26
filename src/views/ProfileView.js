@@ -10,8 +10,8 @@ import { userLogout } from '../actions/userActions';
 import AccountLayout from '../layouts/AccountLayout';
 
 // Components
+import NewLoan from '../components/NewLoan/NewLoan';
 import Button from '../components/Button/Button';
-import LoansList from '../components/LoansList/LoansList';
 
 const ProfileView = () => {
   const dispatch = useDispatch();
@@ -30,8 +30,8 @@ const ProfileView = () => {
       </Helmet>
       <AccountLayout>
         <h1>Profile View</h1>
+        <NewLoan />
         <Button onClick={handleLogoutButton}>Wyloguj</Button>
-        <LoansList />
       </AccountLayout>
     </>
   );

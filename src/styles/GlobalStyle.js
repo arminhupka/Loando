@@ -36,6 +36,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+export const Section = styled.section`
+  padding: 4rem 0;
+`;
+
 export const Container = styled.div`
   height: 100%;
   width: 100%;

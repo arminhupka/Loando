@@ -6,6 +6,7 @@ import MainLayout from '../layouts/MainLayout';
 
 // Components
 import Hero from '../components/Hero/Hero';
+import Steps from '../components/Steps/Steps';
 
 const HomeView = () => {
   return (
@@ -15,7 +16,7 @@ const HomeView = () => {
       </Helmet>
       <MainLayout>
         <Hero />
-        <h1>Loando App</h1>
+        <Steps />
       </MainLayout>
     </>
   );
