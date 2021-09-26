@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   position: relative;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   color: #fff;
   font-weight: 600;
   text-transform: uppercase;
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.primary[400]};
   border: none;
+  border-radius: ${({ theme }) => theme.radius.regular};
   transition: background 0.3s;
 
   &::before {
@@ -17,7 +18,7 @@ const Button = styled.button`
   }
 
   &:hover {
-    background: ${({ theme }) => theme.primaryLight};
+    background: ${({ theme }) => theme.primary[300]};
 
     &::before {
       content: '';
@@ -27,7 +28,7 @@ const Button = styled.button`
       top: 0.5rem;
       left: 0;
       display: block;
-      background: ${({ theme }) => theme.primaryLight};
+      background: ${({ theme }) => theme.primary[300]};
       opacity: 0.2;
       visibility: visible;
       filter: blur(3px);

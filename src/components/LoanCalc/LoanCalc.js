@@ -26,7 +26,7 @@ const CalcWrapper = styled.div`
 const HeadWrapper = styled.div`
   padding: 2rem;
   color: #fff;
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.primary[400]};
 `;
 
 const ValuesWrapper = styled.div`

@@ -1,15 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 // Actions
 import { userLogout } from '../actions/userActions';
 
 // Layout
-import MainLayout from '../layouts/MainLayout';
+import AccountLayout from '../layouts/AccountLayout';
 
 // Components
-import { Container } from '../styles/GlobalStyle';
 import Button from '../components/Button/Button';
 import LoansList from '../components/LoansList/LoansList';
 
@@ -24,13 +24,16 @@ const ProfileView = () => {
   }
 
   return (
-    <MainLayout>
-      <Container>
+    <>
+      <Helmet>
+        <title>Moje Konto | Loando</title>
+      </Helmet>
+      <AccountLayout>
         <h1>Profile View</h1>
         <Button onClick={handleLogoutButton}>Wyloguj</Button>
         <LoansList />
-      </Container>
-    </MainLayout>
+      </AccountLayout>
+    </>
   );
 };
 

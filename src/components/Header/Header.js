@@ -18,7 +18,7 @@ import Nav from './Nav/Nav';
 // Styled Components
 const StyledHeader = styled.header`
   height: 10rem;
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.primary[400]};
 `;
 
 const StyledContainer = styled(Container)`

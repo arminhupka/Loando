@@ -16,7 +16,7 @@ const StyledNav = styled.nav`
   height: 100%;
   top: 0;
   left: 0;
-  background: ${({ theme }) => theme.primaryDark};
+  background: ${({ theme }) => theme.primary[500]};
   transform: translateX(-100%);
   transition: 0.3s transform;
   z-index: 1;
@@ -52,7 +52,7 @@ const NavItem = styled.li`
   padding: 2rem;
   font-weight: 600;
   text-transform: uppercase;
-  border-bottom: 0.1rem solid ${({ theme }) => theme.primary};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.primary[400]};
 `;
 
 const PageOverlay = styled.div`
@@ -65,6 +65,10 @@ const PageOverlay = styled.div`
   opacity: 0;
   visibility: collapse;
   transition: opacity 0.3s, visibility 0.3s;
+
+  @media screen and ${devices.lg} {
+    display: none;
+  }
 
   ${({ isVisible }) =>
     isVisible &&

@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const StyledLink = styled.span`
-  padding: 1rem;
-  color: ${({ theme }) => theme.primary};
+  padding: 1.5rem 2rem;
+  color: ${({ theme }) => theme.primary[400]};
   background: #fff;
+  border-radius: ${({ theme }) => theme.radius.regular};
 `;
 
 const LinkButton = ({ title, href }) => (

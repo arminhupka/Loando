@@ -63,11 +63,11 @@ const LoginForm = () => {
       <StyledForm onSubmit={handleFormSubmit}>
         <FormElement>
           <Label>Adres email</Label>
-          <Input type='text' placeholder='john.doe@example.com' value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input type='text' placeholder='Np. john.doe@example.com' value={email} onChange={(e) => setEmail(e.target.value)} />
         </FormElement>
         <FormElement>
           <Label>Hasło</Label>
-          <Input type='password' placeholder='*********' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Input type='password' placeholder='Podaj hasło' value={password} onChange={(e) => setPassword(e.target.value)} />
         </FormElement>
         <Button type='submit'>Zaloguj</Button>
       </StyledForm>

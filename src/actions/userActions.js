@@ -1,4 +1,5 @@
 import api from '../utils/api';
+import { addAlert } from './alertActions';
 import {
   USER_LOGIN_FAILED,
   USER_LOGIN_REQUEST,
@@ -7,6 +8,7 @@ import {
   USER_REGISTER_FAILED,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_AUTH,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -66,6 +68,14 @@ export const userLogin = (email, password) => async (dispatch) => {
       payload: data,
     });
   } catch (err) {
+    if (!err.response) {
+      dispatch(addAlert('Problem podczas łączenia z serwerem', 'error'));
+    }
+
+    if (err.response.status === 404) {
+      dispatch(addAlert('Nie znaleziono takiego użytkownika', 'warning'));
+    }
+
     dispatch({
       type: USER_LOGIN_FAILED,
     });
@@ -76,4 +86,24 @@ export const userLogout = () => {
   return {
     type: USER_LOGOUT,
   };
+};
+
+export const authUser = () => async (dispatch) => {
+  try {
+    const { data } = await api({
+      url: '/user/auth',
+      method: 'GET',
+    });
+
+    dispatch({
+      type: USER_AUTH,
+      payload: data,
+    });
+  } catch (err) {
+    if (err.response.status === 401) {
+      dispatch({
+        type: USER_LOGOUT,
+      });
+    }
+  }
 };

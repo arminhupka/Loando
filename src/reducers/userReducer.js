@@ -6,6 +6,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
   USER_LOGOUT,
+  USER_AUTH,
 } from '../actions/types';
 
 const initialState = {
@@ -66,6 +67,13 @@ const userReducer = (state = initialState, action) => {
         token: null,
         isLoading: false,
         isAuth: false,
+      };
+    }
+    case USER_AUTH: {
+      return {
+        ...state,
+        data: payload,
+        isAuth: true,
       };
     }
     default: {

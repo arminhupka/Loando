@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 55rem;
   background: #fff;
-  border: 0.1rem solid ${({ theme }) => theme.primary};
+  border: 0.1rem solid ${({ theme }) => theme.primary[100]};
 `;
 
 const TitleWrapper = styled.div`
