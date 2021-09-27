@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -80,11 +80,17 @@ const PageOverlay = styled.div`
 
 const Nav = ({ isVisible, onClose }) => {
   const userState = useSelector((state) => state.userReducer);
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    const menuItem = Array.from(listRef.current.children);
+    menuItem.forEach((item) => item.addEventListener('click', () => onClose()));
+  }, []);
 
   return (
     <>
       <StyledNav isVisible={isVisible}>
-        <NavList>
+        <NavList ref={listRef}>
           <NavItem>Strona Główna</NavItem>
           <NavItem>Oferta</NavItem>
           <NavItem>Kontakt</NavItem>

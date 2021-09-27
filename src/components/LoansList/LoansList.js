@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+// Utils
+import formatDate, { countDays } from '../../utils/formatDate';
 
 // Styled Components
 const ListWrapper = styled.div`
@@ -40,7 +44,7 @@ const Row = styled.tr`
   }
 `;
 
-const LoansList = () => {
+const LoansList = ({ loans }) => {
   return (
     <ListWrapper>
       <StyledTable>
@@ -56,21 +60,29 @@ const LoansList = () => {
           </tr>
         </StyledHead>
         <tbody>
-          <Row>
-            <StyledData>oQU75k</StyledData>
-            <StyledData>2200 PLN</StyledData>
-            <StyledData>3100 PLN</StyledData>
-            <StyledData>12-02-2021</StyledData>
-            <StyledData>12</StyledData>
-            <StyledData>Aktywna</StyledData>
-            <StyledData>
-              <button type='button'>Spłać</button>
-            </StyledData>
-          </Row>
+          {loans.map((loan) => (
+            // eslint-disable-next-line no-underscore-dangle
+            <Row key={loan._id}>
+              {/* eslint-disable-next-line no-underscore-dangle */}
+              <StyledData>{loan._id.substring(0, 5)}</StyledData>
+              <StyledData>{loan.value} PLN</StyledData>
+              <StyledData>3100 PLN</StyledData>
+              <StyledData>{formatDate(loan.createdAt)}</StyledData>
+              <StyledData>{countDays(loan.createdAt, loan.days)}</StyledData>
+              <StyledData>{loan.isActive ? 'Aktywna' : 'Zamknięta'}</StyledData>
+              <StyledData>
+                <button type='button'>Szczegóły</button>
+              </StyledData>
+            </Row>
+          ))}
         </tbody>
       </StyledTable>
     </ListWrapper>
   );
+};
+
+LoansList.propTypes = {
+  loans: PropTypes.arrayOf.isRequired,
 };
 
 export default LoansList;

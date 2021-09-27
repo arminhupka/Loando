@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 // Utils
+import setAuthToken from './utils/setAuthToken';
 // import PrivateRoute from './utils/PrivateRoute';
 
 // Actions
@@ -20,6 +21,9 @@ import NoPageView from './views/NoPageView';
 
 export default () => {
   const dispatch = useDispatch();
+
+  const token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null;
+  setAuthToken(token);
 
   useEffect(() => {
     dispatch(authUser());

@@ -1,12 +1,22 @@
 import axios from 'axios';
-
-const token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null;
+import store from '../store';
+import { USER_LOGOUT } from '../actions/types';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    'x-auth-token': token,
+    'Content-Type': 'application/json',
   },
 });
+
+api.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err.response.status === 401) {
+      store.dispatch({ type: USER_LOGOUT });
+    }
+    return Promise.reject(err);
+  },
+);
 
 export default api;

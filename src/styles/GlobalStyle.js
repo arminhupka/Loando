@@ -5,30 +5,33 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
-  
+
   html {
     font-size: 62.5%;
   }
-  
+
   body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
     color: #333;
   }
-  
+
   a {
     text-decoration: none;
   }
-  
+
   button {
     cursor: pointer;
   }
-  
+
   ul {
     list-style: none;
   }
-  
+
   #root {
     min-height: 100vh;
     display: flex;
