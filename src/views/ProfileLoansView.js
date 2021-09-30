@@ -9,6 +9,7 @@ import AccountLayout from '../layouts/AccountLayout';
 
 // Components
 import LoansList from '../components/LoansList/LoansList';
+import Heading from '../components/Heading/Heading';
 
 const ProfileLoansView = () => {
   const [loans, setLoans] = useState([]);
@@ -28,7 +29,7 @@ const ProfileLoansView = () => {
         <title>Pożyczki | Loando</title>
       </Helmet>
       <AccountLayout>
-        <h1>Profile Loans View</h1>
+        <Heading title='Twoje pożyczki' />
         {loans.length > 0 && <LoansList loans={loans} />}
       </AccountLayout>
     </>

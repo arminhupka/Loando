@@ -12,10 +12,18 @@ import Header from '../components/Header/Header';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Footer from '../components/Footer/Footer';
 
+// Utils
+import devices from '../utils/devices';
+
 // Styled Components
 const StyledContainer = styled(Container)`
   flex: 1;
   display: flex;
+  flex-direction: column;
+
+  @media screen and ${devices.lg} {
+    flex-direction: row;
+  }
 `;
 
 const MainContent = styled.div`

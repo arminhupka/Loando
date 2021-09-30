@@ -72,7 +72,7 @@ export const userLogin = (email, password) => async (dispatch) => {
       dispatch(addAlert('Problem podczas łączenia z serwerem', 'error'));
     }
 
-    if (err.response.status === 404) {
+    if (err.response && err.response.status === 404) {
       dispatch(addAlert('Nie znaleziono takiego użytkownika', 'warning'));
     }
 
@@ -100,7 +100,7 @@ export const authUser = () => async (dispatch) => {
       payload: data,
     });
   } catch (err) {
-    if (err.response.status === 401) {
+    if (err.response && err.response.status === 401) {
       dispatch({
         type: USER_LOGOUT,
       });

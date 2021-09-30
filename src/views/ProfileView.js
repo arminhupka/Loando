@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Redirect } from 'react-router-dom';
 
 // Actions
-import { userLogout } from '../actions/userActions';
+import { resetAlerts } from '../actions/alertActions';
 
 // Layout
 import AccountLayout from '../layouts/AccountLayout';
 
 // Components
 import NewLoan from '../components/NewLoan/NewLoan';
-import Button from '../components/Button/Button';
+import Alert from '../components/Alert/Alert';
+import Heading from '../components/Heading/Heading';
 
 const ProfileView = () => {
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.userReducer);
+  const alertState = useSelector((state) => state.alertReducer);
+  const newLoan = useSelector((state) => state.loanReducer.newLoan);
 
-  const handleLogoutButton = () => dispatch(userLogout());
+  useEffect(() => {
+    return () => dispatch(resetAlerts());
+  }, []);
 
-  if (!userState.token) {
-    return <Redirect to='/' />;
+  if (newLoan.isLoading) {
+    return <Redirect to='/konto/decyzja' />;
   }
 
   return (
@@ -29,9 +33,11 @@ const ProfileView = () => {
         <title>Moje Konto | Loando</title>
       </Helmet>
       <AccountLayout>
-        <h1>Profile View</h1>
+        <Heading title='Twoje konto' />
+        {alertState.map((alert, index) => (
+          <Alert type={alert.type} message={alert.message} idx={index} />
+        ))}
         <NewLoan />
-        <Button onClick={handleLogoutButton}>Wyloguj</Button>
       </AccountLayout>
     </>
   );

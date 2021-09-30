@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 // Utils
 import formatDate, { countDays } from '../../utils/formatDate';
@@ -52,26 +53,28 @@ const LoansList = ({ loans }) => {
           <tr>
             <StyledHeadTitle>ID</StyledHeadTitle>
             <StyledHeadTitle>Kwota</StyledHeadTitle>
-            <StyledHeadTitle>Kwota do zwrotu</StyledHeadTitle>
+            <StyledHeadTitle>Do spłaty</StyledHeadTitle>
             <StyledHeadTitle>Data przyznania</StyledHeadTitle>
-            <StyledHeadTitle>Dni do zwrotu</StyledHeadTitle>
+            <StyledHeadTitle>Data spłaty</StyledHeadTitle>
             <StyledHeadTitle>Status</StyledHeadTitle>
             <StyledHeadTitle>Akcje</StyledHeadTitle>
           </tr>
         </StyledHead>
         <tbody>
           {loans.map((loan) => (
+            // TODO rename countDays function and return days instead full date
             // eslint-disable-next-line no-underscore-dangle
             <Row key={loan._id}>
               {/* eslint-disable-next-line no-underscore-dangle */}
               <StyledData>{loan._id.substring(0, 5)}</StyledData>
               <StyledData>{loan.value} PLN</StyledData>
-              <StyledData>3100 PLN</StyledData>
+              <StyledData>{loan.toPay}</StyledData>
               <StyledData>{formatDate(loan.createdAt)}</StyledData>
               <StyledData>{countDays(loan.createdAt, loan.days)}</StyledData>
               <StyledData>{loan.isActive ? 'Aktywna' : 'Zamknięta'}</StyledData>
               <StyledData>
-                <button type='button'>Szczegóły</button>
+                {/* eslint-disable-next-line no-underscore-dangle */}
+                <Link to={`/konto/pozyczka/${loan._id}`}>Szczegóły</Link>
               </StyledData>
             </Row>
           ))}

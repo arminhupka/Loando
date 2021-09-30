@@ -10,7 +10,7 @@ import devices from '../../utils/devices';
 
 // Components
 import RangeInput from '../RangeInput/RangeInput';
-import Button from '../Button/Button';
+import LinkButton from '../LinkButton/LinkButton';
 
 // Styled Components
 const CalcWrapper = styled.div`
@@ -30,8 +30,17 @@ const HeadWrapper = styled.div`
 `;
 
 const ValuesWrapper = styled.div`
+  margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+`;
+
+const Title = styled.h3``;
+
+const Value = styled.span`
+  font-size: 3rem;
+  font-weight: 700;
 `;
 
 const TableWrapper = styled.div`
@@ -40,6 +49,10 @@ const TableWrapper = styled.div`
   flex-direction: column;
   color: #333;
   background: #fff;
+
+  ${LinkButton} {
+    width: 100%;
+  }
 `;
 
 const StyledList = styled.ul`
@@ -66,6 +79,7 @@ const LoanCalc = () => {
     setLoanValue(Number(e.target.value));
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleLoanDaysRange = (e) => {
     setLoanDays(Number(e.target.value));
   };
@@ -80,22 +94,26 @@ const LoanCalc = () => {
       <HeadWrapper>
         <h2>Ile kosztuje pożyczka?</h2>
         <ValuesWrapper>
-          <span>Chcesz pożyczyć</span>
-          <span>{loanValue}</span>
+          <Title>Chcesz pożyczyć</Title>
+          <Value>{loanValue} PLN</Value>
         </ValuesWrapper>
-        <RangeInput value={loanValue} min='100' max='3000' step='100' onChange={handleLoanValueRange} />
+        <RangeInput value={loanValue} min={100} max={3000} step={100} onChange={handleLoanValueRange} ruler />
         <ValuesWrapper>
           <span>100</span>
           <span>3000</span>
         </ValuesWrapper>
-        <RangeInput value={loanDays} min='5' max='30' step='5' onChange={handleLoanDaysRange} />
         <ValuesWrapper>
-          <span>Okres</span>
-          <span>{loanDays} dni</span>
+          <Title>Na okres</Title>
+          <Value>{loanDays} dni</Value>
+        </ValuesWrapper>
+        <RangeInput value={loanDays} min={5} max={30} step={5} onChange={handleLoanDaysRange} ruler />
+        <ValuesWrapper>
+          <span>5</span>
+          <span>30</span>
         </ValuesWrapper>
       </HeadWrapper>
       <TableWrapper>
-        <h3>Całkowity koszt</h3>
+        <h2>Całkowity koszt</h2>
         <StyledList>
           <StyledItem>
             <span>Oddajesz</span>
@@ -118,7 +136,7 @@ const LoanCalc = () => {
             <span>{(rrso / 100) * 100}%</span>
           </StyledItem>
         </StyledList>
-        <Button>Weź pożyczkę</Button>
+        <LinkButton to='/konto'>Weź pożyczkę</LinkButton>
       </TableWrapper>
     </CalcWrapper>
   );

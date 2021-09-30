@@ -3,19 +3,19 @@ import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isAuth = useSelector((state) => state.userReducer.isAuth) || localStorage.getItem('token');
+const GrantedLoanRoute = ({ component: Component, ...rest }) => {
+  const isGranted = useSelector((state) => state.loanReducer.newLoan.granted);
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (isAuth) {
+        if (isGranted) {
           return <Component {...props} />;
         }
-        return <Redirect to='/' />;
+        return <Redirect to='/konto' />;
       }}
     />
   );
 };
 
-export default PrivateRoute;
+export default GrantedLoanRoute;

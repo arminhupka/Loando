@@ -26,9 +26,8 @@ const StyledContainer = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #fff;
 
-  a {
+  h1 > a {
     color: #fff;
   }
 `;

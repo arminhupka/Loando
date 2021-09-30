@@ -5,6 +5,8 @@ import { Helmet } from 'react-helmet';
 import AccountLayout from '../layouts/AccountLayout';
 
 // Components
+import LabeledInput from '../components/LabeledInput/LabeledInput';
+import Heading from '../components/Heading/Heading';
 
 const ProfileSettingsView = () => {
   return (
@@ -13,7 +15,8 @@ const ProfileSettingsView = () => {
         <title>Ustawienia | Loando</title>
       </Helmet>
       <AccountLayout>
-        <h1>Settings View</h1>
+        <Heading title='Ustawienia' />
+        <LabeledInput title='First Name' />
       </AccountLayout>
     </>
   );

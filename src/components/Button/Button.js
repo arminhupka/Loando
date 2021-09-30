@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+// TODO add different style
 
 const Button = styled.button`
   position: relative;
@@ -9,7 +11,7 @@ const Button = styled.button`
   background: ${({ theme }) => theme.primary[400]};
   border: none;
   border-radius: ${({ theme }) => theme.radius.regular};
-  transition: background 0.3s;
+  transition: color 0.3s, background 0.3s;
 
   &::before {
     opacity: 0;
@@ -19,22 +21,19 @@ const Button = styled.button`
 
   &:hover {
     background: ${({ theme }) => theme.primary[300]};
-
-    &::before {
-      content: '';
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      top: 0.5rem;
-      left: 0;
-      display: block;
-      background: ${({ theme }) => theme.primary[300]};
-      opacity: 0.2;
-      visibility: visible;
-      filter: blur(3px);
-      z-index: -1;
-    }
   }
+
+  ${({ alt }) =>
+    alt &&
+    css`
+      color: ${({ theme }) => theme.primary[400]};
+      background: #fff;
+
+      &:hover {
+        color: #fff;
+        background: ${({ theme }) => theme.primary[100]};
+      }
+    `}
 `;
 
 export default Button;

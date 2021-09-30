@@ -45,6 +45,7 @@ const NavList = styled.ul`
 
   @media screen and ${devices.lg} {
     flex-direction: row;
+    align-items: center;
   }
 `;
 
@@ -52,6 +53,7 @@ const NavItem = styled.li`
   padding: 2rem;
   font-weight: 600;
   text-transform: uppercase;
+  color: #fff;
   border-bottom: 0.1rem solid ${({ theme }) => theme.primary[400]};
 `;
 
@@ -96,9 +98,13 @@ const Nav = ({ isVisible, onClose }) => {
           <NavItem>Kontakt</NavItem>
           <NavItem>
             {userState.token ? (
-              <LinkButton href='/konto' title='Moje konto' />
+              <LinkButton alt to='/konto'>
+                Moje Konto
+              </LinkButton>
             ) : (
-              <LinkButton href='/zaloguj' title='Zaloguj się' />
+              <LinkButton alt to='/zaloguj'>
+                Zaloguj się
+              </LinkButton>
             )}
           </NavItem>
         </NavList>
