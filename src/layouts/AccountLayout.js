@@ -27,8 +27,12 @@ const StyledContainer = styled(Container)`
 `;
 
 const MainContent = styled.div`
-  flex: 4;
-  padding: 2rem;
+  padding: 2rem 0;
+
+  @media screen and ${devices.lg} {
+    flex: 4;
+    padding: 2rem;
+  }
 `;
 
 const MainLayout = ({ children }) => {

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { BsArrow90DegDown } from 'react-icons/bs';
 
 // Utils
 import devices from '../../utils/devices';
@@ -27,12 +28,32 @@ const TitleWrapper = styled.div`
   padding: 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: #fff;
   background: ${({ theme }) => theme.primary[600]};
 
   @media screen and ${devices.lg} {
     display: none;
   }
+`;
+
+const StyledButton = styled.button`
+  display: flex;
+  background: transparent;
+  border: none;
+  svg {
+    font-size: 3rem;
+    color: #fff;
+    transition: transform 0.1s;
+  }
+
+  ${({ active }) =>
+    active &&
+    css`
+      svg {
+        transform: rotate(90deg);
+      }
+    `}
 `;
 
 const StyledNav = styled.nav`
@@ -80,9 +101,9 @@ const Sidebar = () => {
     <StyledSidebar>
       <TitleWrapper>
         <h3>Twoje konto</h3>
-        <button onClick={handleButton} type='button'>
-          Show menu
-        </button>
+        <StyledButton onClick={handleButton} type='button' active={visible}>
+          <BsArrow90DegDown />
+        </StyledButton>
       </TitleWrapper>
       <StyledNav visible={visible}>
         <StyledList>

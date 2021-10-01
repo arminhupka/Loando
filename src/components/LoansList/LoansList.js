@@ -14,13 +14,24 @@ const ListWrapper = styled.div`
 `;
 
 const StyledTable = styled.table`
+  display: block;
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
+
+  & > * {
+    display: block;
+  }
 `;
 
 const StyledHead = styled.thead`
-  background: ${({ theme }) => theme.primary[400]};
+  position: absolute;
+  top: -9999rem;
+  left: -9999rem;
+  // background: ${({ theme }) => theme.primary[400]};
 `;
+
+const Body = styled.tbody``;
 
 const StyledHeadTitle = styled.th`
   padding: 1rem 2rem;
@@ -28,21 +39,72 @@ const StyledHeadTitle = styled.th`
 `;
 
 const StyledData = styled.td`
-  padding: 1rem 2rem;
-  text-align: center;
-`;
+  //padding: 1rem 2rem;
+  //text-align: center;
 
-const Row = styled.tr`
+  position: relative;
+  display: block;
+  padding: 2rem;
+  text-align: right;
+  border: none;
   border-bottom: 1px solid ${({ theme }) => theme.primary[50]};
 
-  &:last-child {
+  :last-child {
     border-bottom: none;
   }
 
-  &:hover {
-    color: #fff;
-    background: ${({ theme }) => theme.primary[100]};
+  ::before {
+    position: absolute;
+    display: inline-block;
+    left: 2rem;
+    top: 50%;
+    font-weight: 500;
+    transform: translateY(-50%);
   }
+
+  :nth-child(1)::before {
+    content: 'ID';
+  }
+  :nth-child(2)::before {
+    content: 'Kwota';
+  }
+  :nth-child(3)::before {
+    content: 'Do spłaty';
+  }
+  :nth-child(4)::before {
+    content: 'Data przyznania';
+  }
+  :nth-child(5)::before {
+    content: 'Data spłaty';
+  }
+  :nth-child(6)::before {
+    content: 'Status';
+  }
+`;
+
+const Row = styled.tr`
+  display: block;
+
+  :nth-child(even) {
+    background: ${({ theme }) => theme.primary[50]};
+    ${StyledData} {
+      border-bottom: 1px solid ${({ theme }) => theme.primary[100]};
+      :last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  // border-bottom: 1px solid ${({ theme }) => theme.primary[50]};
+  //
+  // &:last-child {
+  //   border-bottom: none;
+  // }
+  //
+  // &:hover {
+  //   color: #fff;
+  //   background: ${({ theme }) => theme.primary[100]};
+  // }
 `;
 
 const LoansList = ({ loans }) => {
@@ -60,8 +122,9 @@ const LoansList = ({ loans }) => {
             <StyledHeadTitle>Akcje</StyledHeadTitle>
           </tr>
         </StyledHead>
-        <tbody>
+        <Body>
           {loans.map((loan) => (
+            // TODO add mobile view
             // TODO rename countDays function and return days instead full date
             // eslint-disable-next-line no-underscore-dangle
             <Row key={loan._id}>
@@ -78,7 +141,7 @@ const LoansList = ({ loans }) => {
               </StyledData>
             </Row>
           ))}
-        </tbody>
+        </Body>
       </StyledTable>
     </ListWrapper>
   );
