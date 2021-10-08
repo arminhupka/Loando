@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  // const isAuth = localStorage.getItem('token');
   const isAuth = useSelector((state) => state.userReducer.isAuth) || localStorage.getItem('token');
   return (
     <Route
@@ -12,7 +13,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if (isAuth) {
           return <Component {...props} />;
         }
-        return <Redirect to='/' />;
+        return <Redirect to='/zaloguj' />;
       }}
     />
   );

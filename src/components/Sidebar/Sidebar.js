@@ -15,11 +15,9 @@ import Button from '../Button/Button';
 
 // Styled Components
 const StyledSidebar = styled.aside`
-  margin-top: 2rem;
   background: ${({ theme }) => theme.primary[500]};
 
   @media screen and ${devices.lg} {
-    margin-top: 0;
     flex: 1;
   }
 `;
@@ -100,7 +98,7 @@ const Sidebar = () => {
   return (
     <StyledSidebar>
       <TitleWrapper>
-        <h3>Twoje konto</h3>
+        <h3>Menu</h3>
         <StyledButton onClick={handleButton} type='button' active={visible}>
           <BsArrow90DegDown />
         </StyledButton>

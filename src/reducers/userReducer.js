@@ -7,11 +7,14 @@ import {
   USER_LOGIN_FAILED,
   USER_LOGOUT,
   USER_AUTH,
+  USER_CHANGE_PASSWORD_REQUEST,
+  USER_CHANGE_PASSWORD_SUCCESS,
+  USER_CHANGE_PASSWORD_FAILED,
 } from '../actions/types';
 
 const initialState = {
   data: null,
-  token: localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null,
+  token: null,
   isLoading: false,
   isAuth: false,
 };
@@ -45,7 +48,6 @@ const userReducer = (state = initialState, action) => {
       };
     }
     case USER_LOGIN_SUCCESS: {
-      localStorage.setItem('token', JSON.stringify(payload.token));
       return {
         data: payload,
         token: payload.token,
@@ -67,6 +69,19 @@ const userReducer = (state = initialState, action) => {
         token: null,
         isLoading: false,
         isAuth: false,
+      };
+    }
+    case USER_CHANGE_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case USER_CHANGE_PASSWORD_SUCCESS:
+    case USER_CHANGE_PASSWORD_FAILED: {
+      return {
+        ...state,
+        isLoading: false,
       };
     }
     case USER_AUTH: {

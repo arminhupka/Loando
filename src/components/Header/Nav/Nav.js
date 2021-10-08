@@ -97,7 +97,7 @@ const Nav = ({ isVisible, onClose }) => {
           <NavItem>Oferta</NavItem>
           <NavItem>Kontakt</NavItem>
           <NavItem>
-            {userState.token ? (
+            {userState.data ? (
               <LinkButton alt to='/konto'>
                 Moje Konto
               </LinkButton>

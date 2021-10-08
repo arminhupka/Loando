@@ -33,14 +33,19 @@ const StyledLink = styled(Link)`
       background: #fff;
 
       &:hover {
-        color: #fff;
-        background: ${({ theme }) => theme.primary[100]};
+        background: ${({ theme }) => theme.gray[100]};
       }
+    `}
+
+  ${({ full }) =>
+    full &&
+    css`
+      width: 100%;
     `}
 `;
 
-const LinkButton = ({ children, to, alt }) => (
-  <StyledLink alt={alt} to={to}>
+const LinkButton = ({ children, to, alt, full }) => (
+  <StyledLink alt={alt} to={to} full={full}>
     {children}
   </StyledLink>
 );
@@ -48,7 +53,13 @@ const LinkButton = ({ children, to, alt }) => (
 LinkButton.propTypes = {
   children: PropTypes.node.isRequired,
   to: PropTypes.string.isRequired,
-  alt: PropTypes.bool.isRequired,
+  alt: PropTypes.bool,
+  full: PropTypes.bool,
+};
+
+LinkButton.defaultProps = {
+  alt: false,
+  full: false,
 };
 
 export default LinkButton;

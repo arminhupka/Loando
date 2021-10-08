@@ -11,8 +11,10 @@ import AccountLayout from '../layouts/AccountLayout';
 
 // Components
 import Heading from '../components/Heading/Heading';
+import LoanDetails from '../components/LoanDetails/LoanDetails';
+import Loader from '../components/Loader/Loader';
 
-const LoanDetails = ({ match }) => {
+const LoanDetailsView = ({ match }) => {
   const dispatch = useDispatch();
 
   const { id } = match.params;
@@ -30,15 +32,14 @@ const LoanDetails = ({ match }) => {
       </Helmet>
       <AccountLayout>
         <Heading title='Szczegóły pożyczki' />
-        {/* eslint-disable-next-line no-underscore-dangle */}
-        {loanDetails.isLoading ? <h1>Ładowanie ...</h1> : <h1>{loanDetails.data?._id}</h1>}
+        {loanDetails.isLoading ? <Loader /> : <>{loanDetails.data ? <LoanDetails data={loanDetails.data} /> : null}</>}
       </AccountLayout>
     </>
   );
 };
 
-LoanDetails.propTypes = {
+LoanDetailsView.propTypes = {
   match: PropTypes.string.isRequired,
 };
 
-export default LoanDetails;
+export default LoanDetailsView;

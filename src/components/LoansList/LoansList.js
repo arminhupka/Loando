@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 // Utils
 import formatDate, { countDays } from '../../utils/formatDate';
+import devices from '../../utils/devices';
+
+// Components
+import LinkButton from '../LinkButton/LinkButton';
 
 // Styled Components
 const ListWrapper = styled.div`
@@ -14,13 +17,18 @@ const ListWrapper = styled.div`
 `;
 
 const StyledTable = styled.table`
-  display: block;
   width: 100%;
+  display: block;
   border-collapse: collapse;
   table-layout: fixed;
 
-  & > * {
-    display: block;
+  //& > * {
+  //  display: block;
+  //}
+
+  @media screen and ${devices.lg} {
+    width: 100%;
+    display: table;
   }
 `;
 
@@ -28,10 +36,23 @@ const StyledHead = styled.thead`
   position: absolute;
   top: -9999rem;
   left: -9999rem;
-  // background: ${({ theme }) => theme.primary[400]};
+
+  @media screen and ${devices.lg} {
+    position: relative;
+    top: initial;
+    left: initial;
+    background: ${({ theme }) => theme.primary[400]};
+  }
 `;
 
-const Body = styled.tbody``;
+const Body = styled.tbody`
+  display: block;
+  width: 100%;
+
+  @media screen and ${devices.lg} {
+    display: table-row-group;
+  }
+`;
 
 const StyledHeadTitle = styled.th`
   padding: 1rem 2rem;
@@ -39,9 +60,6 @@ const StyledHeadTitle = styled.th`
 `;
 
 const StyledData = styled.td`
-  //padding: 1rem 2rem;
-  //text-align: center;
-
   position: relative;
   display: block;
   padding: 2rem;
@@ -80,31 +98,34 @@ const StyledData = styled.td`
   :nth-child(6)::before {
     content: 'Status';
   }
+
+  @media screen and ${devices.lg} {
+    display: table-cell;
+    padding: 1rem 0;
+    text-align: center;
+
+    ::before {
+      display: none;
+    }
+  }
 `;
 
 const Row = styled.tr`
   display: block;
-
+  width: 100%;
   :nth-child(even) {
     background: ${({ theme }) => theme.primary[50]};
     ${StyledData} {
-      border-bottom: 1px solid ${({ theme }) => theme.primary[100]};
+      border-bottom: 1px solid ${({ theme }) => theme.gray[200]};
       :last-child {
         border-bottom: none;
       }
     }
   }
 
-  // border-bottom: 1px solid ${({ theme }) => theme.primary[50]};
-  //
-  // &:last-child {
-  //   border-bottom: none;
-  // }
-  //
-  // &:hover {
-  //   color: #fff;
-  //   background: ${({ theme }) => theme.primary[100]};
-  // }
+  @media screen and ${devices.lg} {
+    display: table-row;
+  }
 `;
 
 const LoansList = ({ loans }) => {
@@ -124,20 +145,15 @@ const LoansList = ({ loans }) => {
         </StyledHead>
         <Body>
           {loans.map((loan) => (
-            // TODO add mobile view
-            // TODO rename countDays function and return days instead full date
-            // eslint-disable-next-line no-underscore-dangle
             <Row key={loan._id}>
-              {/* eslint-disable-next-line no-underscore-dangle */}
               <StyledData>{loan._id.substring(0, 5)}</StyledData>
               <StyledData>{loan.value} PLN</StyledData>
-              <StyledData>{loan.toPay}</StyledData>
+              <StyledData>{loan.toPay} PLN</StyledData>
               <StyledData>{formatDate(loan.createdAt)}</StyledData>
               <StyledData>{countDays(loan.createdAt, loan.days)}</StyledData>
               <StyledData>{loan.isActive ? 'Aktywna' : 'Zamknięta'}</StyledData>
               <StyledData>
-                {/* eslint-disable-next-line no-underscore-dangle */}
-                <Link to={`/konto/pozyczka/${loan._id}`}>Szczegóły</Link>
+                <LinkButton to={`/konto/pozyczka/${loan._id}`}>Szczegóły</LinkButton>
               </StyledData>
             </Row>
           ))}

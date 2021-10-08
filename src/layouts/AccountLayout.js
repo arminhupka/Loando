@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import styled, { ThemeProvider } from 'styled-components';
 
 // Style
@@ -17,20 +16,29 @@ import devices from '../utils/devices';
 
 // Styled Components
 const StyledContainer = styled(Container)`
+  padding: 0;
   flex: 1;
   display: flex;
   flex-direction: column;
 
+  @media screen and ${devices.md} {
+    max-width: 100%;
+  }
+
   @media screen and ${devices.lg} {
+    //padding: unset;
+    max-width: 122rem;
+    padding: 0 2.4rem;
     flex-direction: row;
   }
 `;
 
 const MainContent = styled.div`
-  padding: 2rem 0;
+  padding: 0 2.4rem 4rem 2.4rem;
+  margin-top: 2rem;
 
   @media screen and ${devices.lg} {
-    flex: 4;
+    flex: 3;
     padding: 2rem;
   }
 `;
@@ -38,11 +46,6 @@ const MainContent = styled.div`
 const MainLayout = ({ children }) => {
   return (
     <>
-      <Helmet>
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin />
-        <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap' rel='stylesheet' />
-      </Helmet>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Header />

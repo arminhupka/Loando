@@ -11,6 +11,9 @@ import {
   LOAN_DETAILS_REQUEST,
   LOAN_DETAILS_SUCCESS,
   LOAN_DETAILS_FAILED,
+  LOAN_PAY_REQUEST,
+  LOAN_PAY_SUCCESS,
+  LOAN_PAY_FAILED,
 } from './types';
 
 // Actions
@@ -80,6 +83,32 @@ export const getLoanDetails = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: LOAN_DETAILS_FAILED,
+    });
+  }
+};
+
+export const payLoan = (id, value) => async (dispatch) => {
+  dispatch({
+    type: LOAN_PAY_REQUEST,
+  });
+
+  try {
+    const { data } = await api({
+      url: '/loan/pay',
+      method: 'PUT',
+      data: {
+        id,
+        value,
+      },
+    });
+
+    dispatch({
+      type: LOAN_PAY_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: LOAN_PAY_FAILED,
     });
   }
 };

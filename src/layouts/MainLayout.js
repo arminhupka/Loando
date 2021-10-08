@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import styled, { ThemeProvider } from 'styled-components';
 
 // Style
@@ -21,11 +20,6 @@ const Content = styled.div`
 const MainLayout = ({ children }) => {
   return (
     <>
-      <Helmet>
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin />
-        <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap' rel='stylesheet' />
-      </Helmet>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Header />
@@ -37,8 +31,7 @@ const MainLayout = ({ children }) => {
 };
 
 MainLayout.propTypes = {
-  // eslint-disable-next-line react/require-default-props
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 
 export default MainLayout;

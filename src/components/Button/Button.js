@@ -6,6 +6,8 @@ const Button = styled.button`
   position: relative;
   padding: 1.5rem 2rem;
   color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
   font-weight: 600;
   text-transform: uppercase;
   background: ${({ theme }) => theme.primary[400]};
@@ -30,9 +32,14 @@ const Button = styled.button`
       background: #fff;
 
       &:hover {
-        color: #fff;
-        background: ${({ theme }) => theme.primary[100]};
+        background: ${({ theme }) => theme.gray[100]};
       }
+    `}
+
+  ${({ full }) =>
+    full &&
+    css`
+      width: 100%;
     `}
 `;
 

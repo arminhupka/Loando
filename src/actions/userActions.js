@@ -9,6 +9,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_AUTH,
+  USER_CHANGE_PASSWORD_REQUEST,
+  USER_CHANGE_PASSWORD_SUCCESS,
+  USER_CHANGE_PASSWORD_FAILED,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -61,6 +64,7 @@ export const userLogin = (email, password) => async (dispatch) => {
       },
     });
 
+    localStorage.setItem('token', JSON.stringify(data.token));
     setAuthToken(data.token);
 
     dispatch({
@@ -73,7 +77,7 @@ export const userLogin = (email, password) => async (dispatch) => {
     }
 
     if (err.response && err.response.status === 404) {
-      dispatch(addAlert('Nie znaleziono takiego użytkownika', 'warning'));
+      dispatch(addAlert('Nie ma takiego użytkownika lub hasło jest nieoprawne', 'warning'));
     }
 
     dispatch({
@@ -105,5 +109,33 @@ export const authUser = () => async (dispatch) => {
         type: USER_LOGOUT,
       });
     }
+  }
+};
+
+export const changePassword = (currentPassword, newPassword) => async (dispatch) => {
+  dispatch({
+    type: USER_CHANGE_PASSWORD_REQUEST,
+  });
+
+  try {
+    await api({
+      url: '/user/change-password',
+      method: 'PUT',
+      data: {
+        currentPassword,
+        password: newPassword,
+      },
+    });
+
+    dispatch({
+      type: USER_CHANGE_PASSWORD_SUCCESS,
+    });
+
+    dispatch(addAlert('Hasło zostało zmienione', 'success'));
+  } catch (err) {
+    dispatch({
+      type: USER_CHANGE_PASSWORD_FAILED,
+    });
+    dispatch(addAlert('Wystąpił błąd podczas zmiany hasła', 'error'));
   }
 };

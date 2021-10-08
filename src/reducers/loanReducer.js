@@ -2,6 +2,9 @@ import {
   LOAN_DETAILS_FAILED,
   LOAN_DETAILS_REQUEST,
   LOAN_DETAILS_SUCCESS,
+  LOAN_PAY_FAILED,
+  LOAN_PAY_REQUEST,
+  LOAN_PAY_SUCCESS,
   LOAN_SET,
   NEW_LOAN_FAILED,
   NEW_LOAN_REQUEST,
@@ -20,6 +23,10 @@ const initialState = {
     data: null,
   },
   currentLoan: {
+    data: null,
+    isLoading: false,
+  },
+  paidLoan: {
     data: null,
     isLoading: false,
   },
@@ -98,6 +105,33 @@ const loanReducer = (state = initialState, action) => {
       return {
         ...state,
         currentLoan: {
+          data: null,
+          isLoading: false,
+        },
+      };
+    }
+    case LOAN_PAY_REQUEST: {
+      return {
+        ...state,
+        paidLoan: {
+          data: null,
+          isLoading: true,
+        },
+      };
+    }
+    case LOAN_PAY_SUCCESS: {
+      return {
+        ...state,
+        paidLoan: {
+          data: payload,
+          isLoading: false,
+        },
+      };
+    }
+    case LOAN_PAY_FAILED: {
+      return {
+        ...state,
+        paidLoan: {
           data: null,
           isLoading: false,
         },

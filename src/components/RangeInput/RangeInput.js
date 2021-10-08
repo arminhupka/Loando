@@ -69,7 +69,13 @@ const RangeInput = ({ ruler, ...props }) => {
 
   return (
     <RangeInputWrapper>
-      {ruler && <Ruler>{generateLines().map((line) => line)}</Ruler>}
+      {ruler && (
+        <Ruler>
+          {generateLines().map((line, idx) => (
+            <span key={idx}>{line}</span>
+          ))}
+        </Ruler>
+      )}
       <Input {...props} />
     </RangeInputWrapper>
   );

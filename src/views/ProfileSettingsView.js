@@ -1,14 +1,18 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
 
 // Layout
 import AccountLayout from '../layouts/AccountLayout';
 
 // Components
-import LabeledInput from '../components/LabeledInput/LabeledInput';
 import Heading from '../components/Heading/Heading';
+import UserDetails from '../components/UserDetails/UserDetails';
+import LinkButton from '../components/LinkButton/LinkButton';
 
 const ProfileSettingsView = () => {
+  const userDetails = useSelector((state) => state.userReducer.data);
+
   return (
     <>
       <Helmet>
@@ -16,7 +20,8 @@ const ProfileSettingsView = () => {
       </Helmet>
       <AccountLayout>
         <Heading title='Ustawienia' />
-        <LabeledInput title='First Name' />
+        {userDetails && <UserDetails data={userDetails} />}
+        <LinkButton to='/konto/ustawienia/zmien-haslo'>Zmień hasło</LinkButton>
       </AccountLayout>
     </>
   );

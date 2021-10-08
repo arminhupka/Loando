@@ -12,7 +12,7 @@ import LoansList from '../components/LoansList/LoansList';
 import Heading from '../components/Heading/Heading';
 
 const ProfileLoansView = () => {
-  const [loans, setLoans] = useState([]);
+  const [loans, setLoans] = useState(null);
 
   const getLoans = async () => {
     const { data } = await api.get('/loan');
@@ -30,7 +30,7 @@ const ProfileLoansView = () => {
       </Helmet>
       <AccountLayout>
         <Heading title='Twoje pożyczki' />
-        {loans.length > 0 && <LoansList loans={loans} />}
+        {loans && <LoansList loans={loans} />}
       </AccountLayout>
     </>
   );

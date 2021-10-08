@@ -5,10 +5,15 @@ import PropTypes from 'prop-types';
 // Styled Components
 const AlertWrapper = styled.div`
   position: fixed;
-  bottom: calc(5rem * ${({ position }) => position + 0.4});
+  width: 100%;
+  max-width: 90%;
+  // bottom: calc(5rem * ${({ position }) => position + 0.4});
+  bottom: 5rem;
   left: 50%;
   padding: 1rem 3rem;
+  display: block;
   font-weight: 600;
+  text-align: center;
   color: #fff;
   background: red;
   border-radius: ${({ theme }) => theme.radius.regular};
