@@ -1,35 +1,90 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { FaCheckCircle, FaMinusCircle } from 'react-icons/all';
+import devices from '../../utils/devices';
 
 // Styled Components
 const DecisionWrapper = styled.div`
   padding: 2rem;
-  background: ${({ theme }) => theme.primary[50]};
-`;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+  background: ${({ theme }) => theme.alert.error};
+  border-radius: ${({ theme }) => theme.radius.regular};
 
-const Decision = ({ granted }) => {
-  if (granted === undefined) {
-    return <h1>Loading</h1>;
+  svg {
+    font-size: 8rem;
+    margin-bottom: 2rem;
   }
 
-  if (!granted) {
+  ${({ success }) =>
+    success &&
+    css`
+      background: ${({ theme }) => theme.alert.success};
+    `}
+
+  @media screen and ${devices.lg} {
+    svg {
+      margin-bottom: 0;
+      margin-right: 2rem;
+    }
+
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const IconWrapper = styled.div``;
+
+const TextWrapper = styled.div`
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  @media screen and ${devices.lg} {
+    text-align: left;
+  }
+`;
+
+const Decision = ({ success }) => {
+  if (success) {
     return (
-      <DecisionWrapper>
-        <h1>Nie możemy Ci obecenie przyznać pożyczki</h1>
+      <DecisionWrapper success={success}>
+        <IconWrapper>
+          <FaCheckCircle />
+        </IconWrapper>
+        <TextWrapper>
+          <h2>Pożyczka została przyznana</h2>
+          <p>Kwota pożyczki zostanie za chwilę przekazana do wypłaty na Twoje konto</p>
+        </TextWrapper>
       </DecisionWrapper>
     );
   }
 
   return (
-    <DecisionWrapper>
-      <h1>Tutaj powinna być decyzja</h1>
+    <DecisionWrapper success={success}>
+      <IconWrapper>
+        <FaMinusCircle />
+      </IconWrapper>
+      <TextWrapper>
+        <h2>Wniosek odrzucony</h2>
+        <p>Niestety nie jesteśmy w stanie udzielić ci pożyczki</p>
+      </TextWrapper>
     </DecisionWrapper>
   );
 };
 
+Decision.defaultProps = {
+  success: false,
+};
+
 Decision.propTypes = {
-  granted: PropTypes.bool.isRequired,
+  success: PropTypes.bool,
 };
 
 export default Decision;

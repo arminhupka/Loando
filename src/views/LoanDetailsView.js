@@ -39,7 +39,7 @@ const LoanDetailsView = ({ match }) => {
 };
 
 LoanDetailsView.propTypes = {
-  match: PropTypes.string.isRequired,
+  match: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default LoanDetailsView;

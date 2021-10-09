@@ -29,7 +29,11 @@ export const setLoan = (days, value) => (dispatch) => {
   });
 };
 
-export const takeNewLoan = () => async (dispatch) => {
+export const takeNewLoan = () => async (dispatch, getState) => {
+  const {
+    loanReducer: { loanSettings },
+  } = getState();
+
   dispatch({
     type: NEW_LOAN_REQUEST,
   });
@@ -39,8 +43,8 @@ export const takeNewLoan = () => async (dispatch) => {
       url: '/loan/new',
       method: 'POST',
       data: {
-        value: 22,
-        days: 10,
+        value: loanSettings.value,
+        days: loanSettings.days,
       },
     });
 

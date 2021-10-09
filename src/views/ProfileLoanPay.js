@@ -7,28 +7,35 @@ import { Redirect } from 'react-router-dom';
 import { getLoanDetails } from '../actions/loanActions';
 
 // Components
+import Loader from '../components/Loader/Loader';
 import Heading from '../components/Heading/Heading';
 import AccountLayout from '../layouts/AccountLayout';
 import RangeInput from '../components/RangeInput/RangeInput';
-import Button from '../components/Button/Button';
-import Loader from '../components/Loader/Loader';
+// import RangeInput from '../components/RangeInput/RangeInput';
+// import Button from '../components/Button/Button';
 
 const ProfileLoanPay = ({ match }) => {
   const dispatch = useDispatch();
 
   const { id } = match.params;
+
   const loanData = useSelector((state) => state.loanReducer.currentLoan);
 
-  const [payValue, setPayValue] = useState(null);
+  const [valueToPay, setValueToPay] = useState(0);
 
   const handleRange = (e) => {
-    setPayValue(Number(e.target.value));
+    setValueToPay(Number(e.target.value));
   };
 
   useEffect(() => {
-    setPayValue(loanData.data.toPay - loanData.data.paid);
     dispatch(getLoanDetails(id));
   }, []);
+
+  useEffect(() => {
+    if (loanData.data) {
+      setValueToPay(loanData.data.value - loanData.data.paid);
+    }
+  }, [loanData.data]);
 
   if (!id) {
     return <Redirect to='/konto' />;
@@ -36,17 +43,12 @@ const ProfileLoanPay = ({ match }) => {
 
   return (
     <AccountLayout>
-      {loanData.isLoading ? (
-        <Loader />
-      ) : (
+      <Heading title='Spłać pożyczkę' />
+      {loanData.isLoading && <Loader />}
+      {loanData.data && (
         <>
-          <Heading title='Spłać pożyczkę' />
-          <h2>{loanData.data._id}</h2>
-          <h2>Masz do spłaty jeszcze</h2>
-          <p>{loanData.data.toPay - loanData.data.paid} PLN</p>
-          <h3>Spłacasz: {payValue} PLN</h3>
-          <RangeInput max={loanData.data.toPay - loanData.data.paid} step={1} value={payValue} onChange={handleRange} />
-          <Button full>Spłać</Button>
+          <h1>{valueToPay}</h1>
+          <RangeInput max={loanData.data.value - loanData.data.paid} value={valueToPay} step={1} onChange={handleRange} />
         </>
       )}
     </AccountLayout>

@@ -52,7 +52,7 @@ export default () => {
           <PrivateRoute exact path='/konto/ustawienia' component={ProfileSettingsView} />
           <PrivateRoute exact path='/konto/ustawienia/zmien-haslo' component={ProfileChangePassword} />
           <PrivateRoute exact path='/konto/decyzja' component={ProfileDecisionView} />
-          <Route path='*' component={NoPageView} />
+          <Route component={NoPageView} />
         </Switch>
       </BrowserRouter>
     </>
