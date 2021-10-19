@@ -22,7 +22,7 @@ const MainLayout = ({ children }) => {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Header />
+        <Header fixed />
         <Content>{children}</Content>
         <Footer />
       </ThemeProvider>

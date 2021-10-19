@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 // Icons
 import { FaBars } from 'react-icons/fa';
@@ -14,53 +15,131 @@ import useModalState from '../../hooks/useModalState';
 // Components
 import { Container } from '../../styles/GlobalStyle';
 import Nav from './Nav/Nav';
+import LinkButton from '../LinkButton/LinkButton';
+import UserActionsNav from './Nav/UserActionsNav/UserActionsNav';
+import UserLink from './Nav/UserLink/UserLink';
+import Branding from '../Branding/Branding';
 
 // Styled Components
 const StyledHeader = styled.header`
   height: 10rem;
-  background: ${({ theme }) => theme.primary[400]};
+  background: #fff;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.gray[300]};
+  z-index: 1;
+
+  ${({ fixed }) =>
+    fixed &&
+    css`
+      @media screen and ${devices.lg} {
+        position: absolute;
+        width: 100%;
+        top: 4rem;
+        padding: 0 2.4rem;
+        background: transparent;
+        border: none;
+      }
+    `}
 `;
 
 const StyledContainer = styled(Container)`
-  height: 100%;
+  position: relative;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 
-  h1 > a {
-    color: #fff;
+  & > a {
+    color: inherit;
+  }
+
+  @media screen and ${devices.lg} {
+    justify-content: flex-start;
+  }
+
+  ${({ fixed }) =>
+    fixed &&
+    css`
+      @media screen and ${devices.lg} {
+        background: #fff;
+        border-radius: ${({ theme }) => theme.radius.regular};
+        box-shadow: ${({ theme }) => theme.shadow};
+      }
+    `}
+`;
+
+const ButtonsWrapper = styled.div`
+  height: 100%;
+  display: none;
+
+  @media screen and ${devices.lg} {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+
+    ${LinkButton}:first-of-type {
+      margin-right: 1rem;
+    }
+
+    :hover > div:last-of-type {
+      display: block;
+    }
   }
 `;
 
 const HamburgerButton = styled.button`
   display: flex;
-  font-size: 3rem;
-  color: #fcfcfc;
   background: transparent;
   border: none;
+
+  svg {
+    font-size: 3rem;
+  }
+
   @media screen and ${devices.lg} {
     display: none;
   }
 `;
 
-const Header = () => {
+const Header = ({ fixed }) => {
+  const isAuth = useSelector((state) => state.userReducer.isAuth);
+
   const { isVisible, onToggle, onClose } = useModalState(false);
 
   const handleHamburger = () => onToggle();
 
   return (
-    <StyledHeader>
-      <StyledContainer>
-        <h1>
-          <Link to='/'>Loando</Link>
-        </h1>
+    <StyledHeader fixed={fixed}>
+      <StyledContainer fixed={fixed}>
+        <Branding />
         <Nav isVisible={isVisible} onClose={onClose} />
+        <ButtonsWrapper>
+          {!isAuth ? (
+            <>
+              <LinkButton outline to='/rejestracja'>
+                Rejestracja
+              </LinkButton>
+              <LinkButton to='/zaloguj'>Logowanie</LinkButton>
+            </>
+          ) : (
+            <>
+              <UserLink />
+              <UserActionsNav />
+            </>
+          )}
+        </ButtonsWrapper>
         <HamburgerButton onClick={handleHamburger}>
           <FaBars />
         </HamburgerButton>
       </StyledContainer>
     </StyledHeader>
   );
+};
+
+Header.defaultProps = {
+  fixed: false,
+};
+
+Header.propTypes = {
+  fixed: PropTypes.bool,
 };
 
 export default Header;

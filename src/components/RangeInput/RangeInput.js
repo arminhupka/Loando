@@ -21,7 +21,7 @@ const Ruler = styled.div`
 const Line = styled.span`
   height: 100%;
   width: 0.1rem;
-  background: ${({ theme }) => theme.primary[100]};
+  background: ${({ theme }) => theme.primaryDark};
 
   &:nth-child(even) {
     height: 75%;
@@ -40,13 +40,14 @@ const Input = styled.input.attrs({ type: 'range' })`
     display: block;
     width: 2rem;
     height: 2rem;
-    background: ${({ theme }) => theme.primary[50]};
+    //background: ${({ theme }) => theme.primaryDark};
+    background: #fff;
     border-radius: 50%;
   }
 
   ::-webkit-slider-container {
     height: 0.4rem;
-    background: ${({ theme }) => theme.primary[100]};
+    background: ${({ theme }) => theme.primaryDark};
   }
 
   ::-ms-track {

@@ -7,7 +7,6 @@ import formatDate, { countDays } from '../../utils/formatDate';
 import devices from '../../utils/devices';
 
 // Components
-import LinkButton from '../LinkButton/LinkButton';
 
 // Styled Components
 const ListWrapper = styled.div`
@@ -153,7 +152,7 @@ const LoansList = ({ loans }) => {
               <StyledData>{countDays(loan.createdAt, loan.days)}</StyledData>
               <StyledData>{loan.isActive ? 'Aktywna' : 'Zamknięta'}</StyledData>
               <StyledData>
-                <LinkButton to={`/konto/pozyczka/${loan._id}`}>Szczegóły</LinkButton>
+                <a to={`/konto/pozyczka/${loan._id}`}>Szczegóły</a>
               </StyledData>
             </Row>
           ))}

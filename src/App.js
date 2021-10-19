@@ -21,6 +21,7 @@ import ProfileSettingsView from './views/ProfileSettingsView';
 import ProfileChangePassword from './views/ProfileChangePassword';
 import ProfileDecisionView from './views/ProfileDecisionView';
 import LoanDetailsView from './views/LoanDetailsView';
+import ContactView from './views/ContactView';
 import NoPageView from './views/NoPageView';
 
 export default () => {
@@ -45,6 +46,7 @@ export default () => {
           <Route exact path='/' component={HomeView} />
           <Route exact path='/rejestracja' component={RegisterView} />
           <Route exact path='/zaloguj' component={LoginView} />
+          <Route exact path='/kontakt' component={ContactView} />
           <PrivateRoute exact path='/konto' component={ProfileView} />
           <PrivateRoute exact path='/konto/pozyczki' component={ProfileLoansView} />
           <PrivateRoute exact path='/konto/pozyczka/:id' component={LoanDetailsView} />

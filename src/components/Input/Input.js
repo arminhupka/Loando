@@ -1,11 +1,22 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Input = styled.input`
-  padding: 1.5rem 2rem;
-  font-family: 'Roboto', sans-serif;
+  padding: 1.4rem 2.4rem;
   font-size: 1.5rem;
-  background: ${({ theme }) => theme.primary[50]};
-  border: none;
+  background: #fff;
+  border: 0.2rem solid ${({ theme }) => theme.gray[300]};
+  border-radius: ${({ theme }) => theme.radius.regular};
+
+  &:focus {
+    border: 0.2rem solid ${({ theme }) => theme.primary};
+    outline: none;
+  }
+
+  ${({ error }) =>
+    error &&
+    css`
+      border: 0.2rem solid ${({ theme }) => theme.alert.error};
+    `}
 `;
 
 export default Input;

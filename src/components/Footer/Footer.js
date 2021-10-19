@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 // Components
 import { Container } from '../../styles/GlobalStyle';
+import Branding from '../Branding/Branding';
 
 // Styled Components
 const StyledFooter = styled.footer`
@@ -11,19 +12,19 @@ const StyledFooter = styled.footer`
 
 const MainWrapper = styled.div`
   padding: 5rem 0;
-  background: ${({ theme }) => theme.primary[400]};
+  background: ${({ theme }) => theme.primary};
 `;
 
 const CopyrightWrapper = styled.div`
   padding: 2rem 0;
-  background: ${({ theme }) => theme.primary[600]};
+  background: ${({ theme }) => theme.primaryDark};
 `;
 
 const Footer = () => (
   <StyledFooter>
     <MainWrapper>
       <Container>
-        <h1>Footer</h1>
+        <Branding large white />
       </Container>
     </MainWrapper>
     <CopyrightWrapper>

@@ -4,42 +4,33 @@ import styled, { css } from 'styled-components';
 
 const Button = styled.button`
   position: relative;
-  padding: 1.5rem 2rem;
+  padding: 1.4rem 2.4rem;
   color: #fff;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  background: ${({ theme }) => theme.primary[400]};
+  font-weight: 500;
+  background: ${({ theme }) => theme.primary};
   border: none;
   border-radius: ${({ theme }) => theme.radius.regular};
   transition: color 0.3s, background 0.3s;
 
-  &::before {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1s, visibility 1s;
+  :hover {
+    background: ${({ theme }) => theme.primaryLight};
   }
 
-  &:hover {
-    background: ${({ theme }) => theme.primary[300]};
-  }
-
-  ${({ alt }) =>
-    alt &&
+  ${({ outline }) =>
+    outline &&
     css`
-      color: ${({ theme }) => theme.primary[400]};
-      background: #fff;
-
-      &:hover {
-        background: ${({ theme }) => theme.gray[100]};
-      }
+      color: ${({ theme }) => theme.primary};
+      background: transparent;
+      border: 0.2rem solid ${({ theme }) => theme.primary};
     `}
 
-  ${({ full }) =>
-    full &&
+  ${({ white }) =>
+    white &&
     css`
-      width: 100%;
+      color: #fff;
+      border-color: #fff;
     `}
 `;
 

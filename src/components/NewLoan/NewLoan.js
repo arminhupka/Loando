@@ -15,8 +15,9 @@ const NewLoanWrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: #fff;
-  background: ${({ theme }) => theme.primary[400]};
+  background: ${({ theme }) => theme.primary};
   border-radius: ${({ theme }) => theme.radius.regular};
+  box-shadow: ${({ theme }) => theme.shadow};
 `;
 
 const NewLoan = () => {
@@ -45,7 +46,7 @@ const NewLoan = () => {
       <RangeInput value={value} min={100} max={3000} step={100} onChange={setLoanValue} ruler />
       <RangeInput value={days} min={5} max={30} step={5} onChange={setLoanDays} ruler />
       <p>Days: {loanSettings.days}</p>
-      <Button onClick={newLoan} alt>
+      <Button outline white onClick={newLoan} alt>
         Weź pożyczkę
       </Button>
     </NewLoanWrapper>

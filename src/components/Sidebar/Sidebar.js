@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { BsArrow90DegDown } from 'react-icons/bs';
+import useModalState from '../../hooks/useModalState';
 
 // Utils
 import devices from '../../utils/devices';
@@ -15,10 +15,20 @@ import Button from '../Button/Button';
 
 // Styled Components
 const StyledSidebar = styled.aside`
-  background: ${({ theme }) => theme.primary[500]};
+  margin-bottom: 2rem;
+  background: #f2f5fe;
+  border-radius: ${({ theme }) => theme.radius.regular};
+  box-shadow: ${({ theme }) => theme.shadow};
+  overflow: hidden;
 
   @media screen and ${devices.lg} {
-    flex: 1;
+    width: 30rem;
+    padding-right: 2rem;
+    margin-right: 2rem;
+    border-radius: 0;
+    background: transparent;
+    border-right: 0.1rem solid ${({ theme }) => theme.gray[300]};
+    box-shadow: none;
   }
 `;
 
@@ -28,50 +38,52 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   color: #fff;
-  background: ${({ theme }) => theme.primary[600]};
+  background: ${({ theme }) => theme.primary};
 
   @media screen and ${devices.lg} {
     display: none;
   }
 `;
 
-const StyledButton = styled.button`
-  display: flex;
-  background: transparent;
-  border: none;
-  svg {
-    font-size: 3rem;
-    color: #fff;
-    transition: transform 0.1s;
-  }
-
-  ${({ active }) =>
-    active &&
-    css`
-      svg {
-        transform: rotate(90deg);
-      }
-    `}
-`;
-
 const StyledNav = styled.nav`
-  max-height: ${({ visible }) => (visible ? '30rem' : 0)};
-  transition: max-height ease-in-out, 0.3s;
-  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.6s ease-in-out;
+
   @media screen and ${devices.lg} {
-    max-height: 100%;
+    margin-top: 2rem;
+    background: #fff;
   }
+
+  ${({ isVisible }) =>
+    isVisible &&
+    css`
+      max-height: 28rem;
+    `}
 `;
 
 const StyledList = styled.ul``;
 
 const StyledItem = styled.li`
-  :last-child {
-    padding: 2rem;
+  a {
+    font-weight: 500;
+    color: inherit;
   }
 
-  button {
-    width: 100%;
+  .active {
+    background: ${({ theme }) => theme.gray[100]};
+  }
+
+  :last-of-type {
+    padding: 2rem;
+    display: flex;
+
+    button {
+      flex: 1;
+    }
+
+    @media screen and ${devices.lg} {
+      padding: 0;
+    }
   }
 `;
 
@@ -84,26 +96,37 @@ const StyledLink = styled(NavLink)`
   :hover {
     background: ${({ theme }) => theme.primary[400]};
   }
+
+  @media screen and ${devices.lg} {
+    padding: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 0;
+    border-radius: ${({ theme }) => theme.radius.regular};
+
+    :hover {
+      background: ${({ theme }) => theme.gray[100]};
+    }
+  }
 `;
 
 const Sidebar = () => {
   const dispatch = useDispatch();
 
+  const { isVisible, onToggle } = useModalState();
+
+  const handleToggleButton = () => onToggle();
+
   const logout = () => dispatch(userLogout());
-
-  const [visible, setVisible] = useState(false);
-
-  const handleButton = () => setVisible(!visible);
 
   return (
     <StyledSidebar>
       <TitleWrapper>
         <h3>Menu</h3>
-        <StyledButton onClick={handleButton} type='button' active={visible}>
-          <BsArrow90DegDown />
-        </StyledButton>
+        <button type='button' onClick={handleToggleButton}>
+          Show menu
+        </button>
       </TitleWrapper>
-      <StyledNav visible={visible}>
+      <StyledNav isVisible={isVisible}>
         <StyledList>
           <StyledItem>
             <StyledLink to='/konto'>Konto</StyledLink>
@@ -115,9 +138,7 @@ const Sidebar = () => {
             <StyledLink to='/konto/ustawienia'>Ustawienia</StyledLink>
           </StyledItem>
           <StyledItem>
-            <Button alt onClick={logout}>
-              Wyloguj
-            </Button>
+            <Button onClick={logout}>Wyloguj</Button>
           </StyledItem>
         </StyledList>
       </StyledNav>

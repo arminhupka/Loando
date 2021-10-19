@@ -12,13 +12,13 @@ const RegisterView = () => {
   return (
     <>
       <Helmet>
-        <title>Rejestracja | Loando</title>
+        <title>Kontakt | Loando</title>
       </Helmet>
       <MainLayout>
-        <PageHeading title='Rejestracja' />
+        <PageHeading title='Kontakt' />
         <Section>
           <Container>
-            <h1>Rejestracja</h1>
+            <h1>Kontakt</h1>
           </Container>
         </Section>
       </MainLayout>

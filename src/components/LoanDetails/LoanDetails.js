@@ -7,7 +7,7 @@ import devices from '../../utils/devices';
 import formatDate from '../../utils/formatDate';
 
 // Components
-import LinkButton from '../LinkButton/LinkButton';
+import Button from '../Button/Button';
 
 // Styled Componetns
 const ListWrapper = styled.div``;
@@ -57,7 +57,7 @@ const Data = styled.span`
   display: block;
 `;
 
-const LoanDetails = ({ data }) => (
+const LoanDetails = ({ data, onOpenModal }) => (
   <ListWrapper>
     <LoansList>
       <LoanItem>
@@ -109,9 +109,7 @@ const LoanDetails = ({ data }) => (
         </DataWrapper>
       </LoanItem>
       <LoanItem>
-        <LinkButton to={`/konto/pozyczka/splac/${data._id}`} full>
-          Spłać pożyczkę
-        </LinkButton>
+        <Button onClick={onOpenModal}>Spłać pożyczkę</Button>
       </LoanItem>
     </LoansList>
   </ListWrapper>
@@ -119,6 +117,7 @@ const LoanDetails = ({ data }) => (
 
 LoanDetails.propTypes = {
   data: PropTypes.objectOf(PropTypes.object).isRequired,
+  onOpenModal: PropTypes.func.isRequired,
 };
 
 export default LoanDetails;

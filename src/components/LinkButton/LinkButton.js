@@ -1,65 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const StyledLink = styled(Link)`
-  position: relative;
-  padding: 1.5rem 2rem;
+const LinkButton = styled(Link)`
   display: block;
+  padding: 1.4rem 2.4rem;
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   text-align: center;
-  text-transform: uppercase;
-  background: ${({ theme }) => theme.primary[400]};
-  border: none;
+  background: ${({ theme }) => theme.primary};
   border-radius: ${({ theme }) => theme.radius.regular};
   transition: color 0.3s, background 0.3s;
 
-  &::before {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1s, visibility 1s;
+  :hover {
+    background: ${({ theme }) => theme.primaryLight};
   }
 
-  &:hover {
-    background: ${({ theme }) => theme.primary[300]};
-  }
-
-  ${({ alt }) =>
-    alt &&
+  ${({ outline }) =>
+    outline &&
     css`
-      color: ${({ theme }) => theme.primary[400]};
+      color: ${({ theme }) => theme.primary};
       background: #fff;
+      border: 0.2rem solid ${({ theme }) => theme.primary};
 
-      &:hover {
-        background: ${({ theme }) => theme.gray[100]};
+      :hover {
+        background: #fff;
       }
     `}
 
-  ${({ full }) =>
-    full &&
-    css`
-      width: 100%;
-    `}
+  ${({ white }) => white && css``}
 `;
-
-const LinkButton = ({ children, to, alt, full }) => (
-  <StyledLink alt={alt} to={to} full={full}>
-    {children}
-  </StyledLink>
-);
-
-LinkButton.propTypes = {
-  children: PropTypes.node.isRequired,
-  to: PropTypes.string.isRequired,
-  alt: PropTypes.bool,
-  full: PropTypes.bool,
-};
-
-LinkButton.defaultProps = {
-  alt: false,
-  full: false,
-};
 
 export default LinkButton;

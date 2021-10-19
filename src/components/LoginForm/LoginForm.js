@@ -9,7 +9,6 @@ import { userLogin } from '../../actions/userActions';
 // Components
 import FormWrapper from '../FormWrapper/FormWrapper';
 import Button from '../Button/Button';
-import Label from '../Label/Label';
 import Input from '../Input/Input';
 import Loader from '../Loader/Loader';
 
@@ -24,15 +23,6 @@ const StyledForm = styled.form`
     :last-child {
       margin-bottom: 0;
     }
-  }
-`;
-
-const FormElement = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  ${Label} {
-    margin-bottom: 0.5rem;
   }
 `;
 
@@ -59,16 +49,10 @@ const LoginForm = () => {
   }
 
   return (
-    <FormWrapper title='Zaloguj'>
+    <FormWrapper title='Zaloguj się'>
       <StyledForm onSubmit={handleFormSubmit}>
-        <FormElement>
-          <Label>Adres email</Label>
-          <Input type='text' placeholder='Np. john.doe@example.com' value={email} onChange={(e) => setEmail(e.target.value)} />
-        </FormElement>
-        <FormElement>
-          <Label>Hasło</Label>
-          <Input type='password' placeholder='Podaj hasło' value={password} onChange={(e) => setPassword(e.target.value)} />
-        </FormElement>
+        <Input type='text' placeholder='Adres email' value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Input type='password' placeholder='Twoje hasło' value={password} onChange={(e) => setPassword(e.target.value)} />
         <Button type='submit'>Zaloguj</Button>
       </StyledForm>
     </FormWrapper>

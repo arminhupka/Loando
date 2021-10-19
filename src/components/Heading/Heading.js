@@ -10,7 +10,7 @@ const HeadingTitle = styled.h1`
   position: relative;
   padding-bottom: 2rem;
   font-size: 4rem;
-  border-bottom: 0.2rem solid ${({ theme }) => theme.primary[400]};
+  border-bottom: 0.2rem solid ${({ theme }) => theme.primary};
 `;
 
 const Heading = ({ title }) => (

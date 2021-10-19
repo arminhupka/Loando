@@ -26,7 +26,7 @@ const CalcWrapper = styled.div`
 const HeadWrapper = styled.div`
   padding: 2rem;
   color: #fff;
-  background: ${({ theme }) => theme.primary[400]};
+  background: ${({ theme }) => theme.primary};
 `;
 
 const ValuesWrapper = styled.div`
@@ -49,10 +49,6 @@ const TableWrapper = styled.div`
   flex-direction: column;
   color: #333;
   background: #fff;
-
-  ${LinkButton} {
-    width: 100%;
-  }
 `;
 
 const StyledList = styled.ul`

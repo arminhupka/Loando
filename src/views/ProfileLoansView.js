@@ -8,15 +8,20 @@ import api from '../utils/api';
 import AccountLayout from '../layouts/AccountLayout';
 
 // Components
-import LoansList from '../components/LoansList/LoansList';
 import Heading from '../components/Heading/Heading';
+import LoanCardsList from '../components/LoanCardsList/LoanCardsList';
+import Loader from '../components/Loader/Loader';
 
 const ProfileLoansView = () => {
   const [loans, setLoans] = useState(null);
 
   const getLoans = async () => {
-    const { data } = await api.get('/loan');
-    setLoans(data);
+    try {
+      const data = await api.get('/loan');
+      setLoans(data.data);
+    } catch (err) {
+      console.log(err.response);
+    }
   };
 
   useEffect(() => {
@@ -30,7 +35,7 @@ const ProfileLoansView = () => {
       </Helmet>
       <AccountLayout>
         <Heading title='Twoje pożyczki' />
-        {loans && <LoansList loans={loans} />}
+        {loans ? <LoanCardsList loans={loans} /> : <Loader />}
       </AccountLayout>
     </>
   );
