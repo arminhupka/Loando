@@ -25,7 +25,7 @@ const StyledHeader = styled.header`
   height: 10rem;
   background: #fff;
   border-bottom: 0.1rem solid ${({ theme }) => theme.gray[300]};
-  z-index: 1;
+  z-index: 2;
 
   ${({ fixed }) =>
     fixed &&
@@ -80,7 +80,9 @@ const ButtonsWrapper = styled.div`
     }
 
     :hover > div:last-of-type {
-      display: block;
+      //display: block;
+      visibility: visible;
+      opacity: 1;
     }
   }
 `;

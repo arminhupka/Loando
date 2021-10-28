@@ -52,7 +52,7 @@ const NavItem = styled.li`
   & > a {
     display: block;
     padding: 2rem;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #797979;
     font-weight: 500;
   }
@@ -182,7 +182,7 @@ const Nav = ({ isVisible, onClose }) => {
             )}
           </NavItem>
           <NavItem>
-            <NavLink onlyActiveOnIndex activeClassName='active' to='/'>
+            <NavLink activeClassName='active' to='/'>
               Strona główna
             </NavLink>
           </NavItem>

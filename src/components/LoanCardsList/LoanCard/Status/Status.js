@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import styled, { css } from 'styled-components';
 
 // Styled Components
 const StatusWrapper = styled.div`
@@ -24,8 +25,15 @@ const Diod = styled.div`
   position: relative;
   width: 1rem;
   height: 1rem;
-  background: ${({ theme }) => theme.alert.success};
+  background: ${({ theme }) => theme.alert.error};
   border-radius: 50%;
+  z-index: 1;
+
+  ${({ active }) =>
+    active &&
+    css`
+      background: ${({ theme }) => theme.alert.success};
+    `}
 `;
 
 const DiodShadow = styled.div`
@@ -35,18 +43,29 @@ const DiodShadow = styled.div`
   width: 1rem;
   height: 1rem;
   display: block;
-  background: ${({ theme }) => theme.alert.success};
+  background: ${({ theme }) => theme.alert.error};
   filter: blur(2px);
+  z-index: 0;
+
+  ${({ active }) =>
+    active &&
+    css`
+      background: ${({ theme }) => theme.alert.success};
+    `}
 `;
 
-const Status = () => (
+const Status = ({ isActive }) => (
   <StatusWrapper>
     <DiodWrapper>
-      <Diod />
-      <DiodShadow />
+      <Diod active={isActive} />
+      <DiodShadow active={isActive} />
     </DiodWrapper>
-    <StatusText>Aktywna</StatusText>
+    {isActive ? <StatusText>Aktywna</StatusText> : <StatusText>Zamknięta</StatusText>}
   </StatusWrapper>
 );
+
+Status.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+};
 
 export default Status;

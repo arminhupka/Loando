@@ -1,50 +1,65 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 
 // Components
+import { Col, Row } from '../../styles/GlobalStyle';
 import Modal from '../Modal/Modal';
 import Input from '../Input/Input';
-import Button from '../Button/Button';
 
 // Styled Components
-const StyledForm = styled.form`
+const Content = styled.div`
   display: flex;
   flex-direction: column;
-
-  & > * {
-    margin-bottom: 1rem;
-    :last-child {
-      margin-bottom: 0;
-    }
-  }
 `;
 
-const PayLoanModal = ({ onClose }) => {
-  const currentLoan = useSelector((state) => state.loanReducer.currentLoan.data);
+const StyledFigure = styled.figure`
+  margin-top: 2rem;
+`;
 
-  const [value, setValue] = useState(currentLoan.toPay - currentLoan.paid);
-
-  const handleRangeInput = (e) => setValue(e.target.value);
-
-  const handleForm = (e) => {
-    e.preventDefault();
-  };
-
+const PayLoanModal = ({ loanId, onClose }) => {
   return (
-    <Modal onClose={onClose} title='Spłacasz pożyczkę'>
-      <StyledForm onSubmit={handleForm}>
-        <input type='range' onChange={handleRangeInput} />
-        <Input value={value} />
-        <Button>Spłać</Button>
-      </StyledForm>
+    <Modal onClose={onClose} title='Spłać pożyczkę'>
+      <Content>
+        <p>Aby spłacić pożyczkę dokonaj wpłaty na swoje konto bankowe</p>
+        <StyledFigure>
+          <Row>
+            <Col>
+              <Input disabled value='Loando sp. z o.o.' />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Input disabled value='ul. Katowicka 61' />
+            </Col>
+            <Col>
+              <Input disabledt value='41-800' />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Input disabled value='Zabrze' />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Input disabled value='75 9243 3475 3462 3645 5884 6924' />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Input disabled value={`Spłata pożyczki ${loanId}`} />
+            </Col>
+          </Row>
+        </StyledFigure>
+      </Content>
     </Modal>
   );
 };
 
 PayLoanModal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  loanId: PropTypes.string.isRequired,
 };
 
 export default PayLoanModal;

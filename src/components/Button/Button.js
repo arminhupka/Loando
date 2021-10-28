@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 
-// TODO add different style
-
 const Button = styled.button`
+  display: block;
   position: relative;
   padding: 1.4rem 2.4rem;
   color: #fff;
@@ -24,6 +23,11 @@ const Button = styled.button`
       color: ${({ theme }) => theme.primary};
       background: transparent;
       border: 0.2rem solid ${({ theme }) => theme.primary};
+
+      :hover {
+        color: #fff;
+        background: ${({ theme }) => theme.primary};
+      }
     `}
 
   ${({ white }) =>
@@ -31,6 +35,12 @@ const Button = styled.button`
     css`
       color: #fff;
       border-color: #fff;
+    `}
+
+  ${({ full }) =>
+    full &&
+    css`
+      width: 100%;
     `}
 `;
 

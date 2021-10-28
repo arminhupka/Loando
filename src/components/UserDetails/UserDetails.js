@@ -12,7 +12,7 @@ const UserList = styled.ul``;
 
 const UserItem = styled.li`
   margin-bottom: 1rem;
-  border: 0.1rem solid ${({ theme }) => theme.primary[50]};
+  border: 0.2rem solid ${({ theme }) => theme.gray[300]};
   border-radius: ${({ theme }) => theme.radius.regular};
   overflow: hidden;
 
@@ -71,10 +71,28 @@ const UserDetails = ({ data }) => {
         </UserItem>
         <UserItem>
           <LabelWrapper>
+            <Data>Numer dowodu osobistego</Data>
+          </LabelWrapper>
+          <DataWrapper>
+            <Data>{data.id}</Data>
+          </DataWrapper>
+        </UserItem>
+        <UserItem>
+          <LabelWrapper>
+            <Data>Numer rachunku bankowego</Data>
+          </LabelWrapper>
+          <DataWrapper>
+            <Data>{!data.accountNumber ? <span>Nie wprowadzono</span> : data.accountNumber}</Data>
+          </DataWrapper>
+        </UserItem>
+        <UserItem>
+          <LabelWrapper>
             <Data>Adres</Data>
           </LabelWrapper>
           <DataWrapper>
-            <Data>{`${data.street}, ${data.postalCode}, ${data.city}`}</Data>
+            <Data>{`${data.street} ${data.houseNumber} ${data.flatNumber && `m. ${data.flatNumber}`}, ${data.postalCode
+              .toString()
+              .substr(0, 2)}-${data.postalCode.toString().substr(2)} ${data.city}`}</Data>
           </DataWrapper>
         </UserItem>
         <UserItem>
@@ -82,7 +100,7 @@ const UserDetails = ({ data }) => {
             <Data>Numer telefonu</Data>
           </LabelWrapper>
           <DataWrapper>
-            <Data>1</Data>
+            <Data>{data.phone}</Data>
           </DataWrapper>
         </UserItem>
         <UserItem>
@@ -99,7 +117,7 @@ const UserDetails = ({ data }) => {
 };
 
 UserDetails.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(Object).isRequired,
 };
 
 export default UserDetails;

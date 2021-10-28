@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
+import { useSelector } from 'react-redux';
 
 // Utils
 // import devices from '../utils/devices';
@@ -14,6 +15,7 @@ import Header from '../components/Header/Header';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Footer from '../components/Footer/Footer';
 import devices from '../utils/devices';
+import Alert from '../components/Alert/Alert';
 
 // Styled Components
 const StyledContainer = styled(Container)`
@@ -36,12 +38,17 @@ const Content = styled.main`
   padding: 2rem 0;
 `;
 
-const MainLayout = ({ children }) => {
+const AccountLayout = ({ children }) => {
+  const alerts = useSelector((state) => state.alertReducer);
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Header />
+        {alerts.map((alert, index) => (
+          <Alert key={alert.id} type={alert.type} message={alert.message} idx={index} />
+        ))}
         <StyledContainer>
           <Wrapper>
             <Sidebar />
@@ -54,9 +61,9 @@ const MainLayout = ({ children }) => {
   );
 };
 
-MainLayout.propTypes = {
+AccountLayout.propTypes = {
   // eslint-disable-next-line react/require-default-props
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.node.isRequired,
 };
 
-export default MainLayout;
+export default AccountLayout;

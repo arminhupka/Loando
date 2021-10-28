@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 // Styled Components
 const ProgressWrapper = styled.div`
@@ -30,17 +31,21 @@ const ProgressFill = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  width: 50%;
+  width: ${({ percent }) => `${percent}%`};
   height: 100%;
   background: ${({ theme }) => theme.primary};
   z-index: 2;
 `;
 
-const Progress = () => (
+const Progress = ({ percent }) => (
   <ProgressWrapper>
-    <ProgressFill />
+    <ProgressFill percent={percent} />
     <ProgressBody />
   </ProgressWrapper>
 );
+
+Progress.propTypes = {
+  percent: PropTypes.number.isRequired,
+};
 
 export default Progress;

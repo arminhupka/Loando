@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // Actions
 import { userLogin } from '../../actions/userActions';
@@ -10,7 +9,6 @@ import { userLogin } from '../../actions/userActions';
 import FormWrapper from '../FormWrapper/FormWrapper';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
-import Loader from '../Loader/Loader';
 
 // Styled Components
 const StyledForm = styled.form`
@@ -28,7 +26,7 @@ const StyledForm = styled.form`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.userReducer);
+  // const userState = useSelector((state) => state.userReducer);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,19 +38,25 @@ const LoginForm = () => {
     setPassword('');
   };
 
-  if (userState.isLoading) {
-    return <Loader />;
-  }
-
-  if (userState.isAuth) {
-    return <Redirect to='/konto' />;
-  }
-
   return (
     <FormWrapper title='Zaloguj się'>
       <StyledForm onSubmit={handleFormSubmit}>
-        <Input type='text' placeholder='Adres email' value={email} onChange={(e) => setEmail(e.target.value)} />
-        <Input type='password' placeholder='Twoje hasło' value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input
+          type='text'
+          name='email'
+          placeholder='Adres email'
+          value={email}
+          autoComplete='email'
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type='password'
+          name='password'
+          placeholder='Twoje hasło'
+          value={password}
+          autoComplete='current-password'
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <Button type='submit'>Zaloguj</Button>
       </StyledForm>
     </FormWrapper>

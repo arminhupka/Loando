@@ -16,7 +16,7 @@ const LoansList = styled.ul``;
 
 const LoanItem = styled.li`
   margin-bottom: 1rem;
-  border: 0.1rem solid ${({ theme }) => theme.primary[50]};
+  border: 0.2rem solid ${({ theme }) => theme.gray[300]};
   border-radius: ${({ theme }) => theme.radius.regular};
   overflow: hidden;
 
@@ -109,14 +109,16 @@ const LoanDetails = ({ data, onOpenModal }) => (
         </DataWrapper>
       </LoanItem>
       <LoanItem>
-        <Button onClick={onOpenModal}>Spłać pożyczkę</Button>
+        <Button full onClick={onOpenModal}>
+          Spłać pożyczkę
+        </Button>
       </LoanItem>
     </LoansList>
   </ListWrapper>
 );
 
 LoanDetails.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(Object).isRequired,
   onOpenModal: PropTypes.func.isRequired,
 };
 

@@ -7,19 +7,18 @@ import MainLayout from '../layouts/MainLayout';
 // Components
 import { Container, Section } from '../styles/GlobalStyle';
 import PageHeading from '../components/PageHeading/PageHeading';
-import RegisterForm from '../components/RegisterForm/RegisterForm';
 
-const RegisterView = () => {
+const OfferView = () => {
   return (
     <>
       <Helmet>
-        <title>Rejestracja | Loando</title>
+        <title>Oferta | Loando</title>F
       </Helmet>
       <MainLayout>
-        <PageHeading title='Rejestracja' />
+        <PageHeading title='Oferta' />
         <Section>
           <Container>
-            <RegisterForm />
+            <h1>Oferta</h1>
           </Container>
         </Section>
       </MainLayout>
@@ -27,4 +26,4 @@ const RegisterView = () => {
   );
 };
 
-export default RegisterView;
+export default OfferView;

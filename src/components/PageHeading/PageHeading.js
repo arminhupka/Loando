@@ -50,7 +50,7 @@ const PageHeading = ({ title }) => (
 );
 
 PageHeading.propTypes = {
-  title: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default PageHeading;

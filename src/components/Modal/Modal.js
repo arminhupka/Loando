@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FaTimes } from 'react-icons/all';
 
 // Styled Components
 const ModalOverlay = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -14,8 +14,8 @@ const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
   background: rgba(0, 0, 0, 0.4);
+  z-index: 4;
 `;
 
 const ModalWrapper = styled.div`
@@ -45,19 +45,33 @@ const StyledButton = styled.button`
 
 const ModalBody = styled.div``;
 
-const Modal = ({ title, children, onClose }) => (
-  <ModalOverlay>
-    <ModalWrapper>
-      <ModalHeader>
-        <Title>{title}</Title>
-        <StyledButton onClick={onClose}>
-          <FaTimes />
-        </StyledButton>
-      </ModalHeader>
-      <ModalBody>{children}</ModalBody>
-    </ModalWrapper>
-  </ModalOverlay>
-);
+const Modal = ({ title, children, onClose }) => {
+  const handleModalClose = (e) => {
+    if (e.key === 'Escape') {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleModalClose);
+
+    return () => window.addEventListener('keyup', handleModalClose);
+  }, []);
+
+  return (
+    <ModalOverlay>
+      <ModalWrapper>
+        <ModalHeader>
+          <Title>{title}</Title>
+          <StyledButton onClick={onClose}>
+            <FaTimes />
+          </StyledButton>
+        </ModalHeader>
+        <ModalBody>{children}</ModalBody>
+      </ModalWrapper>
+    </ModalOverlay>
+  );
+};
 
 Modal.propTypes = {
   title: PropTypes.string.isRequired,

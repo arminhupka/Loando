@@ -7,16 +7,19 @@ import devices from '../../utils/devices';
 // Components
 import { Container } from '../../styles/GlobalStyle';
 import LoanCalc from '../LoanCalc/LoanCalc';
+import LinkButton from '../LinkButton/LinkButton';
 
 // Styled Components
 const HeroSection = styled.section``;
 
 const HeroWrapper = styled.div`
+  position: relative;
   padding: 5rem 0;
   width: 100%;
   background: url('https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80')
     no-repeat center;
   background-size: cover;
+  z-index: 1;
 
   @media screen and ${devices.lg} {
     padding: 20rem 0 5rem;
@@ -31,12 +34,11 @@ const TextWrapper = styled.div`
 `;
 
 const Title = styled.h1`
-  margin-bottom: 2rem;
   font-size: 4.2rem;
 `;
 
 const Text = styled.p`
-  margin-bottom: 1rem;
+  margin: 2rem 0;
   font-size: 1.8rem;
 
   @media screen and ${devices.lg} {
@@ -45,15 +47,27 @@ const Text = styled.p`
 `;
 
 const StyledContainer = styled(Container)`
+  position: relative;
   display: flex;
   flex-direction: column;
   color: #fff;
+  z-index: 1;
 
   @media screen and ${devices.lg} {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
   }
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 0;
 `;
 
 const Hero = () => (
@@ -66,10 +80,11 @@ const Hero = () => (
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam, delectus eum in ipsam itaque praesentium quam
             ratione recusandae velit?
           </Text>
-          <a to='/about'>Dowiedz się więcej</a>
+          <LinkButton to='/oferta'>Dowiedz się więcej</LinkButton>
         </TextWrapper>
         <LoanCalc />
       </StyledContainer>
+      <Overlay />
     </HeroWrapper>
   </HeroSection>
 );

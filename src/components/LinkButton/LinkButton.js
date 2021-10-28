@@ -18,16 +18,29 @@ const LinkButton = styled(Link)`
   ${({ outline }) =>
     outline &&
     css`
+      padding: 1.2rem 2.2rem;
       color: ${({ theme }) => theme.primary};
-      background: #fff;
+      background: transparent;
       border: 0.2rem solid ${({ theme }) => theme.primary};
 
       :hover {
-        background: #fff;
+        color: #fff;
+        background: ${({ theme }) => theme.primary};
       }
     `}
 
-  ${({ white }) => white && css``}
+  ${({ white }) =>
+    white &&
+    css`
+      color: #fff;
+      border-color: #fff;
+    `}
+
+  ${({ full }) =>
+    full &&
+    css`
+      width: 100%;
+    `}
 `;
 
 export default LinkButton;

@@ -14,10 +14,8 @@ import {
   LOAN_PAY_REQUEST,
   LOAN_PAY_SUCCESS,
   LOAN_PAY_FAILED,
+  LOAN_PAY_CLEAR,
 } from './types';
-
-// Actions
-import { addAlert } from './alertActions';
 
 export const setLoan = (days, value) => (dispatch) => {
   dispatch({
@@ -53,10 +51,6 @@ export const takeNewLoan = () => async (dispatch, getState) => {
       payload: data,
     });
   } catch (err) {
-    if (err.response && err.response.status === 400) {
-      dispatch(addAlert('Masz za dużo pożyczek', 'error'));
-    }
-
     dispatch({
       type: NEW_LOAN_FAILED,
     });
@@ -115,4 +109,10 @@ export const payLoan = (id, value) => async (dispatch) => {
       type: LOAN_PAY_FAILED,
     });
   }
+};
+
+export const cleanPaidLoan = () => (dispatch) => {
+  dispatch({
+    type: LOAN_PAY_CLEAR,
+  });
 };

@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux';
-
-// Actions
-import { addAlert } from '../actions/alertActions';
+import { Helmet } from 'react-helmet';
 
 // Utils
 import api from '../utils/api';
+
+// Actions
+import { addAlert, resetAlerts } from '../actions/alertActions';
 
 // Layout
 import AccountLayout from '../layouts/AccountLayout';
 
 // Components
 import Heading from '../components/Heading/Heading';
-import LoanCardsList from '../components/LoanCardsList/LoanCardsList';
-import Loader from '../components/Loader/Loader';
+import LoansList from '../components/LoansList/LoansList';
 
-const ProfileLoansView = () => {
+const AdminLoansView = () => {
   const dispatch = useDispatch();
 
-  const [loans, setLoans] = useState(null);
+  const [loans, setLoans] = useState([]);
 
-  const getLoans = async () => {
+  const getAllLoans = async () => {
     try {
-      const { data } = await api.get('/loan');
+      const { data } = await api.get('/loan/all');
       setLoans(data);
     } catch (err) {
       if (!err.response) {
@@ -41,20 +40,21 @@ const ProfileLoansView = () => {
   };
 
   useEffect(() => {
-    getLoans();
+    getAllLoans();
+    return () => dispatch(resetAlerts());
   }, []);
 
   return (
     <>
       <Helmet>
-        <title>Pożyczki | Loando</title>
+        <title>Moje Konto | Loando</title>
       </Helmet>
       <AccountLayout>
-        <Heading title='Twoje pożyczki' />
-        {loans ? <LoanCardsList loans={loans} /> : <Loader />}
+        <Heading title='Pożyczki' />
+        <LoansList loans={loans} />
       </AccountLayout>
     </>
   );
 };
 
-export default ProfileLoansView;
+export default AdminLoansView;

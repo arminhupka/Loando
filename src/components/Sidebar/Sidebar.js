@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useModalState from '../../hooks/useModalState';
 
 // Utils
@@ -111,6 +111,7 @@ const StyledLink = styled(NavLink)`
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const isAdmin = useSelector((state) => state.userReducer.data?.isAdmin);
 
   const { isVisible, onToggle } = useModalState();
 
@@ -128,18 +129,34 @@ const Sidebar = () => {
       </TitleWrapper>
       <StyledNav isVisible={isVisible}>
         <StyledList>
-          <StyledItem>
-            <StyledLink to='/konto'>Konto</StyledLink>
-          </StyledItem>
-          <StyledItem>
-            <StyledLink to='/konto/pozyczki'>Pożyczki</StyledLink>
-          </StyledItem>
-          <StyledItem>
-            <StyledLink to='/konto/ustawienia'>Ustawienia</StyledLink>
-          </StyledItem>
-          <StyledItem>
-            <Button onClick={logout}>Wyloguj</Button>
-          </StyledItem>
+          {isAdmin ? (
+            <>
+              <StyledItem>
+                <StyledLink to='/panel/pozyczki'>Pożyczki</StyledLink>
+              </StyledItem>
+              <StyledItem>
+                <StyledLink to='/panel/użytkownicy'>Użytkownicy</StyledLink>
+              </StyledItem>
+              <StyledItem>
+                <Button onClick={logout}>Wyloguj</Button>
+              </StyledItem>
+            </>
+          ) : (
+            <>
+              <StyledItem>
+                <StyledLink to='/konto/nowa-pozyczka'>Nowa pożyczka</StyledLink>
+              </StyledItem>
+              <StyledItem>
+                <StyledLink to='/konto/pozyczki'>Pożyczki</StyledLink>
+              </StyledItem>
+              <StyledItem>
+                <StyledLink to='/konto/ustawienia'>Ustawienia</StyledLink>
+              </StyledItem>
+              <StyledItem>
+                <Button onClick={logout}>Wyloguj</Button>
+              </StyledItem>
+            </>
+          )}
         </StyledList>
       </StyledNav>
     </StyledSidebar>

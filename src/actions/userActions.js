@@ -8,10 +8,15 @@ import {
   USER_REGISTER_FAILED,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_AUTH,
+  USER_AUTH_REQUEST,
+  USER_AUTH_SUCCESS,
   USER_CHANGE_PASSWORD_REQUEST,
   USER_CHANGE_PASSWORD_SUCCESS,
   USER_CHANGE_PASSWORD_FAILED,
+  USER_CHANGE_PASSWORD_RESET,
+  USER_BANK_CHANGE_REQUEST,
+  USER_BANK_CHANGE_FAILED,
+  USER_BANK_CHANGE_SUCCESS,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -42,6 +47,8 @@ export const userRegister = (email, password, firstName, lastName, pesel, street
       type: USER_REGISTER_SUCCESS,
       payload: data,
     });
+
+    dispatch(addAlert('Rejestracja zakończona pomyślnie', 'success'));
   } catch (err) {
     dispatch({
       type: USER_REGISTER_FAILED,
@@ -72,10 +79,6 @@ export const userLogin = (email, password) => async (dispatch) => {
       payload: data,
     });
   } catch (err) {
-    if (!err.response) {
-      dispatch(addAlert('Problem podczas łączenia z serwerem', 'error'));
-    }
-
     if (err.response && err.response.status === 404) {
       dispatch(addAlert('Nie ma takiego użytkownika lub hasło jest nieoprawne', 'warning'));
     }
@@ -93,6 +96,10 @@ export const userLogout = () => {
 };
 
 export const authUser = () => async (dispatch) => {
+  dispatch({
+    type: USER_AUTH_REQUEST,
+  });
+
   try {
     const { data } = await api({
       url: '/user/auth',
@@ -100,7 +107,7 @@ export const authUser = () => async (dispatch) => {
     });
 
     dispatch({
-      type: USER_AUTH,
+      type: USER_AUTH_SUCCESS,
       payload: data,
     });
   } catch (err) {
@@ -133,9 +140,47 @@ export const changePassword = (currentPassword, newPassword) => async (dispatch)
 
     dispatch(addAlert('Hasło zostało zmienione', 'success'));
   } catch (err) {
-    dispatch({
-      type: USER_CHANGE_PASSWORD_FAILED,
+    if (err.response.status === 403) {
+      dispatch({
+        type: USER_CHANGE_PASSWORD_FAILED,
+      });
+      dispatch(addAlert('Twoje obecne hasło jest nieprawidłowe', 'error'));
+    }
+  }
+};
+
+export const resetUserPasswordState = () => (dispatch) => {
+  dispatch({
+    type: USER_CHANGE_PASSWORD_RESET,
+  });
+};
+
+export const changeAccountNumber = (number) => async (dispatch) => {
+  dispatch({
+    type: USER_BANK_CHANGE_REQUEST,
+  });
+
+  try {
+    await api({
+      url: '/user/change-account-number',
+      method: 'PUT',
+      data: {
+        number,
+      },
     });
+
+    dispatch(authUser());
+
+    dispatch({
+      type: USER_BANK_CHANGE_SUCCESS,
+    });
+
+    dispatch(addAlert('Zmieniono numer rachunku', 'success'));
+  } catch (err) {
+    dispatch({
+      type: USER_BANK_CHANGE_FAILED,
+    });
+
     dispatch(addAlert('Wystąpił błąd podczas zmiany hasła', 'error'));
   }
 };

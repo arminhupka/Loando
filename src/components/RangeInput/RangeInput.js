@@ -43,6 +43,7 @@ const Input = styled.input.attrs({ type: 'range' })`
     //background: ${({ theme }) => theme.primaryDark};
     background: #fff;
     border-radius: 50%;
+    box-shadow: ${({ theme }) => theme.shadow};
   }
 
   ::-webkit-slider-container {

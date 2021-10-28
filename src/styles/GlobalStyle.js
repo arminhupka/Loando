@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import devices from '../utils/devices';
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -16,19 +17,21 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 2rem;
     color: #333;
   }
 
   a {
     text-decoration: none;
+    color: ${({ theme }) => theme.primary};
+    font-weight: 600;
   }
-  
+
   button {
     cursor: pointer;
   }
-  
+
   input {
     font-family: 'Poppins', sans-serif !important;
   }
@@ -74,6 +77,27 @@ export const Container = styled.div`
   max-width: 132rem;
   padding: 0 2.4rem;
   margin: 0 auto;
+`;
+
+export const Row = styled.div`
+  margin: 0 -1rem;
+  margin-bottom: 1rem;
+
+  @media screen and ${devices.md} {
+    display: flex;
+  }
+`;
+
+export const Col = styled.div`
+  flex: 1;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and ${devices.md} {
+    margin-bottom: 0;
+  }
 `;
 
 export default GlobalStyle;

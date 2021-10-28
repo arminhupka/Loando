@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Loader from '../Loader/Loader';
+
+// Actions
+import { changePassword, resetUserPasswordState } from '../../actions/userActions';
 
 // Styled Components
 const StyledForm = styled.form`
@@ -15,6 +19,7 @@ const StyledForm = styled.form`
 
   & > * {
     margin-bottom: 1rem;
+
     :last-child {
       margin-bottom: 0;
     }
@@ -27,8 +32,12 @@ const ErrorMessage = styled.p`
 `;
 
 const ChangePasswordModal = ({ onClose }) => {
+  const passwordState = useSelector((state) => state.userReducer.passwordChange);
+
+  const dispatch = useDispatch();
+
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState();
+  const [currentPassword, setCurrentPassword] = useState('');
   const [password, setPassword] = useState('');
   const [verifyPw, setVerifyPw] = useState('');
 
@@ -38,31 +47,49 @@ const ChangePasswordModal = ({ onClose }) => {
 
     setError('');
 
-    if (!password || !verifyPw) {
-      return setError('Musisz wypełnić oba pola');
+    if (!currentPassword || !password || !verifyPw) {
+      return setError('Musisz wypełnić wszystkie pola');
     }
 
     if (password.length < 5) {
-      return setError('Hasło jest za krótkie');
+      return setError('Nowe hasło jest za krótkie');
     }
 
     if (password !== verifyPw) {
-      return setError('Hasła nie są identyczne');
+      return setError('Nowe hasła nie są identyczne');
     }
 
-    setLoading(true);
+    dispatch(changePassword(currentPassword, password));
+
+    setCurrentPassword('');
+    setPassword('');
+    setVerifyPw('');
   };
+
+  useEffect(() => {
+    if (passwordState.isChanged) {
+      onClose();
+      dispatch(resetUserPasswordState());
+    }
+  }, [passwordState]);
 
   return (
     <Modal title='Zmiana hasła' onClose={onClose}>
-      {loading ? (
+      {passwordState.isLoading ? (
         <Loader />
       ) : (
         <StyledForm onSubmit={(e) => handlePasswordChange(e)}>
           <Input
             error={error}
             type='password'
-            placeholder='Stare hasło'
+            placeholder='Obecne hasło'
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+          />
+          <Input
+            error={error}
+            type='password'
+            placeholder='Nowe hasło'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

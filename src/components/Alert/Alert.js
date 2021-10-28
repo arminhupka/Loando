@@ -5,19 +5,20 @@ import PropTypes from 'prop-types';
 // Styled Components
 const AlertWrapper = styled.div`
   position: fixed;
-  width: 100%;
   max-width: 90%;
   // bottom: calc(5rem * ${({ position }) => position + 0.4});
   bottom: 5rem;
   left: 50%;
-  padding: 1rem 3rem;
+  padding: 1.4rem 2.4rem;
   display: block;
   font-weight: 600;
   text-align: center;
   color: #fff;
   background: red;
   border-radius: ${({ theme }) => theme.radius.regular};
+  box-shadow: ${({ theme }) => theme.shadow};
   transform: translateX(-50%);
+  z-index: 20;
 
   ${({ type }) => {
     switch (type) {

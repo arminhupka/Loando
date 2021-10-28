@@ -7,10 +7,11 @@ import formatDate, { countDays } from '../../utils/formatDate';
 import devices from '../../utils/devices';
 
 // Components
+import LinkButton from '../LinkButton/LinkButton';
 
 // Styled Components
 const ListWrapper = styled.div`
-  border: 0.1rem solid ${({ theme }) => theme.primary[50]};
+  border: 0.1rem solid ${({ theme }) => theme.gray[400]};
   border-radius: ${({ theme }) => theme.radius.regular};
   overflow: hidden;
 `;
@@ -21,9 +22,9 @@ const StyledTable = styled.table`
   border-collapse: collapse;
   table-layout: fixed;
 
-  //& > * {
-  //  display: block;
-  //}
+  & > * {
+    display: block;
+  }
 
   @media screen and ${devices.lg} {
     width: 100%;
@@ -37,10 +38,12 @@ const StyledHead = styled.thead`
   left: -9999rem;
 
   @media screen and ${devices.lg} {
+    display: table-header-group;
     position: relative;
-    top: initial;
-    left: initial;
-    background: ${({ theme }) => theme.primary[400]};
+    top: 0;
+    left: 0;
+    background: aqua;
+    background: ${({ theme }) => theme.primary};
   }
 `;
 
@@ -56,6 +59,10 @@ const Body = styled.tbody`
 const StyledHeadTitle = styled.th`
   padding: 1rem 2rem;
   color: #fff;
+
+  @media screen and ${devices.lg} {
+    width: 100%;
+  }
 `;
 
 const StyledData = styled.td`
@@ -64,7 +71,7 @@ const StyledData = styled.td`
   padding: 2rem;
   text-align: right;
   border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.primary[50]};
+  border-bottom: 1px solid ${({ theme }) => theme.gray[300]};
 
   :last-child {
     border-bottom: none;
@@ -109,13 +116,15 @@ const StyledData = styled.td`
   }
 `;
 
+const HeadRow = styled.tr`
+  width: 100%;
+`;
+
 const Row = styled.tr`
   display: block;
   width: 100%;
   :nth-child(even) {
-    background: ${({ theme }) => theme.primary[50]};
     ${StyledData} {
-      border-bottom: 1px solid ${({ theme }) => theme.gray[200]};
       :last-child {
         border-bottom: none;
       }
@@ -132,7 +141,7 @@ const LoansList = ({ loans }) => {
     <ListWrapper>
       <StyledTable>
         <StyledHead>
-          <tr>
+          <HeadRow>
             <StyledHeadTitle>ID</StyledHeadTitle>
             <StyledHeadTitle>Kwota</StyledHeadTitle>
             <StyledHeadTitle>Do spłaty</StyledHeadTitle>
@@ -140,7 +149,7 @@ const LoansList = ({ loans }) => {
             <StyledHeadTitle>Data spłaty</StyledHeadTitle>
             <StyledHeadTitle>Status</StyledHeadTitle>
             <StyledHeadTitle>Akcje</StyledHeadTitle>
-          </tr>
+          </HeadRow>
         </StyledHead>
         <Body>
           {loans.map((loan) => (
@@ -152,7 +161,7 @@ const LoansList = ({ loans }) => {
               <StyledData>{countDays(loan.createdAt, loan.days)}</StyledData>
               <StyledData>{loan.isActive ? 'Aktywna' : 'Zamknięta'}</StyledData>
               <StyledData>
-                <a to={`/konto/pozyczka/${loan._id}`}>Szczegóły</a>
+                <LinkButton to={`/konto/pozyczka/${loan._id}`}>Szczegóły</LinkButton>
               </StyledData>
             </Row>
           ))}

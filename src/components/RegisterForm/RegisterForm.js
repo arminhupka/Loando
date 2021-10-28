@@ -3,15 +3,71 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+// Utils
+import devices from '../../utils/devices';
+
 // Actions
 import { userRegister } from '../../actions/userActions';
 
 // Componetns
-import FormWrapper from '../FormWrapper/FormWrapper';
 import Input from '../Input/Input';
+import Button from '../Button/Button';
 
 // Styled Components
 const StyledForm = styled.form``;
+
+const Row = styled.div`
+  margin: 0 -2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  @media screen and ${devices.md} {
+    flex-direction: row;
+  }
+`;
+
+const Col = styled.div`
+  flex: 1 0 50%;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+
+  & > h2 {
+    margin-bottom: 2rem;
+  }
+
+  :first-child {
+    border-right: 0.1rem solid ${({ theme }) => theme.gray[300]};
+  }
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  input {
+    margin-bottom: 1rem;
+  }
+
+  input:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const LoginInfoWrapper = styled.div`
+  padding: 2rem 2rem;
+  background: ${({ theme }) => theme.gray[100]};
+  border-radius: ${({ theme }) => theme.radius.regular};
+
+  h2 {
+    margin-bottom: 2rem;
+    color: ${({ theme }) => theme.primary};
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  margin-top: 2rem;
+`;
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -20,18 +76,30 @@ const RegisterForm = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [repeatedEmail, setRepeatedEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [pesel, setPesel] = useState('');
+  const [pesel, setPesel] = useState(null);
+  const [idInfo, setIdInfo] = useState('');
+  const [phone, setPhone] = useState(null);
+
   const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
+  const [homeNumber, setHomeNumber] = useState(null);
+  const [flatNumber, setFlatNumber] = useState(null);
+  const [city, setCity] = useState(null);
   const [postalCode, setPostalCode] = useState('');
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+
+  // eslint-disable-next-line consistent-return
+  const handleForm = (e) => {
+    e.preventDefault();
+    dispatch(userRegister(email, password, firstName, lastName, pesel, street, city, postalCode));
+  };
 
   // eslint-disable-next-line consistent-return
   const handleInput = (e) => {
     const { name, value } = e.target;
+
     switch (name) {
       case 'firstName': {
         setFirstName(value);
@@ -41,28 +109,28 @@ const RegisterForm = () => {
         setLastName(value);
         break;
       }
-      case 'email': {
-        setEmail(value);
-        break;
-      }
-      case 'repeatedEmail': {
-        setRepeatedEmail(value);
-        break;
-      }
-      case 'password': {
-        setPassword(value);
-        break;
-      }
-      case 'passwordConfirm': {
-        setPasswordConfirm(value);
-        break;
-      }
       case 'pesel': {
         setPesel(value);
         break;
       }
+      case 'idInfo': {
+        setIdInfo(value);
+        break;
+      }
+      case 'phone': {
+        setPhone(value);
+        break;
+      }
       case 'street': {
         setStreet(value);
+        break;
+      }
+      case 'homeNumber': {
+        setHomeNumber(value);
+        break;
+      }
+      case 'flatNumber': {
+        setFlatNumber(value);
         break;
       }
       case 'city': {
@@ -73,16 +141,22 @@ const RegisterForm = () => {
         setPostalCode(value);
         break;
       }
+      case 'email': {
+        setEmail(value);
+        break;
+      }
+      case 'password': {
+        setPassword(value);
+        break;
+      }
+      case 'repeatPassword': {
+        setRepeatPassword(value);
+        break;
+      }
       default: {
         return null;
       }
     }
-  };
-
-  // eslint-disable-next-line consistent-return
-  const handleForm = (e) => {
-    e.preventDefault();
-    dispatch(userRegister(email, password, firstName, lastName, pesel, street, city, postalCode));
   };
 
   if (userState.isLoading) {
@@ -94,21 +168,51 @@ const RegisterForm = () => {
   }
 
   return (
-    <FormWrapper title='Rejestracja'>
-      <StyledForm onSubmit={handleForm}>
-        <Input name='firstName' type='text' placeholder='Imię' value={firstName} onChange={handleInput} />
-        <Input name='lastName' type='text' placeholder='Nazwisko' value={lastName} onChange={handleInput} />
-        <Input name='email' type='text' placeholder='Adres email' value={email} onChange={handleInput} />
-        <Input name='repeatedEmail' type='text' placeholder='Powtórz email' value={repeatedEmail} onChange={handleInput} />
-        <Input name='password' type='text' placeholder='Hasło' value={password} onChange={handleInput} />
-        <Input name='passwordConfirm' type='text' placeholder='Powtórz hasło' value={passwordConfirm} onChange={handleInput} />
-        <Input name='pesel' type='text' placeholder='PESEL' value={pesel} onChange={handleInput} />
-        <Input name='street' type='text' placeholder='Ulica' value={street} onChange={handleInput} />
-        <Input name='city' type='text' placeholder='Miasto' value={city} onChange={handleInput} />
-        <Input name='postalCode' type='text' placeholder='Kod Pocztowy' value={postalCode} onChange={handleInput} />
-        <button type='submit'>Zarejestruj</button>
-      </StyledForm>
-    </FormWrapper>
+    <StyledForm onSubmit={handleForm}>
+      <Row>
+        <Col>
+          <h2>Twoje dane</h2>
+          <InputWrapper>
+            <Input placeholder='Imię' name='firstName' value={firstName} onChange={handleInput} />
+            <Input placeholder='Nazwisko' name='lastName' value={lastName} onChange={handleInput} />
+            <Input placeholder='PESEL' name='pesel' value={pesel} onChange={handleInput} />
+            <Input placeholder='Seria i numer dowodu osobistego' name='idInfo' value={idInfo} onChange={handleInput} />
+            <Input placeholder='Numer telefonu' name='phone' value={phone} onChange={handleInput} />
+          </InputWrapper>
+        </Col>
+        <Col>
+          <h2>Dane adresowe</h2>
+          <InputWrapper>
+            <Input placeholder='Ulica' name='street' value={street} onChange={handleInput} />
+            <Input placeholder='Numer domu' name='homeNumber' value={homeNumber} onChange={handleInput} />
+            <Input placeholder='Numer lokalu' name='flatNumber' value={flatNumber} onChange={handleInput} />
+            <Input placeholder='Miasto' name='city' value={city} onChange={handleInput} />
+            <Input placeholder='Kod pocztowy' name='postalCode' value={postalCode} onChange={handleInput} />
+          </InputWrapper>
+        </Col>
+        <Col>
+          <LoginInfoWrapper>
+            <h2>Dane do logowania</h2>
+            <InputWrapper>
+              <Input placeholder='Adres E-mail' name='email' value={email} onChange={handleInput} />
+              <Input type='password' placeholder='Hasło' name='password' value={password} onChange={handleInput} />
+              <Input
+                type='password'
+                placeholder='Potwórz hasło'
+                name='repeatPassword'
+                value={repeatPassword}
+                onChange={handleInput}
+              />
+            </InputWrapper>
+          </LoginInfoWrapper>
+          <ButtonWrapper>
+            <Button type='submit' full>
+              Zarejestruj się
+            </Button>
+          </ButtonWrapper>
+        </Col>
+      </Row>
+    </StyledForm>
   );
 };
 

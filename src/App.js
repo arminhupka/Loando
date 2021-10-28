@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet';
 
 // Utils
 import setAuthToken from './utils/setAuthToken';
@@ -14,6 +13,7 @@ import { authUser } from './actions/userActions';
 import HomeView from './views/HomeView';
 import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
+import AdminLoansView from './views/AdminLoansView';
 import ProfileView from './views/ProfileView';
 import ProfileLoansView from './views/ProfileLoansView';
 import ProfileLoanPay from './views/ProfileLoanPay';
@@ -22,6 +22,7 @@ import ProfileChangePassword from './views/ProfileChangePassword';
 import ProfileDecisionView from './views/ProfileDecisionView';
 import LoanDetailsView from './views/LoanDetailsView';
 import ContactView from './views/ContactView';
+import OfferView from './views/OfferView';
 import NoPageView from './views/NoPageView';
 
 export default () => {
@@ -38,16 +39,15 @@ export default () => {
 
   return (
     <>
-      <Helmet>
-        <meta name='theme-color' content='#263d6e' />
-      </Helmet>
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={HomeView} />
           <Route exact path='/rejestracja' component={RegisterView} />
           <Route exact path='/zaloguj' component={LoginView} />
+          <Route exact path='/oferta' component={OfferView} />
           <Route exact path='/kontakt' component={ContactView} />
-          <PrivateRoute exact path='/konto' component={ProfileView} />
+          <PrivateRoute exact path='/panel/pozyczki' component={AdminLoansView} />
+          <PrivateRoute exact path='/konto/nowa-pozyczka' component={ProfileView} />
           <PrivateRoute exact path='/konto/pozyczki' component={ProfileLoansView} />
           <PrivateRoute exact path='/konto/pozyczka/:id' component={LoanDetailsView} />
           <PrivateRoute exact path='/konto/pozyczka/splac/:id' component={ProfileLoanPay} />

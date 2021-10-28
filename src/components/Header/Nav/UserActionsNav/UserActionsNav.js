@@ -12,7 +12,10 @@ const UserNavWrapper = styled.div`
   width: 30rem;
   top: 100%;
   right: 0;
-  display: none;
+  //display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
 `;
 
 const UserNavList = styled.ul`

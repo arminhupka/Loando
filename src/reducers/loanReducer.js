@@ -2,6 +2,7 @@ import {
   LOAN_DETAILS_FAILED,
   LOAN_DETAILS_REQUEST,
   LOAN_DETAILS_SUCCESS,
+  LOAN_PAY_CLEAR,
   LOAN_PAY_FAILED,
   LOAN_PAY_REQUEST,
   LOAN_PAY_SUCCESS,
@@ -128,6 +129,7 @@ const loanReducer = (state = initialState, action) => {
         },
       };
     }
+    case LOAN_PAY_CLEAR:
     case LOAN_PAY_FAILED: {
       return {
         ...state,

@@ -6,10 +6,12 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILED,
   USER_LOGOUT,
-  USER_AUTH,
   USER_CHANGE_PASSWORD_REQUEST,
   USER_CHANGE_PASSWORD_SUCCESS,
   USER_CHANGE_PASSWORD_FAILED,
+  USER_CHANGE_PASSWORD_RESET,
+  USER_AUTH_REQUEST,
+  USER_AUTH_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
@@ -17,6 +19,11 @@ const initialState = {
   token: null,
   isLoading: false,
   isAuth: false,
+  passwordChange: {
+    isLoading: false,
+    isChanged: false,
+    isFailed: false,
+  },
 };
 
 const userReducer = (state = initialState, action) => {
@@ -49,6 +56,7 @@ const userReducer = (state = initialState, action) => {
     }
     case USER_LOGIN_SUCCESS: {
       return {
+        ...state,
         data: payload,
         token: payload.token,
         isLoading: false,
@@ -74,21 +82,45 @@ const userReducer = (state = initialState, action) => {
     case USER_CHANGE_PASSWORD_REQUEST: {
       return {
         ...state,
-        isLoading: true,
+        passwordChange: {
+          ...state.passwordChange,
+          isLoading: true,
+        },
       };
     }
-    case USER_CHANGE_PASSWORD_SUCCESS:
+    case USER_CHANGE_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        passwordChange: {
+          ...state.passwordChange,
+          isLoading: false,
+          isChanged: true,
+        },
+      };
+    }
+    case USER_CHANGE_PASSWORD_RESET:
     case USER_CHANGE_PASSWORD_FAILED: {
       return {
         ...state,
-        isLoading: false,
+        passwordChange: {
+          isLoading: false,
+          isChanged: false,
+          isFailed: true,
+        },
       };
     }
-    case USER_AUTH: {
+    case USER_AUTH_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case USER_AUTH_SUCCESS: {
       return {
         ...state,
         data: payload,
         isAuth: true,
+        isLoading: false,
       };
     }
     default: {

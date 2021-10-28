@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 // Utils
 import devices from '../utils/devices';
@@ -18,6 +19,7 @@ import LoginForm from '../components/LoginForm/LoginForm';
 import Alert from '../components/Alert/Alert';
 import PageHeading from '../components/PageHeading/PageHeading';
 import LinkButton from '../components/LinkButton/LinkButton';
+import Loader from '../components/Loader/Loader';
 
 // Styled Components
 const Row = styled.div`
@@ -57,10 +59,19 @@ const LoginView = () => {
   const dispatch = useDispatch();
 
   const alertsState = useSelector((state) => state.alertReducer);
+  const userState = useSelector((state) => state.userReducer);
 
   useEffect(() => {
     return () => dispatch(resetAlerts());
   }, []);
+
+  if (userState.isAuth && userState.data.isAdmin) {
+    return <Redirect to='/panel/pozyczki' />;
+  }
+
+  if (userState.isAuth) {
+    return <Redirect to='/konto/nowa-pozyczka' />;
+  }
 
   return (
     <>
@@ -73,20 +84,24 @@ const LoginView = () => {
         ))}
         <PageHeading title='Zaloguj' />
         <Section>
-          <Container>
-            <Row>
-              <Column>
-                <LoginForm />
-              </Column>
-              <Column>
-                <h2>Nie masz konta?</h2>
-                <p>Zarejestruj się i złóż wniosek o pierwszą pożyczkę. 3000 zł to maksymalna wysokość pierwszej pożyczki.</p>
-                <LinkButton outline to='/rejestracja'>
-                  Zarejestruj się
-                </LinkButton>
-              </Column>
-            </Row>
-          </Container>
+          {userState.isLoading ? (
+            <Loader />
+          ) : (
+            <Container>
+              <Row>
+                <Column>
+                  <LoginForm />
+                </Column>
+                <Column>
+                  <h2>Nie masz konta?</h2>
+                  <p>Zarejestruj się i złóż wniosek o pierwszą pożyczkę. 3000 zł to maksymalna wysokość pierwszej pożyczki.</p>
+                  <LinkButton outline to='/rejestracja'>
+                    Zarejestruj się
+                  </LinkButton>
+                </Column>
+              </Row>
+            </Container>
+          )}
         </Section>
       </MainLayout>
     </>

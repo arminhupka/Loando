@@ -1,6 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+
+// Utils
+import { countDays, daysToPay } from '../../../utils/formatDate';
 
 // Components
 import LinkButton from '../../LinkButton/LinkButton';
@@ -22,6 +25,21 @@ const CardWrapper = styled.div`
   span {
     display: block;
   }
+
+  ${({ isActive }) =>
+    !isActive &&
+    css`
+      opacity: 0.5;
+
+      :hover {
+        opacity: 1;
+      }
+    `}
+`;
+
+const ErrorMessage = styled.span`
+  color: ${({ theme }) => theme.alert.error};
+  font-weight: 600;
 `;
 
 const Title = styled.span`
@@ -38,16 +56,24 @@ const LoanValue = styled.span`
   line-height: 4.7rem;
 `;
 
-const LoanCard = ({ data }) => (
-  <CardWrapper>
-    <Status />
-    <Title>Do spłaty zostało</Title>
-    <LoanValue>{data.toPay} PLN</LoanValue>
-    <Progress />
-    <LinkButton to={`/konto/pozyczka/${data._id}`}>Szczegóły</LinkButton>
-  </CardWrapper>
-);
-
+const LoanCard = ({ data }) => {
+  return (
+    <CardWrapper isActive={data.isActive}>
+      <Status isActive={data.isActive} />
+      <Title>Do spłaty pozostało</Title>
+      {!data.isActive ? <LoanValue>Opłacono w całości</LoanValue> : <LoanValue>{data.toPay - data.paid} PLN</LoanValue>}
+      {daysToPay(data.createdAt, data.days) < 0 ? (
+        <ErrorMessage>Jesteś {daysToPay(data.createdAt, data.days).toString().substr(1)} dni po terminie.</ErrorMessage>
+      ) : (
+        <span>
+          Termin spłaty {countDays(data.createdAt, data.days)} ({daysToPay(data.createdAt, data.days)} dni)
+        </span>
+      )}
+      <Progress percent={(data.paid / data.toPay) * 100} />
+      <LinkButton to={`/konto/pozyczka/${data._id}`}>Szczegóły</LinkButton>
+    </CardWrapper>
+  );
+};
 LoanCard.propTypes = {
   data: PropTypes.instanceOf(Object).isRequired,
 };
