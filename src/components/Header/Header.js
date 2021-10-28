@@ -17,6 +17,7 @@ import { Container } from '../../styles/GlobalStyle';
 import Nav from './Nav/Nav';
 import LinkButton from '../LinkButton/LinkButton';
 import UserActionsNav from './Nav/UserActionsNav/UserActionsNav';
+import AdminActionNav from './Nav/AdminActionNav/AdminActionNav';
 import UserLink from './Nav/UserLink/UserLink';
 import Branding from '../Branding/Branding';
 
@@ -103,6 +104,7 @@ const HamburgerButton = styled.button`
 
 const Header = ({ fixed }) => {
   const isAuth = useSelector((state) => state.userReducer.isAuth);
+  const isAdmin = useSelector((state) => state.userReducer.data?.isAdmin);
 
   const { isVisible, onToggle, onClose } = useModalState(false);
 
@@ -124,7 +126,8 @@ const Header = ({ fixed }) => {
           ) : (
             <>
               <UserLink />
-              <UserActionsNav />
+              {!isAdmin && <UserActionsNav />}
+              {isAdmin && <AdminActionNav />}
             </>
           )}
         </ButtonsWrapper>
