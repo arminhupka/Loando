@@ -21,7 +21,8 @@ const Ruler = styled.div`
 const Line = styled.span`
   height: 100%;
   width: 0.1rem;
-  background: ${({ theme }) => theme.primaryDark};
+  background: #fff;
+  opacity: 0.5;
 
   &:nth-child(even) {
     height: 75%;
@@ -37,18 +38,20 @@ const Input = styled.input.attrs({ type: 'range' })`
 
   ::-webkit-slider-thumb {
     -webkit-appearance: none;
+    position: relative;
     display: block;
     width: 2rem;
     height: 2rem;
-    //background: ${({ theme }) => theme.primaryDark};
-    background: #fff;
+    background: ${({ theme }) => theme.primary};
+    border: 0.2rem solid #fff;
     border-radius: 50%;
     box-shadow: ${({ theme }) => theme.shadow};
   }
 
   ::-webkit-slider-container {
-    height: 0.4rem;
+    height: 1rem;
     background: ${({ theme }) => theme.primaryDark};
+    border-radius: ${({ theme }) => theme.radius.regular};
   }
 
   ::-ms-track {
@@ -60,21 +63,23 @@ const Input = styled.input.attrs({ type: 'range' })`
 
 const RangeInput = ({ ruler, ...props }) => {
   const lines = props.max / props.step;
+  const linesElementsCounter = [];
 
   const generateLines = () => {
-    const elements = [];
-    for (let i = 0; i < lines; i += 1) {
-      elements.push(<Line />);
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < lines; i++) {
+      linesElementsCounter.push(i);
     }
-    return elements;
   };
+
+  generateLines();
 
   return (
     <RangeInputWrapper>
       {ruler && (
         <Ruler>
-          {generateLines().map((line, idx) => (
-            <span key={idx}>{line}</span>
+          {linesElementsCounter.map((line) => (
+            <Line key={line} />
           ))}
         </Ruler>
       )}

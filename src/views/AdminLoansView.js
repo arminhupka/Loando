@@ -29,12 +29,12 @@ const AdminLoansView = () => {
         dispatch(addAlert('Brak połaczenia z serwerem', 'error'));
       }
 
-      if (err.response && err.response.status === 401) {
-        dispatch(addAlert('Sesja wygasła', 'error'));
-      }
-
       if (err.response) {
         dispatch(addAlert('Wystąpił błąd', 'error'));
+      }
+
+      if (err.response && err.response.status === 401) {
+        dispatch(addAlert('Sesja wygasła', 'error'));
       }
     }
   };

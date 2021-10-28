@@ -30,13 +30,24 @@ const HeadWrapper = styled.div`
 `;
 
 const ValuesWrapper = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
 `;
 
+const Header = styled.header`
+  margin-bottom: 4rem;
+`;
+
 const Title = styled.h3``;
+
+const InputWrapper = styled.div`
+  margin-bottom: 2rem;
+  :last-child {
+    margin-bottom: 0;
+  }
+`;
 
 const Value = styled.span`
   font-size: 3rem;
@@ -88,25 +99,31 @@ const LoanCalc = () => {
   return (
     <CalcWrapper>
       <HeadWrapper>
-        <h2>Ile kosztuje pożyczka?</h2>
-        <ValuesWrapper>
-          <Title>Chcesz pożyczyć</Title>
-          <Value>{loanValue} PLN</Value>
-        </ValuesWrapper>
-        <RangeInput value={loanValue} min={100} max={3000} step={100} onChange={handleLoanValueRange} ruler />
-        <ValuesWrapper>
-          <span>100</span>
-          <span>3000</span>
-        </ValuesWrapper>
-        <ValuesWrapper>
-          <Title>Na okres</Title>
-          <Value>{loanDays} dni</Value>
-        </ValuesWrapper>
-        <RangeInput value={loanDays} min={5} max={30} step={5} onChange={handleLoanDaysRange} ruler />
-        <ValuesWrapper>
-          <span>5</span>
-          <span>30</span>
-        </ValuesWrapper>
+        <Header>
+          <h2>Ile kosztuje pożyczka?</h2>
+        </Header>
+        <InputWrapper>
+          <ValuesWrapper>
+            <Title>Chcesz pożyczyć</Title>
+            <Value>{loanValue} PLN</Value>
+          </ValuesWrapper>
+          <RangeInput value={loanValue} min={100} max={3000} step={100} onChange={handleLoanValueRange} ruler />
+          <ValuesWrapper>
+            <span>100</span>
+            <span>3000</span>
+          </ValuesWrapper>
+        </InputWrapper>
+        <InputWrapper>
+          <ValuesWrapper>
+            <Title>Na okres</Title>
+            <Value>{loanDays} dni</Value>
+          </ValuesWrapper>
+          <RangeInput value={loanDays} min={5} max={30} step={5} onChange={handleLoanDaysRange} ruler />
+          <ValuesWrapper>
+            <span>5</span>
+            <span>30</span>
+          </ValuesWrapper>
+        </InputWrapper>
       </HeadWrapper>
       <TableWrapper>
         <h2>Całkowity koszt</h2>
