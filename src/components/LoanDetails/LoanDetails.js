@@ -20,10 +20,6 @@ const LoanItem = styled.li`
   border-radius: ${({ theme }) => theme.radius.regular};
   overflow: hidden;
 
-  :last-child {
-    border: none;
-  }
-
   @media screen and ${devices.lg} {
     display: flex;
   }
@@ -108,11 +104,13 @@ const LoanDetails = ({ data, onOpenModal }) => (
           <Data>{data.isActive ? 'Aktywna' : 'Zamknięta'}</Data>
         </DataWrapper>
       </LoanItem>
-      <LoanItem>
-        <Button full onClick={onOpenModal}>
-          Spłać pożyczkę
-        </Button>
-      </LoanItem>
+      {data.isActive && (
+        <LoanItem>
+          <Button full onClick={onOpenModal}>
+            Spłać pożyczkę
+          </Button>
+        </LoanItem>
+      )}
     </LoansList>
   </ListWrapper>
 );

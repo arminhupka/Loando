@@ -25,6 +25,7 @@ import ProfileCheckPaymentStatus from './views/ProfileCheckPaymentStatus';
 import LoanDetailsView from './views/LoanDetailsView';
 import ContactView from './views/ContactView';
 import OfferView from './views/OfferView';
+import Logout from './views/Logout';
 import NoPageView from './views/NoPageView';
 
 export default () => {
@@ -46,6 +47,7 @@ export default () => {
           <Route exact path='/' component={HomeView} />
           <Route exact path='/rejestracja' component={RegisterView} />
           <Route exact path='/zaloguj' component={LoginView} />
+          <Route exact path='/wyloguj' component={Logout} />
           <Route exact path='/oferta' component={OfferView} />
           <Route exact path='/kontakt' component={ContactView} />
           <PrivateRoute exact path='/panel/pozyczki' component={AdminLoansView} />

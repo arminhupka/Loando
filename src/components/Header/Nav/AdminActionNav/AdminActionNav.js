@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-
-// Actions
-import { userLogout } from '../../../../actions/userActions';
 
 // Styled Components
 const UserNavWrapper = styled.div`
@@ -42,10 +38,6 @@ const UserItem = styled.li`
 `;
 
 const AdminActionNav = () => {
-  const dispatch = useDispatch();
-
-  const logout = () => dispatch(userLogout());
-
   return (
     <UserNavWrapper>
       <UserNavList>
@@ -56,9 +48,7 @@ const AdminActionNav = () => {
           <Link to='/konto/uzytkownicy'>Użytkownicy</Link>
         </UserItem>
         <UserItem>
-          <a href='/' onClick={logout}>
-            Wyloguj
-          </a>
+          <Link to='/wyloguj'>Wyloguj</Link>
         </UserItem>
       </UserNavList>
     </UserNavWrapper>

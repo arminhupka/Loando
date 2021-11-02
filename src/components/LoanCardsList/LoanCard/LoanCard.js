@@ -17,6 +17,7 @@ const CardWrapper = styled.div`
   border: 0.1rem solid ${({ theme }) => theme.gray[300]};
   border-radius: ${({ theme }) => theme.radius.regular};
   box-shadow: ${({ theme }) => theme.shadow};
+  transition: filter 0.3s, opacity 0.3s;
 
   & > * {
     margin-bottom: 1rem;
@@ -29,10 +30,12 @@ const CardWrapper = styled.div`
   ${({ isActive }) =>
     !isActive &&
     css`
-      opacity: 0.5;
+      opacity: 0.3;
+      filter: grayscale();
 
       :hover {
         opacity: 1;
+        filter: none;
       }
     `}
 `;

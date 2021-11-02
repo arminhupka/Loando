@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     line-height: 2rem;
     color: #333;
   }
@@ -80,7 +80,7 @@ export const Container = styled.div`
 `;
 
 export const Row = styled.div`
-  margin: 0 -1rem;
+  margin: 0 -1.5rem;
   margin-bottom: 1rem;
 
   @media screen and ${devices.md} {
@@ -90,7 +90,7 @@ export const Row = styled.div`
 
 export const Col = styled.div`
   flex: 1;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;

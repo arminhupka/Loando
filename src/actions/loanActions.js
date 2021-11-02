@@ -21,6 +21,9 @@ import {
   LOAN_LIST_RESET,
 } from './types';
 
+// Actions
+import { addAlert } from './alertActions';
+
 export const setLoan = (days, value) => (dispatch) => {
   dispatch({
     type: LOAN_SET,
@@ -111,6 +114,10 @@ export const getLoansList = () => async (dispatch) => {
     dispatch({
       type: LOAN_LIST_FAILED,
     });
+
+    if (err.response.status === 401) {
+      dispatch(addAlert('Sesja wygasła', 'error'));
+    }
   }
 };
 

@@ -1,17 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import useModalState from '../../hooks/useModalState';
 
 // Utils
 import devices from '../../utils/devices';
 
-// Actions
-import { userLogout } from '../../actions/userActions';
-
 // Components
-import Button from '../Button/Button';
+import LinkButton from '../LinkButton/LinkButton';
 
 // Styled Components
 const StyledSidebar = styled.aside`
@@ -74,12 +71,9 @@ const StyledItem = styled.li`
   }
 
   :last-of-type {
+    color: #fff;
     padding: 2rem;
     display: flex;
-
-    button {
-      flex: 1;
-    }
 
     @media screen and ${devices.lg} {
       padding: 0;
@@ -110,14 +104,11 @@ const StyledLink = styled(NavLink)`
 `;
 
 const Sidebar = () => {
-  const dispatch = useDispatch();
   const isAdmin = useSelector((state) => state.userReducer.data?.isAdmin);
 
   const { isVisible, onToggle } = useModalState();
 
   const handleToggleButton = () => onToggle();
-
-  const logout = () => dispatch(userLogout());
 
   return (
     <StyledSidebar>
@@ -138,7 +129,7 @@ const Sidebar = () => {
                 <StyledLink to='/panel/użytkownicy'>Użytkownicy</StyledLink>
               </StyledItem>
               <StyledItem>
-                <Button onClick={logout}>Wyloguj</Button>
+                <LinkButton to='/wyloguj'>Wyloguj</LinkButton>
               </StyledItem>
             </>
           ) : (
@@ -156,7 +147,9 @@ const Sidebar = () => {
                 <StyledLink to='/konto/ustawienia'>Ustawienia</StyledLink>
               </StyledItem>
               <StyledItem>
-                <Button onClick={logout}>Wyloguj</Button>
+                <LinkButton full to='/wyloguj'>
+                  Wyloguj
+                </LinkButton>
               </StyledItem>
             </>
           )}

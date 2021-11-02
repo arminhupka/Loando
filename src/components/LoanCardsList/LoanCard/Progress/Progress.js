@@ -24,7 +24,6 @@ const ProgressBody = styled.div`
   align-items: center;
   justify-content: center;
   background: ${({ theme }) => theme.gray[300]};
-  z-index: 0;
 `;
 
 const ProgressFill = styled.div`
@@ -34,7 +33,7 @@ const ProgressFill = styled.div`
   width: ${({ percent }) => `${percent}%`};
   height: 100%;
   background: ${({ theme }) => theme.primary};
-  z-index: 2;
+  z-index: 1;
 `;
 
 const Progress = ({ percent }) => (

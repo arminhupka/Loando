@@ -111,17 +111,17 @@ const RegisterForm = () => {
       !password ||
       !repeatPassword
     ) {
-      dispatch(addAlert('Musisz uzupełnić formularz'));
+      dispatch(addAlert('Musisz uzupełnić formularz', 'warning'));
       return;
     }
 
     if (!idReg.test(idInfo)) {
-      dispatch(addAlert('Numer dowodu jest nieprawidłowy'));
+      dispatch(addAlert('Numer dowodu jest nieprawidłowy', 'warning'));
       return;
     }
 
     if (!peselReg.test(pesel)) {
-      dispatch(addAlert('Numer PESEL jest nieprawidłowy'));
+      dispatch(addAlert('Numer PESEL jest nieprawidłowy', 'warning'));
       return;
     }
 

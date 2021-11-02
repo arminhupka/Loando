@@ -6,10 +6,10 @@ const HeadingWrapper = styled.div`
   margin-bottom: 2rem;
 `;
 
-const HeadingTitle = styled.h1`
+const HeadingTitle = styled.h2`
   position: relative;
-  padding-bottom: 2rem;
-  font-size: 4rem;
+  padding-bottom: 1rem;
+  font-size: 3rem;
   border-bottom: 0.2rem solid ${({ theme }) => theme.primary};
 `;
 
