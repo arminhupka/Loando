@@ -110,23 +110,15 @@ export const authUser = () => async (dispatch) => {
     type: USER_AUTH_REQUEST,
   });
 
-  try {
-    const { data } = await api({
-      url: '/user/auth',
-      method: 'GET',
-    });
+  const { data } = await api({
+    url: '/user/auth',
+    method: 'GET',
+  });
 
-    dispatch({
-      type: USER_AUTH_SUCCESS,
-      payload: data,
-    });
-  } catch (err) {
-    if (err.response && err.response.status === 401) {
-      dispatch({
-        type: USER_LOGOUT,
-      });
-    }
-  }
+  dispatch({
+    type: USER_AUTH_SUCCESS,
+    payload: data,
+  });
 };
 
 export const changePassword = (currentPassword, newPassword) => async (dispatch) => {

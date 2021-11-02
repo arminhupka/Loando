@@ -149,7 +149,7 @@ const LoanCalc = () => {
             <span>{(rrso / 100) * 100}%</span>
           </StyledItem>
         </StyledList>
-        <LinkButton to='/konto'>Weź pożyczkę</LinkButton>
+        <LinkButton to='/konto/nowa-pozyczka'>Weź pożyczkę</LinkButton>
       </TableWrapper>
     </CalcWrapper>
   );

@@ -2,6 +2,10 @@ import {
   LOAN_DETAILS_FAILED,
   LOAN_DETAILS_REQUEST,
   LOAN_DETAILS_SUCCESS,
+  LOAN_LIST_FAILED,
+  LOAN_LIST_REQUEST,
+  LOAN_LIST_RESET,
+  LOAN_LIST_SUCCESS,
   LOAN_PAY_CLEAR,
   LOAN_PAY_FAILED,
   LOAN_PAY_REQUEST,
@@ -30,6 +34,10 @@ const initialState = {
   paidLoan: {
     data: null,
     isLoading: false,
+  },
+  loans: {
+    isLoading: false,
+    data: [],
   },
 };
 
@@ -137,6 +145,31 @@ const loanReducer = (state = initialState, action) => {
           data: null,
           isLoading: false,
         },
+      };
+    }
+    case LOAN_LIST_REQUEST: {
+      return {
+        ...state,
+        loans: {
+          ...state.loans,
+          isLoading: true,
+        },
+      };
+    }
+    case LOAN_LIST_SUCCESS: {
+      return {
+        ...state,
+        loans: {
+          isLoading: false,
+          data: payload,
+        },
+      };
+    }
+    case LOAN_LIST_RESET:
+    case LOAN_LIST_FAILED: {
+      return {
+        ...state,
+        loans: initialState.loans,
       };
     }
     default: {

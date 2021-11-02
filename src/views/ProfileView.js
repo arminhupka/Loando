@@ -31,10 +31,10 @@ const ProfileView = () => {
   return (
     <>
       <Helmet>
-        <title>Moje Konto | Loando</title>
+        <title>Nowa pożyczka | Loando</title>
       </Helmet>
       <AccountLayout>
-        <Heading title='Twoje konto' />
+        <Heading title='Nowa pożyczka' />
         {alertState.map((alert, index) => (
           <Alert type={alert.type} message={alert.message} idx={index} />
         ))}

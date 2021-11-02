@@ -144,6 +144,9 @@ const Sidebar = () => {
           ) : (
             <>
               <StyledItem>
+                <StyledLink to='/konto'>Twoje konto</StyledLink>
+              </StyledItem>
+              <StyledItem>
                 <StyledLink to='/konto/nowa-pozyczka'>Nowa pożyczka</StyledLink>
               </StyledItem>
               <StyledItem>

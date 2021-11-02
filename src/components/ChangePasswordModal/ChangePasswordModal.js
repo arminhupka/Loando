@@ -8,6 +8,7 @@ import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 // Actions
 import { changePassword, resetUserPasswordState } from '../../actions/userActions';
@@ -24,11 +25,6 @@ const StyledForm = styled.form`
       margin-bottom: 0;
     }
   }
-`;
-
-const ErrorMessage = styled.p`
-  font-weight: 600;
-  color: ${({ theme }) => theme.alert.error};
 `;
 
 const ChangePasswordModal = ({ onClose }) => {
@@ -100,7 +96,7 @@ const ChangePasswordModal = ({ onClose }) => {
             value={verifyPw}
             onChange={(e) => setVerifyPw(e.target.value)}
           />
-          <ErrorMessage>{error}</ErrorMessage>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
           <Button onClick={handlePasswordChange}>Zmień hasło</Button>
         </StyledForm>
       )}

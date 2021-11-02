@@ -70,7 +70,7 @@ const LoginView = () => {
   }
 
   if (userState.isAuth) {
-    return <Redirect to='/konto/nowa-pozyczka' />;
+    return <Redirect to='/konto' />;
   }
 
   return (

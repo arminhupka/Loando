@@ -15,6 +15,10 @@ import {
   LOAN_PAY_SUCCESS,
   LOAN_PAY_FAILED,
   LOAN_PAY_CLEAR,
+  LOAN_LIST_REQUEST,
+  LOAN_LIST_SUCCESS,
+  LOAN_LIST_FAILED,
+  LOAN_LIST_RESET,
 } from './types';
 
 export const setLoan = (days, value) => (dispatch) => {
@@ -81,6 +85,31 @@ export const getLoanDetails = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: LOAN_DETAILS_FAILED,
+    });
+  }
+};
+
+export const resetLoansList = () => (dispatch) => {
+  dispatch({
+    type: LOAN_LIST_RESET,
+  });
+};
+
+export const getLoansList = () => async (dispatch) => {
+  dispatch({
+    type: LOAN_LIST_REQUEST,
+  });
+
+  try {
+    const { data } = await api.get('/loan');
+
+    dispatch({
+      type: LOAN_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: LOAN_LIST_FAILED,
     });
   }
 };

@@ -36,7 +36,7 @@ const LoanDetailsView = ({ match }) => {
         <title>Szczegóły pożyczki | Loando</title>
       </Helmet>
       <AccountLayout>
-        {isVisible && <PayLoanModal loanId={loanDetails.data._id} onClose={onClose} />}
+        {isVisible && <PayLoanModal loanId={loanDetails.data._id} toPay={loanDetails.data.toPay} onClose={onClose} />}
         <Heading title='Szczegóły pożyczki' />
         {loanDetails.isLoading ? (
           <Loader />

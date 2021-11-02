@@ -23,6 +23,7 @@ api.interceptors.response.use(
     }
     if (err.response.status === 401) {
       store.dispatch({ type: USER_LOGOUT });
+      window.location.reload(true);
     }
     return Promise.reject(err);
   },
