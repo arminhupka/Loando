@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 // Actions
 import { userLogin } from '../../actions/userActions';
+import { addAlert } from '../../actions/alertActions';
 
 // Components
 import FormWrapper from '../FormWrapper/FormWrapper';
@@ -26,13 +27,18 @@ const StyledForm = styled.form`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  // const userState = useSelector((state) => state.userReducer);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      dispatch(addAlert('Musisz podać email i hasło do swojego konta', 'warning'));
+      return;
+    }
+
     dispatch(userLogin(email, password));
     setEmail('');
     setPassword('');

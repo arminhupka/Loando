@@ -39,13 +39,12 @@ const userReducer = (state = initialState, action) => {
     case USER_REGISTER_SUCCESS: {
       return {
         ...state,
-        data: payload,
         isLoading: false,
       };
     }
     case USER_REGISTER_FAILED: {
       return {
-        ...state,
+        ...initialState,
       };
     }
     case USER_LOGIN_REQUEST: {

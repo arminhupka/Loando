@@ -20,41 +20,51 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
-export const userRegister = (email, password, firstName, lastName, pesel, street, city, postalCode) => async (dispatch) => {
-  dispatch({
-    type: USER_REGISTER_REQUEST,
-  });
-
-  try {
-    const { data } = await api({
-      method: 'POST',
-      url: '/user/register',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: {
-        email,
-        password,
-        firstName,
-        lastName,
-        pesel,
-        street,
-        city,
-        postalCode,
-      },
-    });
+export const userRegister =
+  (firstName, lastName, pesel, id, phone, street, houseNumber, flatNumber, city, postalCode, email, password) =>
+  async (dispatch) => {
     dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: data,
+      type: USER_REGISTER_REQUEST,
     });
 
-    dispatch(addAlert('Rejestracja zakończona pomyślnie', 'success'));
-  } catch (err) {
-    dispatch({
-      type: USER_REGISTER_FAILED,
-    });
-  }
-};
+    try {
+      const { data } = await api({
+        method: 'POST',
+        url: '/user/register',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: {
+          firstName,
+          lastName,
+          pesel,
+          id,
+          phone,
+          street,
+          houseNumber,
+          flatNumber,
+          city,
+          postalCode,
+          email,
+          password,
+        },
+      });
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: data,
+      });
+
+      dispatch(addAlert('Rejestracja zakończona pomyślnie', 'success'));
+    } catch (err) {
+      dispatch({
+        type: USER_REGISTER_FAILED,
+      });
+
+      if (err.response && err.response.status === 409) {
+        dispatch(addAlert('Użytkownik o podanych danych już istnieje', 'warning'));
+      }
+    }
+  };
 
 export const userLogin = (email, password) => async (dispatch) => {
   dispatch({

@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 // Utils
 import devices from '../../utils/devices';
 
 // Actions
 import { userRegister } from '../../actions/userActions';
+import { addAlert } from '../../actions/alertActions';
 
-// Componetns
+// Components
 import Input from '../Input/Input';
 import Button from '../Button/Button';
+import Loader from '../Loader/Loader';
 
 // Styled Components
 const StyledForm = styled.form``;
@@ -72,18 +73,17 @@ const ButtonWrapper = styled.div`
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.userReducer);
-  const history = useHistory();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [pesel, setPesel] = useState(null);
+  const [pesel, setPesel] = useState('');
   const [idInfo, setIdInfo] = useState('');
-  const [phone, setPhone] = useState(null);
+  const [phone, setPhone] = useState('');
 
   const [street, setStreet] = useState('');
-  const [homeNumber, setHomeNumber] = useState(null);
-  const [flatNumber, setFlatNumber] = useState(null);
-  const [city, setCity] = useState(null);
+  const [homeNumber, setHomeNumber] = useState('');
+  const [flatNumber, setFlatNumber] = useState('');
+  const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
   const [email, setEmail] = useState('');
@@ -93,7 +93,41 @@ const RegisterForm = () => {
   // eslint-disable-next-line consistent-return
   const handleForm = (e) => {
     e.preventDefault();
-    dispatch(userRegister(email, password, firstName, lastName, pesel, street, city, postalCode));
+
+    const peselReg = new RegExp('[0-9]{11}$');
+    const idReg = new RegExp('[A-Z]{3}[0-9]{6}$');
+
+    if (
+      !firstName ||
+      !lastName ||
+      !pesel ||
+      !idInfo ||
+      !phone ||
+      !street ||
+      !homeNumber ||
+      !city ||
+      !postalCode ||
+      !email ||
+      !password ||
+      !repeatPassword
+    ) {
+      dispatch(addAlert('Musisz uzupełnić formularz'));
+      return;
+    }
+
+    if (!idReg.test(idInfo)) {
+      dispatch(addAlert('Numer dowodu jest nieprawidłowy'));
+      return;
+    }
+
+    if (!peselReg.test(pesel)) {
+      dispatch(addAlert('Numer PESEL jest nieprawidłowy'));
+      return;
+    }
+
+    dispatch(
+      userRegister(firstName, lastName, pesel, idInfo, phone, street, homeNumber, flatNumber, city, postalCode, email, password),
+    );
   };
 
   // eslint-disable-next-line consistent-return
@@ -110,15 +144,15 @@ const RegisterForm = () => {
         break;
       }
       case 'pesel': {
-        setPesel(value);
+        setPesel(Number(value));
         break;
       }
       case 'idInfo': {
-        setIdInfo(value);
+        setIdInfo(value.toUpperCase());
         break;
       }
       case 'phone': {
-        setPhone(value);
+        setPhone(Number(value));
         break;
       }
       case 'street': {
@@ -126,7 +160,7 @@ const RegisterForm = () => {
         break;
       }
       case 'homeNumber': {
-        setHomeNumber(value);
+        setHomeNumber(Number(value));
         break;
       }
       case 'flatNumber': {
@@ -159,12 +193,14 @@ const RegisterForm = () => {
     }
   };
 
-  if (userState.isLoading) {
-    return <h1>Loading</h1>;
-  }
+  useEffect(() => {
+    if (postalCode.length === 2) {
+      setPostalCode((prevState) => `${prevState}-`);
+    }
+  }, [postalCode]);
 
-  if (userState.data) {
-    history.push('/konto');
+  if (userState.isLoading) {
+    return <Loader />;
   }
 
   return (

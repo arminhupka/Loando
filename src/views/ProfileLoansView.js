@@ -19,7 +19,7 @@ import Loader from '../components/Loader/Loader';
 const ProfileLoansView = () => {
   const dispatch = useDispatch();
 
-  const [loans, setLoans] = useState(null);
+  const [loans, setLoans] = useState([]);
 
   const getLoans = async () => {
     try {
@@ -32,10 +32,6 @@ const ProfileLoansView = () => {
 
       if (err.response && err.response.status === 401) {
         dispatch(addAlert('Sesja wygasła', 'error'));
-      }
-
-      if (err.response) {
-        dispatch(addAlert('Wystąpił błąd', 'error'));
       }
     }
   };
@@ -51,6 +47,7 @@ const ProfileLoansView = () => {
       </Helmet>
       <AccountLayout>
         <Heading title='Twoje pożyczki' />
+        {loans.length === 0 && <h2>Nie masz obecnie żadnej pożyczki</h2>}
         {loans ? <LoanCardsList loans={loans} /> : <Loader />}
       </AccountLayout>
     </>

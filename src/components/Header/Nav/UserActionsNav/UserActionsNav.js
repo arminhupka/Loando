@@ -50,7 +50,7 @@ const UserActionsNav = () => {
     <UserNavWrapper>
       <UserNavList>
         <UserItem>
-          <Link to='/konto'>Moje konto</Link>
+          <Link to='/konto/nowa-pozyczka'>Moje konto</Link>
         </UserItem>
         <UserItem>
           <Link to='/konto/pozyczki'>Pożyczki</Link>
