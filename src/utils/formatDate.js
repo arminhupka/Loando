@@ -16,4 +16,8 @@ export const daysToPay = (grantedDate, days) => {
   return different;
 };
 
+export const addDays = (days) => {
+  return moment().add(days, 'days').format('DD-MM-YYYY');
+};
+
 export default formatDate;

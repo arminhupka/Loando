@@ -14,7 +14,7 @@ import NewLoan from '../components/NewLoan/NewLoan';
 import Alert from '../components/Alert/Alert';
 import Heading from '../components/Heading/Heading';
 
-const ProfileView = () => {
+const NewLoanView = () => {
   const dispatch = useDispatch();
   const alertState = useSelector((state) => state.alertReducer);
   const newLoan = useSelector((state) => state.loanReducer.newLoan);
@@ -54,4 +54,4 @@ const ProfileView = () => {
   );
 };
 
-export default ProfileView;
+export default NewLoanView;

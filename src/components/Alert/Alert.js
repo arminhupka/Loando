@@ -1,12 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import devices from '../../utils/devices';
 
 // Styled Components
 const AlertWrapper = styled.div`
   position: fixed;
   max-width: 90%;
-  // bottom: calc(5rem * ${({ position }) => position + 0.4});
+  width: 100%;
   bottom: 5rem;
   left: 50%;
   padding: 1.4rem 2.4rem;
@@ -19,6 +20,10 @@ const AlertWrapper = styled.div`
   box-shadow: ${({ theme }) => theme.shadow};
   transform: translateX(-50%);
   z-index: 20;
+
+  @media screen and ${devices.lg} {
+    max-width: 50rem;
+  }
 
   ${({ type }) => {
     switch (type) {

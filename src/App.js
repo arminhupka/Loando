@@ -15,7 +15,7 @@ import LoginView from './views/LoginView';
 import RegisterView from './views/RegisterView';
 import AdminLoansView from './views/AdminLoansView';
 import ProfileDashboard from './views/ProfileDashboard';
-import ProfileView from './views/ProfileView';
+import NewLoanView from './views/NewLoanView';
 import ProfileLoansView from './views/ProfileLoansView';
 import ProfileLoanPay from './views/ProfileLoanPay';
 import ProfileSettingsView from './views/ProfileSettingsView';
@@ -52,7 +52,7 @@ export default () => {
           <Route exact path='/kontakt' component={ContactView} />
           <PrivateRoute exact path='/panel/pozyczki' component={AdminLoansView} />
           <PrivateRoute exact path='/konto' component={ProfileDashboard} />
-          <PrivateRoute exact path='/konto/nowa-pozyczka' component={ProfileView} />
+          <PrivateRoute exact path='/konto/nowa-pozyczka' component={NewLoanView} />
           <PrivateRoute exact path='/konto/pozyczki' component={ProfileLoansView} />
           <PrivateRoute exact path='/konto/pozyczka/:id' component={LoanDetailsView} />
           <PrivateRoute exact path='/konto/pozyczka/splac/:id' component={ProfileLoanPay} />

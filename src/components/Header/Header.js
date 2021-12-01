@@ -118,7 +118,7 @@ const Header = ({ fixed }) => {
         <ButtonsWrapper>
           {!isAuth ? (
             <>
-              <LinkButton outline to='/rejestracja'>
+              <LinkButton outline={1} to='/rejestracja'>
                 Rejestracja
               </LinkButton>
               <LinkButton to='/zaloguj'>Logowanie</LinkButton>

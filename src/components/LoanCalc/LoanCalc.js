@@ -7,6 +7,8 @@ import { setLoan } from '../../actions/loanActions';
 
 // Utils
 import devices from '../../utils/devices';
+import { addDays } from '../../utils/formatDate';
+import api from '../../utils/api';
 
 // Components
 import RangeInput from '../RangeInput/RangeInput';
@@ -44,6 +46,7 @@ const Title = styled.h3``;
 
 const InputWrapper = styled.div`
   margin-bottom: 2rem;
+
   :last-child {
     margin-bottom: 0;
   }
@@ -71,30 +74,62 @@ const StyledItem = styled.li`
   display: flex;
   justify-content: space-between;
   border-bottom: 0.1rem solid #e7e7e7;
+
+  span:first-child {
+    font-weight: 500;
+  }
 `;
 
 const LoanCalc = () => {
   const dispatch = useDispatch();
 
-  const rrso = 819.12;
+  const [loanAmount, setLoanAmount] = useState(3000);
+  const [loanPeriod, setLoanPeriod] = useState(30);
 
-  const [loanValue, setLoanValue] = useState(3000);
-  const [loanDays, setLoanDays] = useState(30);
-  const [valueToReturn, setValueToReturn] = useState(0);
+  const [loanCost, setLoanCost] = useState('');
+  const [loanCommission, setLoanCommission] = useState('');
+  const [loanInterest, setLoanInterest] = useState('');
+  const [loanRrso, setLoanRrso] = useState('');
 
   const handleLoanValueRange = (e) => {
-    setLoanValue(Number(e.target.value));
+    setLoanAmount(Number(e.target.value));
   };
 
   // eslint-disable-next-line no-unused-vars
   const handleLoanDaysRange = (e) => {
-    setLoanDays(Number(e.target.value));
+    setLoanPeriod(Number(e.target.value));
+  };
+
+  const getLoanCalcData = async () => {
+    try {
+      const { data } = await api({
+        url: '/loan/calculator',
+        method: 'POST',
+        data: {
+          amount: loanAmount,
+          interest: 7.2,
+          period: loanPeriod,
+          commission: 20,
+          others: 0,
+        },
+      });
+
+      setLoanCost(data.overallCost);
+      setLoanCommission(data.commission);
+      setLoanRrso(data.rrso);
+      setLoanInterest(data.interest);
+    } catch (err) {
+      console.log(err.response);
+    }
   };
 
   useEffect(() => {
-    setValueToReturn(123);
-    dispatch(setLoan(loanDays, loanValue));
-  }, [loanDays, loanValue]);
+    getLoanCalcData();
+  }, []);
+
+  useEffect(async () => {
+    dispatch(setLoan(loanPeriod, loanAmount));
+  }, [loanPeriod, loanAmount]);
 
   return (
     <CalcWrapper>
@@ -105,9 +140,17 @@ const LoanCalc = () => {
         <InputWrapper>
           <ValuesWrapper>
             <Title>Chcesz pożyczyć</Title>
-            <Value>{loanValue} PLN</Value>
+            <Value>{loanAmount} PLN</Value>
           </ValuesWrapper>
-          <RangeInput value={loanValue} min={100} max={3000} step={100} onChange={handleLoanValueRange} ruler />
+          <RangeInput
+            value={loanAmount}
+            min={100}
+            max={3000}
+            step={100}
+            onChange={handleLoanValueRange}
+            onMouseUp={getLoanCalcData}
+            ruler
+          />
           <ValuesWrapper>
             <span>100</span>
             <span>3000</span>
@@ -116,9 +159,17 @@ const LoanCalc = () => {
         <InputWrapper>
           <ValuesWrapper>
             <Title>Na okres</Title>
-            <Value>{loanDays} dni</Value>
+            <Value>{loanPeriod} dni</Value>
           </ValuesWrapper>
-          <RangeInput value={loanDays} min={5} max={30} step={5} onChange={handleLoanDaysRange} ruler />
+          <RangeInput
+            value={loanPeriod}
+            min={5}
+            max={30}
+            step={5}
+            onChange={handleLoanDaysRange}
+            onMouseUp={getLoanCalcData}
+            ruler
+          />
           <ValuesWrapper>
             <span>5</span>
             <span>30</span>
@@ -130,23 +181,23 @@ const LoanCalc = () => {
         <StyledList>
           <StyledItem>
             <span>Oddajesz</span>
-            <span>{valueToReturn}</span>
+            <span>{loanCost} zł</span>
           </StyledItem>
           <StyledItem>
             <span>Dzień spłaty</span>
-            <span>Value</span>
+            <span>{addDays(loanPeriod)}</span>
           </StyledItem>
           <StyledItem>
             <span>Odsetki</span>
-            <span>Value</span>
+            <span>{loanInterest} zł</span>
           </StyledItem>
           <StyledItem>
             <span>Prowizja</span>
-            <span>Value</span>
+            <span>{loanCommission} zł</span>
           </StyledItem>
           <StyledItem>
             <span>RRSO</span>
-            <span>{(rrso / 100) * 100}%</span>
+            <span>{loanRrso}%</span>
           </StyledItem>
         </StyledList>
         <LinkButton to='/konto/nowa-pozyczka'>Weź pożyczkę</LinkButton>

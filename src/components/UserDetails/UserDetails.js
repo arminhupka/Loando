@@ -23,7 +23,7 @@ const UserItem = styled.li`
 
 const LabelWrapper = styled.div`
   text-align: center;
-  background: ${({ theme }) => theme.primary[50]};
+  background: ${({ theme }) => theme.gray[100]};
 
   span {
     font-weight: 500;
@@ -32,6 +32,7 @@ const LabelWrapper = styled.div`
   @media screen and ${devices.lg} {
     flex: 1;
     text-align: left;
+    background: #fff;
   }
 `;
 

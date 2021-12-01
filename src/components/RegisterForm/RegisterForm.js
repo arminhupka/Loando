@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // Utils
 import devices from '../../utils/devices';
@@ -71,6 +72,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const RegisterForm = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.userReducer);
 
@@ -90,12 +92,13 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
 
-  // eslint-disable-next-line consistent-return
+  const peselReg = new RegExp('^\\d{0,11}$');
+  const idReg = new RegExp('^[a-zA-Z]{0,3}[0-9]{0,6}$');
+  const numReg = new RegExp('^\\d{0,9}$');
+  const postalReg = new RegExp('^[0-9]{0,2}[-]?[0-9]{0,3}$');
+
   const handleForm = (e) => {
     e.preventDefault();
-
-    const peselReg = new RegExp('[0-9]{11}$');
-    const idReg = new RegExp('[A-Z]{3}[0-9]{6}$');
 
     if (
       !firstName ||
@@ -115,19 +118,16 @@ const RegisterForm = () => {
       return;
     }
 
-    if (!idReg.test(idInfo)) {
-      dispatch(addAlert('Numer dowodu jest nieprawidłowy', 'warning'));
-      return;
-    }
-
-    if (!peselReg.test(pesel)) {
-      dispatch(addAlert('Numer PESEL jest nieprawidłowy', 'warning'));
+    if (password !== repeatPassword) {
+      dispatch(addAlert('Podane hasła nie są identyczne', 'warning'));
       return;
     }
 
     dispatch(
       userRegister(firstName, lastName, pesel, idInfo, phone, street, homeNumber, flatNumber, city, postalCode, email, password),
     );
+
+    history.push('/zaloguj');
   };
 
   // eslint-disable-next-line consistent-return
@@ -144,15 +144,20 @@ const RegisterForm = () => {
         break;
       }
       case 'pesel': {
-        setPesel(Number(value));
+        if (!peselReg.test(value)) return;
+        setPesel(value);
         break;
       }
       case 'idInfo': {
+        if (!idReg.test(value)) return;
         setIdInfo(value.toUpperCase());
         break;
       }
       case 'phone': {
-        setPhone(Number(value));
+        if (!numReg.test(value)) {
+          return;
+        }
+        setPhone(value);
         break;
       }
       case 'street': {
@@ -160,7 +165,7 @@ const RegisterForm = () => {
         break;
       }
       case 'homeNumber': {
-        setHomeNumber(Number(value));
+        setHomeNumber(value);
         break;
       }
       case 'flatNumber': {
@@ -172,6 +177,9 @@ const RegisterForm = () => {
         break;
       }
       case 'postalCode': {
+        if (!postalReg.test(value)) {
+          return;
+        }
         setPostalCode(value);
         break;
       }
@@ -193,12 +201,6 @@ const RegisterForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (postalCode.length === 2) {
-      setPostalCode((prevState) => `${prevState}-`);
-    }
-  }, [postalCode]);
-
   if (userState.isLoading) {
     return <Loader />;
   }
@@ -213,7 +215,7 @@ const RegisterForm = () => {
             <Input placeholder='Nazwisko' name='lastName' value={lastName} onChange={handleInput} />
             <Input placeholder='PESEL' name='pesel' value={pesel} onChange={handleInput} />
             <Input placeholder='Seria i numer dowodu osobistego' name='idInfo' value={idInfo} onChange={handleInput} />
-            <Input placeholder='Numer telefonu' name='phone' value={phone} onChange={handleInput} />
+            <Input placeholder='Numer telefonu' type='string' name='phone' value={phone} onChange={handleInput} />
           </InputWrapper>
         </Col>
         <Col>
@@ -223,7 +225,7 @@ const RegisterForm = () => {
             <Input placeholder='Numer domu' name='homeNumber' value={homeNumber} onChange={handleInput} />
             <Input placeholder='Numer lokalu' name='flatNumber' value={flatNumber} onChange={handleInput} />
             <Input placeholder='Miasto' name='city' value={city} onChange={handleInput} />
-            <Input placeholder='Kod pocztowy' name='postalCode' value={postalCode} onChange={handleInput} />
+            <Input placeholder='Kod pocztowy' type='text' name='postalCode' value={postalCode} onChange={handleInput} />
           </InputWrapper>
         </Col>
         <Col>

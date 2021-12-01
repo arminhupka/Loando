@@ -11,9 +11,9 @@ import devices from '../../utils/devices';
 import LinkButton from '../LinkButton/LinkButton';
 
 // Styled Components
-const StyledSidebar = styled.aside`
+const StyledSidebar = styled.div`
+  display: block;
   margin-bottom: 2rem;
-  background: #f2f5fe;
   border-radius: ${({ theme }) => theme.radius.regular};
   box-shadow: ${({ theme }) => theme.shadow};
   overflow: hidden;
@@ -26,6 +26,7 @@ const StyledSidebar = styled.aside`
     background: transparent;
     border-right: 0.1rem solid ${({ theme }) => theme.gray[300]};
     box-shadow: none;
+    overflow: unset;
   }
 `;
 
@@ -47,6 +48,7 @@ const StyledNav = styled.nav`
   transition: max-height 0.6s ease-in-out;
 
   @media screen and ${devices.lg} {
+    max-height: unset;
     margin-top: 2rem;
     background: #fff;
   }
