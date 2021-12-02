@@ -20,4 +20,12 @@ export const addDays = (days) => {
   return moment().add(days, 'days').format('DD-MM-YYYY');
 };
 
+export const daysToPercent = (created, days) => {
+  const current = moment().unix();
+  const createdDate = moment(created).unix();
+  const endDate = moment(created).add(days, 'days').unix();
+
+  return Math.round(((current - createdDate) / (endDate - createdDate)) * 100);
+};
+
 export default formatDate;

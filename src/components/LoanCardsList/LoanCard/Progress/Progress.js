@@ -15,7 +15,7 @@ const ProgressWrapper = styled.div`
 `;
 
 const ProgressBody = styled.div`
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -26,20 +26,31 @@ const ProgressBody = styled.div`
   background: ${({ theme }) => theme.gray[300]};
 `;
 
-const ProgressFill = styled.div`
+const Text = styled.div`
   position: absolute;
-  left: 0;
-  top: 0;
-  width: ${({ percent }) => `${percent}%`};
-  height: 100%;
-  background: ${({ theme }) => theme.primary};
-  z-index: 1;
+  width: 100%;
+  height: 3rem;
+  text-align: center;
+  line-height: 3rem;
+
+  :first-child {
+    color: #fff;
+    background: ${({ theme }) => theme.primary};
+    z-index: 1;
+    clip-path: ${({ percent }) => `polygon(0 0, ${percent}% 0, ${percent}% 100%, 0% 100%)`};
+  }
+
+  :last-child {
+    color: ${({ theme }) => theme.primary};
+  }
 `;
 
 const Progress = ({ percent }) => (
   <ProgressWrapper>
-    <ProgressFill percent={percent} />
-    <ProgressBody />
+    <ProgressBody>
+      <Text percent={percent}>Pozostało 30 dni</Text>
+      <Text>Pozostało 30 dni</Text>
+    </ProgressBody>
   </ProgressWrapper>
 );
 

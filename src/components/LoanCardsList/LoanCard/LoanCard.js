@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 // Utils
-import { countDays, daysToPay } from '../../../utils/formatDate';
+import { countDays, daysToPercent, daysToPay } from '../../../utils/formatDate';
 
 // Components
 import LinkButton from '../../LinkButton/LinkButton';
@@ -72,7 +72,7 @@ const LoanCard = ({ data }) => {
           Termin spłaty {countDays(data.createdAt, data.days)} ({daysToPay(data.createdAt, data.days)} dni)
         </span>
       )}
-      <Progress percent={(data.paid / data.toPay) * 100} />
+      <Progress percent={daysToPercent(data.createdAt, data.days)} />
       <LinkButton to={`/konto/pozyczka/${data._id}`}>Szczegóły</LinkButton>
     </CardWrapper>
   );
