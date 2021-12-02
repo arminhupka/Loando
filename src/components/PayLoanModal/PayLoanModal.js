@@ -19,7 +19,7 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-const StyledFigure = styled.figure`
+const Wrapper = styled.div`
   margin-top: 2rem;
 `;
 
@@ -49,6 +49,7 @@ const SeparatorText = styled.span`
 
 const ValueInputWrapper = styled.div`
   position: relative;
+
   ${Input} {
     width: 100%;
   }
@@ -72,7 +73,9 @@ const PayLoanModal = ({ loanId, toPay, onClose }) => {
   const [redirect, setRedirect] = useState('');
   const [error, setError] = useState('');
 
-  const handleInput = (e) => setValue(e.target.value);
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
 
   const handlePayButton = async () => {
     if (Number(value) > toPay) {
@@ -99,7 +102,7 @@ const PayLoanModal = ({ loanId, toPay, onClose }) => {
     <Modal onClose={onClose} title='Spłać pożyczkę'>
       <Content>
         <p>Aby spłacić pożyczkę dokonaj wpłaty na poniższe konto bankowe</p>
-        <StyledFigure>
+        <Wrapper>
           <Row>
             <Col>
               <Label>Nazwa</Label>
@@ -145,7 +148,7 @@ const PayLoanModal = ({ loanId, toPay, onClose }) => {
             <Col>
               <Label>Kwota do wpłaty</Label>
               <ValueInputWrapper>
-                <StyledInput placeholder='1900' value={value} onChange={handleInput} />
+                <StyledInput placeholder='1900' value={value} type='number' onChange={handleInput} />
                 <Sufix>PLN</Sufix>
               </ValueInputWrapper>
               {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -156,7 +159,7 @@ const PayLoanModal = ({ loanId, toPay, onClose }) => {
               <Button onClick={handlePayButton}>Spłać przez PayU</Button>
             </Col>
           </Row>
-        </StyledFigure>
+        </Wrapper>
       </Content>
     </Modal>
   );

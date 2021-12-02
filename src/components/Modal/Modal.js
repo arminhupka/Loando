@@ -21,11 +21,14 @@ const ModalOverlay = styled.div`
 const ModalWrapper = styled.div`
   width: 100%;
   max-width: 65rem;
+  //max-height: 55rem;
   padding: 2rem;
   background: #fff;
   border-radius: 1.2rem;
   box-shadow: ${({ theme }) => theme.shadow};
 `;
+
+const ModalBody = styled.div``;
 
 const ModalHeader = styled.header`
   margin-bottom: 2rem;
@@ -42,8 +45,6 @@ const StyledButton = styled.button`
   background: transparent;
   border: none;
 `;
-
-const ModalBody = styled.div``;
 
 const Modal = ({ title, children, onClose }) => {
   const handleModalClose = (e) => {

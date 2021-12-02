@@ -27,7 +27,7 @@ const LoanItem = styled.li`
 
 const LabelWrapper = styled.div`
   text-align: center;
-  background: ${({ theme }) => theme.primary[50]};
+  background: ${({ theme }) => theme.gray[100]};
 
   span {
     font-weight: 500;
@@ -36,6 +36,7 @@ const LabelWrapper = styled.div`
   @media screen and ${devices.lg} {
     flex: 1;
     text-align: left;
+    background: #fff;
   }
 `;
 
@@ -70,6 +71,22 @@ const LoanDetails = ({ data, onOpenModal }) => (
         </LabelWrapper>
         <DataWrapper>
           <Data>{data.value} PLN</Data>
+        </DataWrapper>
+      </LoanItem>
+      <LoanItem>
+        <LabelWrapper>
+          <Data>Odsetki</Data>
+        </LabelWrapper>
+        <DataWrapper>
+          <Data>{data.interest} PLN</Data>
+        </DataWrapper>
+      </LoanItem>
+      <LoanItem>
+        <LabelWrapper>
+          <Data>Prowizja</Data>
+        </LabelWrapper>
+        <DataWrapper>
+          <Data>{data.commission} PLN</Data>
         </DataWrapper>
       </LoanItem>
       <LoanItem>

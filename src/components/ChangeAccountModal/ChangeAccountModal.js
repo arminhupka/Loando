@@ -31,6 +31,8 @@ const ErrorMessage = styled.p`
   color: ${({ theme }) => theme.alert.error};
 `;
 
+const accountNumberReg = new RegExp('^\\d{0,26}$');
+
 const ChangeAccountModal = ({ onClose }) => {
   const dispatch = useDispatch();
 
@@ -40,7 +42,7 @@ const ChangeAccountModal = ({ onClose }) => {
   const handleForm = async (e) => {
     e.preventDefault();
 
-    if (value.length < 16) {
+    if (value.length < 26) {
       setError('Numer rachunku jest nieprawidłowy');
       return;
     }
@@ -49,7 +51,10 @@ const ChangeAccountModal = ({ onClose }) => {
     onClose();
   };
 
-  const handleInput = (e) => setValue(e.target.value);
+  const handleInput = (e) => {
+    if (!accountNumberReg.test(e.target.value)) return;
+    setValue(e.target.value);
+  };
 
   return (
     <Modal onClose={onClose} title='Zmiana numeru konta'>

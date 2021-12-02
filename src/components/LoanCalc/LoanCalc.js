@@ -107,19 +107,19 @@ const LoanCalc = () => {
         method: 'POST',
         data: {
           amount: loanAmount,
-          interest: 7.2,
           period: loanPeriod,
-          commission: 20,
-          others: 0,
         },
       });
 
-      setLoanCost(data.overallCost);
-      setLoanCommission(data.commission);
+      setLoanCost(data.toRepaid);
+      setLoanCommission(data.commissionAmount);
       setLoanRrso(data.rrso);
-      setLoanInterest(data.interest);
+      setLoanInterest(data.capitalInterest);
     } catch (err) {
-      console.log(err.response);
+      if (!err.response) {
+        // eslint-disable-next-line no-console
+        console.error('SERVER CONNECTION PROBLEM');
+      }
     }
   };
 
