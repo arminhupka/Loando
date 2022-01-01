@@ -7,6 +7,7 @@ import api from '../utils/api';
 
 // Components
 import AccountLayout from '../layouts/AccountLayout';
+import Heading from '../components/Heading/Heading';
 
 const ProfileCheckPaymentStatus = () => {
   const { id } = useParams();
@@ -22,16 +23,21 @@ const ProfileCheckPaymentStatus = () => {
   };
 
   useEffect(() => {
-    getLoanStatus();
+    if (statusData === 'COMPLETED') return;
+    const intervalId = setInterval(() => {
+      getLoanStatus();
+    }, 1000);
+
+    return () => intervalId.clearInterval();
   }, []);
 
   return (
     <>
       <Helmet>
-        <title>Status ostatniej płatności pożyczki | Loando</title>
+        <title>Status płatności | Loando</title>
       </Helmet>
       <AccountLayout>
-        <h1>Status płatności</h1>
+        <Heading title='Status płatności' />
         <p>Status to {statusData}</p>
         <button type='button' onClick={getLoanStatus}>
           Refresh
