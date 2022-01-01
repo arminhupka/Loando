@@ -10,7 +10,7 @@ const LinkButton = styled(Link)`
   text-align: center;
   background: ${({ theme }) => theme.primary};
   border-radius: ${({ theme }) => theme.radius.regular};
-  transition: color 0.3s, background 0.3s;
+  transition: color 0.3s, background 0.3s, transform 0.3s;
 
   ::before {
     content: '';
@@ -28,6 +28,7 @@ const LinkButton = styled(Link)`
 
   :hover {
     background: ${({ theme }) => theme.primaryLight};
+    transform: translateY(-0.3rem);
 
     ::before {
       opacity: 0.2;

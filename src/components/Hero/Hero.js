@@ -40,6 +40,7 @@ const Title = styled.h1`
 const Text = styled.p`
   margin: 2rem 0;
   font-size: 1.8rem;
+  line-height: 2.8rem;
 
   @media screen and ${devices.lg} {
     width: 65%;

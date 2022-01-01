@@ -11,7 +11,7 @@ const Button = styled.button`
   background: ${({ theme }) => theme.primary};
   border: none;
   border-radius: ${({ theme }) => theme.radius.regular};
-  transition: color 0.3s, background 0.3s;
+  transition: color 0.3s, background 0.3s, transform 0.3s;
 
   ::before {
     content: '';
@@ -29,6 +29,7 @@ const Button = styled.button`
 
   :hover {
     background: ${({ theme }) => theme.primaryLight};
+    transform: translateY(-0.3rem);
 
     ::before {
       opacity: 0.2;
@@ -44,7 +45,7 @@ const Button = styled.button`
 
       :hover {
         color: #fff;
-        background: ${({ theme }) => theme.primary};
+        background: ${({ theme }) => theme.primaryLight};
       }
     `}
 

@@ -46,6 +46,11 @@ const Input = styled.input.attrs({ type: 'range' })`
     border: 0.2rem solid #fff;
     border-radius: 50%;
     box-shadow: ${({ theme }) => theme.shadow};
+    transition: transform 0.3s;
+
+    :hover {
+      transform: scale(1.2);
+    }
   }
 
   ::-webkit-slider-container {

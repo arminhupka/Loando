@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FaTimes } from 'react-icons/all';
+import devices from '../../utils/devices';
 
 // Styled Components
 const ModalOverlay = styled.div`
@@ -13,19 +14,28 @@ const ModalOverlay = styled.div`
   padding: 0 2.4rem;
   display: flex;
   justify-content: center;
-  align-items: center;
   background: rgba(0, 0, 0, 0.4);
   z-index: 4;
+
+  @media screen and ${devices.lg} {
+    align-items: center;
+  }
 `;
 
 const ModalWrapper = styled.div`
   width: 100%;
   max-width: 65rem;
-  //max-height: 55rem;
+  max-height: 100%;
   padding: 2rem;
+  margin: 2rem 0;
   background: #fff;
   border-radius: 1.2rem;
   box-shadow: ${({ theme }) => theme.shadow};
+  overflow-y: scroll;
+
+  @media screen and ${devices.lg} {
+    overflow-y: auto;
+  }
 `;
 
 const ModalBody = styled.div``;

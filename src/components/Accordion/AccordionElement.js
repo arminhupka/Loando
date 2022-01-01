@@ -16,6 +16,7 @@ const AccordionHeading = styled.header`
 
 const HeadingText = styled.span`
   font-weight: 600;
+  color: ${({ theme }) => theme.primary};
 `;
 
 const AccordionBody = styled.div`
