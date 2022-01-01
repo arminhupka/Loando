@@ -19,6 +19,7 @@ const CalcWrapper = styled.div`
   width: 100%;
   border-radius: ${({ theme }) => theme.radius.regular};
   overflow: hidden;
+  background: red !important;
 
   @media screen and ${devices.lg} {
     max-width: 45rem;

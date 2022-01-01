@@ -39,7 +39,9 @@ const NewLoanView = () => {
           <Alert type={alert.type} message={alert.message} idx={index} />
         ))}
         {accountNumber ? (
-          <NewLoan />
+          <>
+            <NewLoan />
+          </>
         ) : (
           <>
             <h2>Nie możesz złożyć wniosku</h2>

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
+// Hooks
+import useLoanCalc from '../../hooks/useLoanCalc';
+
 // Actions
 import { setLoan, takeNewLoan } from '../../actions/loanActions';
 
@@ -21,12 +24,13 @@ const NewLoanWrapper = styled.div`
 `;
 
 const NewLoan = () => {
-  const dispatch = useDispatch();
-
   const loanSettings = useSelector((state) => state.loanReducer.loanSettings);
 
   const [value, setValue] = useState(loanSettings.value);
   const [days, setDays] = useState(loanSettings.days);
+
+  const dispatch = useDispatch();
+  const { loanCommission, loanCost, loanInterest, loanRRSO } = useLoanCalc(value, days);
 
   const setLoanValue = (e) => {
     setValue(Number(e.target.value));
@@ -46,8 +50,12 @@ const NewLoan = () => {
       <RangeInput value={value} min={100} max={3000} step={100} onChange={setLoanValue} ruler />
       <RangeInput value={days} min={5} max={30} step={5} onChange={setLoanDays} ruler />
       <p>Days: {loanSettings.days}</p>
+      <p>{loanRRSO}</p>
+      <p>{loanCommission}</p>
+      <p>{loanCost}</p>
+      <p>{loanInterest}</p>
       <Button outline white onClick={newLoan} alt>
-        Weź pożyczkę
+        Biorę pożyczkę
       </Button>
     </NewLoanWrapper>
   );

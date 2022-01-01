@@ -1,5 +1,37 @@
 # Loando
 
+![Loando screenshot](https://i.postimg.cc/t4mLRxPM/localhost-3000.png)
+
+Loando is an application for borrowing low sums of money for a short loan period.
+
+### Live Demo
+You can check live demo [here](https://loando.netlify.app/).
+
+Login details **demo@demo.com:demo**
+
+### Features
+- Register and login system
+- User can change email and account number
+- Loan payment is handled by PayU (Dev Account)
+- Loan settings are calculated by API
+
+### Used tools
+- React
+- Redux
+- Styled Components
+- Moment.js
+- Axios
+
+### API
+You can find **Loando API** repo [here](https://github.com/arminhupka/Loando-API)
+
+
+### TODO
+- Fix some styles
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

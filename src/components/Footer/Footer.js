@@ -4,26 +4,10 @@ import { FaFacebookF, FaGithub } from 'react-icons/fa';
 
 // Components
 import { Container } from '../../styles/GlobalStyle';
-import Branding from '../Branding/Branding';
 
 // Styled Components
-const BrandingWrapper = styled.div`
-  margin-bottom: 2rem;
-`;
-
 const StyledFooter = styled.footer`
   color: #fff;
-`;
-
-const MainWrapper = styled.div`
-  padding: 5rem 0;
-  background: ${({ theme }) => theme.primary};
-`;
-
-const MainContainer = styled(Container)`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
-  background: ${({ theme }) => theme.primary};
 `;
 
 const Column = styled.div`
@@ -37,7 +21,7 @@ const CopyrightWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${({ theme }) => theme.primaryDark};
+  background: ${({ theme }) => theme.primary};
 `;
 
 const CopyContainer = styled(Container)`
@@ -52,19 +36,6 @@ const CopyContainer = styled(Container)`
 
 const Footer = () => (
   <StyledFooter>
-    <MainWrapper>
-      <MainContainer>
-        <Column>
-          <BrandingWrapper>
-            <Branding large white />
-          </BrandingWrapper>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid beatae dolore eius eveniet iusto laudantium nemo
-            nihil officia, saepe voluptatibus?
-          </p>
-        </Column>
-      </MainContainer>
-    </MainWrapper>
     <CopyrightWrapper>
       <CopyContainer>
         <Column>
