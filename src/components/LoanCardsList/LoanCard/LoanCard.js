@@ -65,14 +65,18 @@ const LoanCard = ({ data }) => {
       <Status isActive={data.isActive} />
       <Title>Do spłaty pozostało</Title>
       {!data.isActive ? <LoanValue>Opłacono w całości</LoanValue> : <LoanValue>{data.toPay - data.paid} PLN</LoanValue>}
-      {daysToPay(data.createdAt, data.days) < 0 ? (
-        <ErrorMessage>Jesteś {daysToPay(data.createdAt, data.days).toString().substr(1)} dni po terminie.</ErrorMessage>
-      ) : (
-        <span>
-          Termin spłaty {countDays(data.createdAt, data.days)} ({daysToPay(data.createdAt, data.days)} dni)
-        </span>
+      {data.isActive && (
+        <>
+          {daysToPay(data.createdAt, data.days) < 0 ? (
+            <ErrorMessage>Jesteś {daysToPay(data.createdAt, data.days).toString().substr(1)} dni po terminie.</ErrorMessage>
+          ) : (
+            <span>
+              Termin spłaty {countDays(data.createdAt, data.days)} ({daysToPay(data.createdAt, data.days)} dni)
+            </span>
+          )}
+        </>
       )}
-      <Progress percent={daysToPercent(data.createdAt, data.days)} />
+      {data.isActive && <Progress percent={daysToPercent(data.createdAt, data.days)} />}
       <LinkButton to={`/konto/pozyczka/${data._id}`}>Szczegóły</LinkButton>
     </CardWrapper>
   );

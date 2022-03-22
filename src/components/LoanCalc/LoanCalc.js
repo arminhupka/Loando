@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+// Hooks
+import useLoanCalc from '../../hooks/useLoanCalc';
 
 // Actions
 import { setLoan } from '../../actions/loanActions';
@@ -8,7 +11,6 @@ import { setLoan } from '../../actions/loanActions';
 // Utils
 import devices from '../../utils/devices';
 import { addDays } from '../../utils/formatDate';
-import api from '../../utils/api';
 
 // Components
 import RangeInput from '../RangeInput/RangeInput';
@@ -82,15 +84,13 @@ const StyledItem = styled.li`
 `;
 
 const LoanCalc = () => {
+  const loanState = useSelector((state) => state.loanReducer.loanSettings);
+
+  const { loanCommission, loanCost, loanInterest, loanRRSO } = useLoanCalc(loanState.value, loanState.days);
   const dispatch = useDispatch();
 
   const [loanAmount, setLoanAmount] = useState(3000);
   const [loanPeriod, setLoanPeriod] = useState(30);
-
-  const [loanCost, setLoanCost] = useState('');
-  const [loanCommission, setLoanCommission] = useState('');
-  const [loanInterest, setLoanInterest] = useState('');
-  const [loanRrso, setLoanRrso] = useState('');
 
   const handleLoanValueRange = (e) => {
     setLoanAmount(Number(e.target.value));
@@ -100,33 +100,6 @@ const LoanCalc = () => {
   const handleLoanDaysRange = (e) => {
     setLoanPeriod(Number(e.target.value));
   };
-
-  const getLoanCalcData = async () => {
-    try {
-      const { data } = await api({
-        url: '/loan/calculator',
-        method: 'POST',
-        data: {
-          amount: loanAmount,
-          period: loanPeriod,
-        },
-      });
-
-      setLoanCost(data.toRepaid);
-      setLoanCommission(data.commissionAmount);
-      setLoanRrso(data.rrso);
-      setLoanInterest(data.capitalInterest);
-    } catch (err) {
-      if (!err.response) {
-        // eslint-disable-next-line no-console
-        console.error('SERVER CONNECTION PROBLEM');
-      }
-    }
-  };
-
-  useEffect(() => {
-    getLoanCalcData();
-  }, []);
 
   useEffect(async () => {
     dispatch(setLoan(loanPeriod, loanAmount));
@@ -143,15 +116,7 @@ const LoanCalc = () => {
             <Title>Chcesz pożyczyć</Title>
             <Value>{loanAmount} PLN</Value>
           </ValuesWrapper>
-          <RangeInput
-            value={loanAmount}
-            min={100}
-            max={3000}
-            step={100}
-            onChange={handleLoanValueRange}
-            onMouseUp={getLoanCalcData}
-            ruler
-          />
+          <RangeInput value={loanAmount} min={100} max={3000} step={100} onChange={handleLoanValueRange} ruler />
           <ValuesWrapper>
             <span>100</span>
             <span>3000</span>
@@ -162,15 +127,7 @@ const LoanCalc = () => {
             <Title>Na okres</Title>
             <Value>{loanPeriod} dni</Value>
           </ValuesWrapper>
-          <RangeInput
-            value={loanPeriod}
-            min={5}
-            max={30}
-            step={5}
-            onChange={handleLoanDaysRange}
-            onMouseUp={getLoanCalcData}
-            ruler
-          />
+          <RangeInput value={loanPeriod} min={5} max={30} step={5} onChange={handleLoanDaysRange} ruler />
           <ValuesWrapper>
             <span>5</span>
             <span>30</span>
@@ -198,7 +155,7 @@ const LoanCalc = () => {
           </StyledItem>
           <StyledItem>
             <span>RRSO</span>
-            <span>{loanRrso}%</span>
+            <span>{loanRRSO}%</span>
           </StyledItem>
         </StyledList>
         <LinkButton to='/konto/nowa-pozyczka'>Weź pożyczkę</LinkButton>
